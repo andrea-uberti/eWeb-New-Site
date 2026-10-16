@@ -1,0 +1,1084 @@
+<?php
+/* versione-8: identica alla versione-7, ma servita da PHP — qui solo per
+   l'anno in footer (niente più da aggiornare a mano) e per il form
+   contatti, che ora invia davvero (vedi invia.php). */
+$annoCorrente = date("Y");
+?>
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>eWeb — Persone in carne ed ossa.</title>
+    <meta
+      name="description"
+      content="eWeb è una squadra di Bergamo, dal 2016. Questa non è una pagina per vendere: è la nostra storia, raccontata da chi la vive ogni giorno."
+    />
+    <meta name="theme-color" content="#044d8b" />
+
+    <!-- Favicon: la graffa del logo ("eWeb}"), colorata in navy — vedi assets/img/favicon.ico/generazione in memoria di progetto. -->
+    <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="custom/css/style.css?v=<?php echo @filemtime(__DIR__ . "/custom/css/style.css") ?: time(); ?>" />
+  </head>
+  <body class="is-loading">
+    <!-- ============ PRELOADER ============ -->
+    <div class="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__count">
+          <span class="loader__num">0</span><span class="loader__pct">%</span>
+        </div>
+        <div class="hero__brand-wrap">
+          <span
+            class="logo logo--loader logo--banner hero__brand"
+            role="img"
+            aria-label="eWeb — Progettiamo. Sviluppiamo. Comunichiamo. 10 years."
+          ></span>
+          <span class="hero__badge hero__badge--mask" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="loader__bar"><span></span></div>
+    </div>
+
+    <!-- ============ CURSOR ============ -->
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor__label"></span>
+    </div>
+
+    <!-- ============ GRAIN ============ -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <?php include __DIR__ . "/inc/header.php"; ?>
+
+    <main id="top">
+      <!-- ============ HERO — versione 1 (testo statico grande, niente
+         scroll-jacking), con il video della versione 5 dietro ============ -->
+      <section class="hero" data-theme="dark">
+        <div class="hero__media">
+          <!-- VIDEO AGENZIA: loop muto, 1920x1080, 20-40s, <10MB.
+             PROVVISORIO: ora c'è lo stesso video stock della versione 5
+             come segnaposto, da sostituire con il video dell'agenzia
+             mantenendo lo stesso nome file. -->
+          <video
+            class="hero__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          >
+            <source src="assets/video/hero-loop.mp4" type="video/mp4" />
+          </video>
+          <div class="hero__shade"></div>
+        </div>
+
+        <!-- Logo + badge "10 years" + claim, da eWeb 2006 Banner
+           YouTube.png (stesso asset del loader), ricolorato in bianco via
+           maschera: non più nell'header, dove durante la hero resta
+           nascosto (vedi .nav__logo e script.js — ricompare scrollando
+           oltre la hero). Fuori da .hero__content apposta, come
+           .hero__media: è un livello centrato (x e y) sull'intera hero,
+           indipendente dal flusso/padding del blocco di testo sotto, con
+           cui si incrocia in dissolvenza scrollando (vedi script.js). -->
+        <div class="hero__brand-wrap">
+          <span
+            class="logo logo--hero logo--banner hero__brand"
+            role="img"
+            aria-label="eWeb — Progettiamo. Sviluppiamo. Comunichiamo. 10 years."
+          ></span>
+          <span class="hero__badge" aria-hidden="true">
+            <span class="hero__badge-one">1</span>
+            <span class="hero__badge-zero">0</span>
+            <span class="hero__badge-years">years</span>
+          </span>
+        </div>
+
+        <div class="hero__content">
+          <h1 class="hero__title">
+            Ragioniamo con te.<br />Poi lo mettiamo<br /><em>in pratica.</em>
+          </h1>
+
+          <div class="hero__bottom hero__bottom--single">
+            <p class="hero__sign">Siamo Consulenti Operativi.</p>
+          </div>
+        </div>
+
+        <div class="hero__meta">
+          <span class="hero__scroll"><i></i>Scorri</span>
+        </div>
+      </section>
+
+      <!-- ============ CLAIM — banda sottile subito sotto il video della hero ============ -->
+      <section class="claim-band" data-theme="dark">
+        <div class="container claim-band__inner">
+          <div class="claim-band__item">
+            <span class="claim-band__rule" aria-hidden="true"></span>
+            <span class="claim-band__word">Progettiamo.</span>
+            <p class="claim-band__desc">
+              È il momento delle idee che prendono forma. Quella che volete.
+            </p>
+          </div>
+          <div class="claim-band__item">
+            <span class="claim-band__rule" aria-hidden="true"></span>
+            <span class="claim-band__word">Sviluppiamo.</span>
+            <p class="claim-band__desc">
+              Grafica, codice, codice e ancora codice. Per Front-End e
+              Back-End.
+            </p>
+          </div>
+          <div class="claim-band__item">
+            <span class="claim-band__rule" aria-hidden="true"></span>
+            <span class="claim-band__word">Comunichiamo.</span>
+            <p class="claim-band__desc">
+              Quando è tutto pronto, lo raccontiamo al (vostro) mondo.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MANIFESTO — visto tutto e in grande ============ -->
+      <section class="manifesto-section" data-theme="dark">
+        <div class="container">
+          <p class="manifesto" data-words>
+            In eWeb lavorano persone reali. Non intelligenze artificiali
+            infallibili, ma splendidi umani pieni di doti e difetti. Saremo alla
+            vecchia, ma preferiamo stare <em>noi</em> vicino al cliente
+            piuttosto che darlo in pasto a prompt digitali che “lavorano per
+            noi”.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ CHI SIAMO — racconto ============ -->
+      <section class="about" id="chi-siamo" data-theme="light">
+        <div class="container">
+          <div class="about__head">
+            <span class="eyebrow eyebrow--muted">Chi siamo</span>
+            <h2 class="h2 reveal-lines">
+              Non abbiamo un
+              <button
+                type="button"
+                class="pitch-term"
+                aria-expanded="false"
+                aria-describedby="pitch-panel"
+              >
+                pitch</button
+              >.<br /><em
+                >Abbiamo un <span class="metodo-term">metodo</span>.</em
+              >
+            </h2>
+
+            <div class="pitch-panel" id="pitch-panel" role="tooltip">
+              <strong>Pitch</strong>, sost. — il discorso già scritto, buono per
+              chiunque prima ancora di conoscere il problema. Il metodo no: lo
+              costruiamo con te, non possiamo recitarlo in anticipo.
+            </div>
+          </div>
+
+          <div class="about__split">
+            <div class="about__intro">
+              <p class="body-l reveal">
+                Non siamo qui per convincerti di qualcosa. Non troverai numeri
+                messi in fila per impressionarti, né un catalogo di progetti da
+                sfogliare.
+              </p>
+              <p class="body-l reveal">
+                Questa pagina racconta soltanto chi siamo e come ragioniamo —
+                poi, se avrà senso, ne parliamo di persona.
+              </p>
+              <p class="body-l reveal">
+                Ascoltiamo un’idea o un progetto già definito. Ci prendiamo il
+                tempo di capirlo davvero, con l’esperienza di anni passati sul
+                campo — non per avere una risposta pronta per tutto, ma per
+                saper fare le domande giuste. E poi costruiamo insieme quello
+                che avevi in mente e abbiamo condiviso. Pronti a mandarlo
+                on-line, disponibili a farlo crescere nel tempo. Insieme.
+              </p>
+            </div>
+
+            <div class="about__list-wrap">
+              <div class="about__list-line">
+                <span class="about__list-progress"></span>
+              </div>
+              <ol class="about__list">
+                <li class="about__list-step">
+                  <span class="about__list-tag">Ascoltiamo</span>
+                  <p>
+                    Un’idea o un progetto già definito. Si parte da lì, senza
+                    formule preconfezionate.
+                  </p>
+                </li>
+                <li class="about__list-step">
+                  <span class="about__list-tag">Analizziamo</span>
+                  <p>
+                    Cosa ha senso e cosa no, con onestà. L’esperienza serve
+                    soprattutto a questo.
+                  </p>
+                </li>
+                <li class="about__list-step">
+                  <span class="about__list-tag">Ne parliamo</span>
+                  <p>
+                    Chiaramente. Nessun documento calato dall’alto, solo un
+                    confronto vero.
+                  </p>
+                </li>
+                <li class="about__list-step">
+                  <span class="about__list-tag">Costruiamo</span>
+                  <p>
+                    Il progetto non prende vita da solo, bisogna metterlo in
+                    pratica. Pezzo dopo pezzo. E sono tutti pezzi unici, nati
+                    dal confronto e dall’esperienza.
+                  </p>
+                </li>
+                <li class="about__list-step">
+                  <span class="about__list-tag">Andiamo avanti</span>
+                  <p>
+                    Se ha senso per entrambi. Con le nostre forze, non a parole.
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LA NOSTRA STORIA ============ -->
+      <section class="story-section" id="storia" data-theme="dark">
+        <div class="container">
+          <div class="story__head">
+            <span class="eyebrow eyebrow--muted">La nostra storia</span>
+            <h2 class="h2 reveal-lines">
+              Nel 2016 inizia eWeb.<br /><em>La nostra strada, molto prima.</em>
+            </h2>
+          </div>
+
+          <div class="story__steps">
+            <div class="story__line"><span class="story__progress"></span></div>
+
+            <article class="story__step">
+              <span class="story__year">Prima</span>
+              <span class="story__tag">Il mestiere, prima del nome</span>
+              <p>
+                Anni passati a sporcarci le mani su progetti veri, tra prove ed
+                errori che hanno insegnato cose difficili da apprendere anche
+                nel miglior corso disponibile. Quando nasce eWeb, il bagaglio
+                c’è già.
+              </p>
+            </article>
+            <article class="story__step">
+              <span class="story__year">2016</span>
+              <span class="story__tag">Nasce eWeb</span>
+              <p>
+                A Bergamo, con la consapevolezza dei nostri limiti e la certezza
+                di tutto ciò che avevamo già sperimentato sul campo. Per fare
+                cose grandi, fatte bene.
+              </p>
+            </article>
+            <article class="story__step">
+              <span class="story__year">Oggi</span>
+              <span class="story__tag">La fiducia che resta</span>
+              <p>
+                Aziende che ci scelgono da anni e continuano a farlo.
+                Evolvendo idee e progetti, affidandoci la ricerca di
+                soluzioni. Non per abitudine: perché il lavoro, alla fine, si
+                vede.
+              </p>
+            </article>
+            <article class="story__step">
+              <span class="story__year">Domani</span>
+              <span class="story__tag">Sempre in movimento</span>
+              <p>
+                Il mestiere cambia ogni settimana, forse quasi ogni giorno. E
+                noi con lui. Non rincorriamo le mode, le osserviamo e le
+                studiamo: restiamo semplicemente sul pezzo.
+              </p>
+            </article>
+          </div>
+
+          <p class="body-l reveal story__closing">
+            Non ci piace parlare di noi con gli aggettivi giusti al momento
+            giusto. Preferiamo che a parlare sia il tempo che ci mettiamo, le
+            persone che restano, i progetti che continuano a crescere anche dopo
+            essere stati “chiusi”.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ ALCUNI NOSTRI PROGETTI — titolo importante, poi le 4
+         categorie una sotto l'altra, in scroll verticale normale (niente
+         più pin/scroll orizzontale). Ogni categoria mostra solo un
+         sottoinsieme delle righe (vedi data-fixed/data-random su ogni
+         .portfolio__area, letti da script.js): data-fixed sono le prime N
+         righe sempre visibili, data-random sceglie a caso le successive M
+         tra quelle restanti a ogni caricamento; il resto resta nascosto
+         dietro al bottone "Vedi altri progetti". La categoria 04 (Portali,
+         Siti Web e Webapp) usa invece data-group-picks: le righe sono
+         divise in tre sotto-gruppi interni (data-group="webapp|top|altri"
+         su ogni tr, mai mostrati come titoli) e ne pesca 2+4+3 a caso; il
+         resto, dietro "Vedi altri progetti", esce mescolato tra i tre
+         gruppi anziché in ordine. ============ -->
+      <section class="portfolio" id="portfolio" data-theme="dark">
+        <div class="container portfolio__head">
+          <h2 class="portfolio__title reveal-lines">
+            Alcuni nostri <em>progetti.</em>
+          </h2>
+        </div>
+
+        <div class="container portfolio__wrap">
+          <div class="portfolio__line">
+            <span class="portfolio__line-fill"></span>
+          </div>
+
+          <div class="portfolio__list">
+            <article class="portfolio__area" data-topic="0" data-fixed="0" data-random="5">
+              <h3 class="portfolio__area-title">
+                <span class="portfolio__area-num">01</span
+                ><span class="portfolio__area-name">Visibilità everywhere e Lead Generation</span>
+              </h3>
+              <div class="portfolio__area-desc">
+                <p>Otteniamo risultati in attività di branding e promozione finalizzata alla lead generation. Lo dicono i numeri dei report che presentiamo, e i clienti lo vedono in concreto nel raggiungimento dei loro obiettivi.</p>
+                <p>I nostri clienti sono visibili, molto visibili, sui motori di ricerca — o per meglio dire “everywhere”, ovvero su tutte le fonti di ricerca, comprese quelle legate alle AI come Gemini, ChatGPT, Perplexity e così via.</p>
+                <p>Essere visibili permette di ricevere visite, farsi notare, proporsi e ottenere richieste. Contatti.</p>
+              </div>
+              <table class="portfolio__table">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Tipologia progetto</th>
+                    <th>Attivo dal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.franchiniservizi.com/it/" target="_blank" rel="noopener">Franchini Servizi Ecologici SpA</a></td>
+                    <td>SEO e GEO Internazionale</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.safetrucks.it/" target="_blank" rel="noopener">Safetrucks</a></td>
+                    <td>SEO e GEO Internazionale</td>
+                    <td>2021</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.automotive.rent/" target="_blank" rel="noopener">AR Automotive Rent</a> | Lozza SpA</td>
+                    <td>SEO e GEO + Google ADS + Social ADS</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.tecnosystemsrl.org" target="_blank" rel="noopener">Tecnosystem</a></td>
+                    <td>SEO e GEO + Email Marketing + Social ADS</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.accaelle.com/" target="_blank" rel="noopener">Accaelle Events</a></td>
+                    <td>SEO e GEO + Google ADS + Social ADS</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.nutrizionistacorti.it/" target="_blank" rel="noopener">Corti Nutrizionista</a></td>
+                    <td>SEO e GEO</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.otticabergamo.it/" target="_blank" rel="noopener">Ottica Bergamo</a></td>
+                    <td>SEO e GEO + Social ADS</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.logisticagamba.it/" target="_blank" rel="noopener">Gamba Logistica</a></td>
+                    <td>SEO e GEO</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.agenziabassani.it/" target="_blank" rel="noopener">Agenzia Bassani</a></td>
+                    <td>SEO e GEO + Google ADS + Social ADS</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://neyen.it/" target="_blank" rel="noopener">Neyen</a></td>
+                    <td>SEO e GEO + Email Marketing</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.italthermo.it/" target="_blank" rel="noopener">Italthermo</a></td>
+                    <td>SEO e GEO + Email Marketing</td>
+                    <td>2019</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.allarmebergamo.it/" target="_blank" rel="noopener">MH Allarmi</a></td>
+                    <td>Google ADS</td>
+                    <td>2023</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.casadelmaterassopedrengo.it/" target="_blank" rel="noopener">Casa del Materasso</a></td>
+                    <td>SEO e GEO + Google ADS + Social ADS</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.isolalifecenter.it/" target="_blank" rel="noopener">Isola Life Center</a></td>
+                    <td>SEO e GEO + Social ADS</td>
+                    <td>2025</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button
+                type="button"
+                class="btn btn--ghost portfolio__more"
+                data-portfolio-more
+              >
+                <span class="btn__text">Vedi altri progetti</span>
+                <span class="btn__arrow">→</span>
+              </button>
+            </article>
+
+            <article class="portfolio__area" data-topic="1" data-fixed="3" data-random="2">
+              <h3 class="portfolio__area-title">
+                <span class="portfolio__area-num">02</span
+                ><span class="portfolio__area-name">Software Web su misura</span>
+              </h3>
+              <div class="portfolio__area-desc">
+                <p>Scriviamo e produciamo software in grado di far funzionare meglio le aziende, adeguandosi alle esigenze operative dei nostri clienti — che preferiscono costruirsi un proprio software piuttosto che usarne uno preesistente e rivenduto a licenza.</p>
+                <p>Li progettiamo a quattro mani con il cliente, e poi li scriviamo. Così funzionano per come sono stati pensati e per le necessità di chi commissiona il lavoro, senza dover accettare alcuna imposizione. Soluzioni che crescono e migliorano, sempre.</p>
+              </div>
+              <table class="portfolio__table">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Tipologia progetto</th>
+                    <th>Attivo dal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.impresasangalli.it/" target="_blank" rel="noopener">Impresa Sangalli Giancarlo &amp; C.</a></td>
+                    <td></td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td>CISL Brescia</td>
+                    <td></td>
+                    <td>2023</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.freedomcaravan.it/it" target="_blank" rel="noopener">Freedom</a></td>
+                    <td></td>
+                    <td>2024</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.booking.tuariarent.com" target="_blank" rel="noopener">Tuaria Rent</a></td>
+                    <td></td>
+                    <td>2025</td>
+                  </tr>
+                  <tr>
+                    <td>Ceress</td>
+                    <td>Portale gestione CER</td>
+                    <td>2021</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://knx.it/" target="_blank" rel="noopener">KNX</a></td>
+                    <td></td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.cdobg.it" target="_blank" rel="noopener">CDO Bergamo</a></td>
+                    <td>Portale gestione corsi</td>
+                    <td>2018</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://pinetenergia.it/" target="_blank" rel="noopener">Pinet Energia</a></td>
+                    <td></td>
+                    <td>2025</td>
+                  </tr>
+                  <tr>
+                    <td>Villa Valle</td>
+                    <td>Gestione card raccolta punti</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr>
+                    <td>Kiterm</td>
+                    <td>Gestionale commesse lavori</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.protevo.it/" target="_blank" rel="noopener">Protevo Group</a></td>
+                    <td>Gestionale accessi e riunioni</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://horsemove.eu/" target="_blank" rel="noopener">Horse Move</a></td>
+                    <td>Portale</td>
+                    <td>2024</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button
+                type="button"
+                class="btn btn--ghost portfolio__more"
+                data-portfolio-more
+              >
+                <span class="btn__text">Vedi altri progetti</span>
+                <span class="btn__arrow">→</span>
+              </button>
+            </article>
+
+            <article class="portfolio__area" data-topic="2" data-fixed="0" data-random="5">
+              <h3 class="portfolio__area-title">
+                <span class="portfolio__area-num">03</span
+                ><span class="portfolio__area-name">E-commerce che vendono</span>
+              </h3>
+              <div class="portfolio__area-desc">
+                <p>Lavoriamo su piattaforme di e-commerce, realizzate e gestite da noi ma di proprietà dei nostri clienti, che generano vendite costanti, giorno dopo giorno. Vendite vere, misurabili e controllabili. In Italia e all’estero.</p>
+              </div>
+              <!-- "Categoria merceologica" al posto di "Tipologia progetto": qui
+                 sotto "E-commerce che vendono" il progetto è sempre
+                 e-commerce (lo dice già il titolo), quindi la colonna ha più
+                 senso se dice cosa vende il cliente. Valori PROVVISORI,
+                 dedotti dal nome cliente dove non ovvio: da confermare/
+                 correggere riga per riga. -->
+              <table class="portfolio__table">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Categoria merceologica</th>
+                    <th>Attivo dal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.otticabergamo.it/" target="_blank" rel="noopener">Ottica Bergamo</a></td>
+                    <td>Occhiali e ottica</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.pacashop.it/" target="_blank" rel="noopener">Paca Shop</a></td>
+                    <td>Prodotti per equitazione</td>
+                    <td>2017</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.verzerolishop.it/" target="_blank" rel="noopener">Verzeroli Shop</a></td>
+                    <td>Abbigliamento</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.legendbikers.it/" target="_blank" rel="noopener">Legend Bikers</a></td>
+                    <td>Moto e accessori</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.ghilardi1940.it/" target="_blank" rel="noopener">Ghilardi 1940</a></td>
+                    <td>Abbigliamento</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.siebaneck.it/" target="_blank" rel="noopener">Siebaneck</a></td>
+                    <td>Abbigliamento</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.maskafe.it/" target="_blank" rel="noopener">Maskafè</a></td>
+                    <td>Caffè</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr>
+                    <td>Conterio</td>
+                    <td>Sali Gourmet</td>
+                    <td>2026</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.bagattini.com" target="_blank" rel="noopener">Bagattini Pav</a></td>
+                    <td>Pavimenti e rivestimenti</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr>
+                    <td><a class="portfolio__table-link" href="https://www.gemhairstore.it/" target="_blank" rel="noopener">Gem Hair Store</a></td>
+                    <td>Prodotti per capelli</td>
+                    <td>2023</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button
+                type="button"
+                class="btn btn--ghost portfolio__more"
+                data-portfolio-more
+              >
+                <span class="btn__text">Vedi altri progetti</span>
+                <span class="btn__arrow">→</span>
+              </button>
+            </article>
+
+            <!-- Categoria "Portali, Siti Web e Webapp": il cliente ha
+               lasciato una seconda riga di descrizione incompleta
+               ("Scriviamo Webapp xxxx") — omessa qui, da richiedere prima
+               di pubblicare. Ogni riga ha il link al sito del cliente, in
+               target="_blank". IMA, 4Mica e Caeb sono ancora segnaposto
+               href="#": URL da confermare col cliente prima di
+               pubblicare. -->
+            <article class="portfolio__area" data-topic="3" data-group-picks="webapp:2,top:4,altri:3">
+              <h3 class="portfolio__area-title">
+                <span class="portfolio__area-num">04</span
+                ><span class="portfolio__area-name">Portali, Siti Web e Webapp</span>
+              </h3>
+              <div class="portfolio__area-desc">
+                <p>Produciamo portali e siti web che hanno la pretesa non solo di esistere ma, piuttosto, di raccontare e mostrare quello che i nostri clienti hanno da dire. Non basta avere un sito, conta quello che c’è dentro. E noi sappiamo come creare i contenuti che servono — non ce li facciamo dare dai clienti, perché loro fanno un altro mestiere: siamo noi a dover trovare la strada per raccontarlo. Al meglio.</p>
+              </div>
+              <table class="portfolio__table">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Tipologia progetto</th>
+                    <th>Attivo dal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-group="webapp">
+                    <td><a class="portfolio__table-link" href="https://www.jmfit.it/" target="_blank" rel="noopener">JM Fit</a></td>
+                    <td>Webapp gestione corsi online</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr data-group="webapp">
+                    <td><a class="portfolio__table-link" href="https://www.freebiker.it/" target="_blank" rel="noopener">Freebikers</a></td>
+                    <td>Webapp circuito fidelity</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="webapp">
+                    <td><a class="portfolio__table-link" href="https://www.bodyconvert.it/" target="_blank" rel="noopener">Body Convert</a></td>
+                    <td>Webapp gestione corsi online</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr data-group="webapp">
+                    <td><a class="portfolio__table-link" href="#" target="_blank" rel="noopener">IMA</a></td>
+                    <td>App aziendale</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr data-group="webapp">
+                    <td><a class="portfolio__table-link" href="https://www.mysolo.it/" target="_blank" rel="noopener">Mysolo</a></td>
+                    <td>App sicurezza personale</td>
+                    <td>2018</td>
+                  </tr>
+                  <tr data-group="webapp">
+                    <td><a class="portfolio__table-link" href="#" target="_blank" rel="noopener">4Mica</a></td>
+                    <td>App circuito fidelity con beacon</td>
+                    <td>2018</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="#" target="_blank" rel="noopener">Monza Calcio</a></td>
+                    <td>Portale</td>
+                    <td>2017</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.automotive.rent/" target="_blank" rel="noopener">AR Automotive Rent</a></td>
+                    <td>Portale e software CRM</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.lozzaspa.it" target="_blank" rel="noopener">Lozza SpA</a></td>
+                    <td>Portale</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.franchiniservizi.com/it/" target="_blank" rel="noopener">Franchini Servizi Ecologici SpA</a></td>
+                    <td>Portale</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.salfspa.it" target="_blank" rel="noopener">Salf SpA</a></td>
+                    <td>Portale</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://pinetenergia.it/" target="_blank" rel="noopener">Pinet Energia</a></td>
+                    <td>Portale e software CRM</td>
+                    <td>2026</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.impresasangalli.it/" target="_blank" rel="noopener">Impresa Sangalli Giancarlo &amp; C.</a></td>
+                    <td>Portale e rete di siti</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.ceress.it" target="_blank" rel="noopener">Ceress</a></td>
+                    <td>Portale e software CRM</td>
+                    <td>2021</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.accaelle.com/" target="_blank" rel="noopener">Accaelle Events</a></td>
+                    <td>Portale</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.medianord.it/" target="_blank" rel="noopener">Medianord</a></td>
+                    <td>Portale</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.radiodea.it" target="_blank" rel="noopener">Radio Dea</a></td>
+                    <td>Portale</td>
+                    <td>2026</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.safetrucks.it/" target="_blank" rel="noopener">Safetrucks</a></td>
+                    <td>Portale e software CRM</td>
+                    <td>2021</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.opibg.it/" target="_blank" rel="noopener">Ordine Professioni Infermieristiche Bergamo</a></td>
+                    <td>Portale e software CRM</td>
+                    <td>2018</td>
+                  </tr>
+                  <tr data-group="top">
+                    <td><a class="portfolio__table-link" href="https://www.postogliospa.it" target="_blank" rel="noopener">Pontoglio SpA</a></td>
+                    <td>Portale</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.egopecci.it/" target="_blank" rel="noopener">Ego e Pecci</a></td>
+                    <td>Portale</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.tesj.it/" target="_blank" rel="noopener">Tesj</a></td>
+                    <td>Portale</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.fondazioneflandercer.it/" target="_blank" rel="noopener">Fondazione Flander</a></td>
+                    <td>Portale</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://neyen.it/" target="_blank" rel="noopener">Neyen</a></td>
+                    <td>Portale</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.castiglionisrl.it/" target="_blank" rel="noopener">Castiglioni Auto</a></td>
+                    <td>Portale</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://estrallum.com/" target="_blank" rel="noopener">Estrallum</a></td>
+                    <td>Portale</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.grittigroup.com" target="_blank" rel="noopener">Gritti Group</a></td>
+                    <td>Portale</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://leonardotogni.it/" target="_blank" rel="noopener">LTA</a></td>
+                    <td>Portale</td>
+                    <td>2026</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.servizicomunali.it/" target="_blank" rel="noopener">Servizi Comunali</a></td>
+                    <td>Portale</td>
+                    <td>2019</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.lacasasicura.prosiel.it/" target="_blank" rel="noopener">Prosiel La Casa Sicura</a></td>
+                    <td>Portale e software CRM</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://plasticarta.it/" target="_blank" rel="noopener">Plasticarta</a></td>
+                    <td>Portale</td>
+                    <td>2026</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.legendbikers.it/" target="_blank" rel="noopener">Legend Bikers</a></td>
+                    <td>Portale</td>
+                    <td>2016</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.tecnosystemsicurezza.it/" target="_blank" rel="noopener">Tecnosystem</a></td>
+                    <td>Portale e rete siti collegati</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.sudigiro.it/" target="_blank" rel="noopener">Sudigiro</a></td>
+                    <td>Portale</td>
+                    <td>2017</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.servicepelliccioli.it/" target="_blank" rel="noopener">Pellicioli Service</a></td>
+                    <td>Portale</td>
+                    <td>2019</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.primemanagement.it/" target="_blank" rel="noopener">Prime Menagement</a></td>
+                    <td>Portale</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.vepsolution.it/" target="_blank" rel="noopener">V&amp;P Solution</a></td>
+                    <td>Portale</td>
+                    <td>2017</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://omrautomotive.com/it/" target="_blank" rel="noopener">OMR</a></td>
+                    <td>Portale</td>
+                    <td>2021</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.notess.it/" target="_blank" rel="noopener">Notess Renting</a></td>
+                    <td>Portale</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.centromaraton.it/" target="_blank" rel="noopener">Centro Marathon</a></td>
+                    <td>Portale</td>
+                    <td>2025</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.dottoressabernini.it/" target="_blank" rel="noopener">Studio Dottoressa Bernini</a></td>
+                    <td>Portale</td>
+                    <td>2018</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://tecnowash.it/" target="_blank" rel="noopener">Tecnowash</a></td>
+                    <td>Portale</td>
+                    <td>2024</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.coatingtechnology.net/" target="_blank" rel="noopener">Coating Technology</a></td>
+                    <td>Portale</td>
+                    <td>2022</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.caebcommerciale.it/" target="_blank" rel="noopener">Caeb</a></td>
+                    <td>Portale</td>
+                    <td>2021</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.ducciniemonti.it/" target="_blank" rel="noopener">Duccini e Monti</a></td>
+                    <td>Portale</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.fvp.green/" target="_blank" rel="noopener">FVP Green</a></td>
+                    <td>Portale</td>
+                    <td>2020</td>
+                  </tr>
+                  <tr data-group="altri">
+                    <td><a class="portfolio__table-link" href="https://www.lacittadelfuturo.it/" target="_blank" rel="noopener">Bergamo la Città del Futuro</a></td>
+                    <td>Portale</td>
+                    <td>2021</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button
+                type="button"
+                class="btn btn--ghost portfolio__more"
+                data-portfolio-more
+              >
+                <span class="btn__text">Vedi altri progetti</span>
+                <span class="btn__arrow">→</span>
+              </button>
+            </article>
+          </div>
+        </div>
+
+        <div class="container portfolio__end">
+          <blockquote class="portfolio__quote">
+            <p data-words>
+              Abbiamo il piacere e l’onore di stare a fianco di aziende che da
+              anni confermano la loro fiducia in ciò che facciamo per loro. E
+              noi ci mettiamo sempre l’anima per ripagarle.
+            </p>
+            <footer class="reveal">— Il team eWeb</footer>
+          </blockquote>
+
+          <!-- La graffa del logo, isolata da assets/img/logo.png e riusata
+             come maschera (stessa tecnica di .logo): bilancia a destra
+             l'apice della citazione a sinistra. -->
+          <span class="portfolio__brace" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <!-- ============ CTA FINALE — unica, dopo il racconto ============ -->
+      <section class="finale" id="contatti" data-theme="light">
+        <div class="finale__media">
+          <!-- FOTO: immagine del team/ufficio, non uno stock patinato.
+             PROVVISORIO: finché il file assets/img/team.jpg non esiste resta visibile
+             il gradiente di sfondo qui sotto; basta aggiungere il file con questo nome per sostituirlo. -->
+          <img
+            class="finale__img"
+            src="assets/img/team.jpg"
+            alt="Il team eWeb"
+            loading="lazy"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="finale__shade"></div>
+        </div>
+
+        <div class="container finale__content">
+          <div class="finale__intro">
+            <span class="eyebrow eyebrow--muted">Contatti</span>
+            <p class="finale__lead reveal-lines">
+              Se questa storia ti stuzzica,<br />parliamone.
+            </p>
+
+            <ul class="finale__contacts">
+              <li>
+                <span class="finale__contacts-label">Indirizzo</span>
+                <a
+                  class="link"
+                  href="https://www.google.com/maps/search/?api=1&query=Via+Broseta+101G+24128+Bergamo"
+                  target="_blank"
+                  rel="noopener"
+                  >Via Broseta, 101G — 24128 Bergamo</a
+                >
+              </li>
+              <li>
+                <span class="finale__contacts-label">Telefono</span>
+                <a class="link" href="tel:+390350085044">+39 035 00 85 044</a>
+              </li>
+              <li>
+                <span class="finale__contacts-label">Email</span>
+                <a class="link" href="mailto:info@ewebsolution.it"
+                  >info@ewebsolution.it</a
+                >
+              </li>
+            </ul>
+
+            <!-- Mappa sempre visibile, ma l'iframe (cookie di terze parti
+               di Google) parte solo dopo il consenso dato nel banner cookie
+               qui sotto — script.js lo pilota in base alla scelta salvata.
+               Finché non c'è un consenso, mostra un link diretto a Google
+               Maps (nessun cookie, è una normale navigazione). -->
+            <div class="finale__map" data-map>
+              <p class="finale__map-note" data-map-note>
+                In attesa del consenso ai cookie di terze parti puoi aprire
+                la mappa direttamente su
+                <a
+                  class="link"
+                  href="https://www.google.com/maps/search/?api=1&query=Via+Broseta+101G+24128+Bergamo"
+                  target="_blank"
+                  rel="noopener"
+                  >Google Maps</a
+                >.
+              </p>
+            </div>
+          </div>
+
+          <form
+            class="finale__form"
+            action="invia"
+            method="post"
+            novalidate
+          >
+            <!-- Honeypot anti-spam: invisibile e irraggiungibile da tastiera,
+               una persona non lo compila mai — se arriva valorizzato,
+               invia.php scarta la richiesta in silenzio (vedi lì). -->
+            <input
+              type="text"
+              name="azienda"
+              class="finale__form-hp"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+            <div class="field">
+              <input type="text" name="nome" placeholder=" " required /><span
+                >Nome e cognome</span
+              >
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder=" " required /><span
+                >Email</span
+              >
+            </div>
+            <div class="field field--area">
+              <textarea
+                name="messaggio"
+                rows="3"
+                placeholder=" "
+                required
+              ></textarea
+              ><span>Raccontaci la tua idea</span>
+            </div>
+
+            <div class="finale__form-foot">
+              <button
+                type="submit"
+                class="btn btn--solid finale__cta"
+                data-magnetic
+              >
+                <span class="btn__text">Invia</span>
+                <span class="btn__arrow">→</span>
+              </button>
+              <p class="form__status" role="status"></p>
+            </div>
+          </form>
+        </div>
+
+        <p class="container finale__closing reveal-lines">
+          Tra persone, pensanti,<br /><em>in carne ed ossa.</em>
+        </p>
+      </section>
+    </main>
+
+    <!-- ============ VIDEO MODAL — dalla hero della versione 1 ============ -->
+    <div
+      class="vmodal"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="Video eWeb"
+    >
+      <button
+        class="vmodal__close"
+        data-video-close
+        aria-label="Chiudi il video"
+      >
+        Chiudi <span aria-hidden="true">×</span>
+      </button>
+      <!-- VIDEO AGENZIA versione completa, con audio — segnaposto, il file
+         non è ancora presente: finché manca il player resta vuoto. -->
+      <video class="vmodal__video" controls playsinline preload="none">
+        <source src="assets/video/eweb-agenzia.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <?php include __DIR__ . "/inc/footer.php"; ?>
+
+    <!-- ============ COOKIE BANNER ============
+       Solo cookie tecnici di default: quelli di terze parti (al momento,
+       la mappa di Google in fondo ai contatti) partono solo dopo
+       "Accetta" qui sotto — la scelta resta salvata (localStorage),
+       riapribile dal link "Cookie Policy" in footer. -->
+    <div class="cookie-banner" data-cookie-banner hidden>
+      <p>
+        Usiamo cookie tecnici necessari al funzionamento del sito. Con il
+        tuo consenso carichiamo anche la mappa di Google, che pianta
+        cookie di terze parti.
+        <a href="#" class="link">Cookie Policy</a>
+      </p>
+      <div class="cookie-banner__actions">
+        <button type="button" class="btn btn--ghost" data-cookie-reject>
+          Solo necessari
+        </button>
+        <button type="button" class="btn btn--solid" data-cookie-accept>
+          Accetta
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ LIBS ============ -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="custom/functions/script.js?v=<?php echo @filemtime(__DIR__ . "/custom/functions/script.js") ?: time(); ?>"></script>
+  </body>
+</html>

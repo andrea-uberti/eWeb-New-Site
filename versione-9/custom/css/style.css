@@ -1,0 +1,2568 @@
+/* =========================================================
+   eWeb — Home (versione 4: si entra nel video)
+   ========================================================= */
+
+/* Font custom per il titolo hero (licenza desktop+web, uso commerciale
+   consentito — vedi "Dirtyline 36 Days of Type 2022.zip" nel progetto). */
+@font-face {
+  font-family: "Dirtyline";
+  src:
+    url("../../assets/fonts/dirtyline.woff2") format("woff2"),
+    url("../../assets/fonts/dirtyline.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* Licenza Fontshare (ITF Free Font License) — uso libero, anche
+   commerciale, self-hosting consentito. Vedi "Panchang Complete.zip" nel
+   progetto. Tutti i pesi statici, un @font-face per peso, stessa
+   font-family: basta cambiare font-weight nel CSS per usarli. */
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-extralight.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-extralight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-light.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-regular.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-medium.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-semibold.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-bold.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Panchang";
+  src:
+    url("../../assets/fonts/panchang-extrabold.woff2") format("woff2"),
+    url("../../assets/fonts/panchang-extrabold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Palette brand */
+  --navy: #044d8b;
+  --sky: #189edc;
+  --sun: #fcda18;
+  --white: #ffffff;
+  --ink: #062a4a; /* testo su fondi chiari (navy scurito) */
+  --mist: #fafbfc; /* quasi bianco puro — sezione "Chi siamo" */
+  --haze: #d9edf8; /* azzurro tenue — sezione "La nostra storia", animato dal bianco */
+
+  /* Tema corrente — blu (default) */
+  --bg: var(--navy);
+  --fg: var(--white);
+  --muted: rgba(255, 255, 255, 0.74);
+  --line: rgba(255, 255, 255, 0.22);
+  --accent: var(--sun);
+  --accent-ink: var(--navy);
+  --btn: var(--sun);
+  --btn-ink: var(--navy);
+
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Inter Tight", system-ui, -apple-system, sans-serif;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-h: 84px;
+  --radius: 14px;
+}
+
+body.theme-light {
+  --bg: var(--mist);
+  --fg: var(--ink);
+  --muted: rgba(6, 42, 74, 0.68);
+  --line: rgba(6, 42, 74, 0.14);
+  --accent: var(--sky);
+  --accent-ink: var(--white);
+  --btn: var(--navy);
+  --btn-ink: var(--white);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.7s var(--ease),
+    color 0.7s var(--ease);
+}
+body.is-loading {
+  overflow: hidden;
+}
+img,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+ul,
+ol {
+  list-style: none;
+}
+em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+}
+::selection {
+  background: var(--sun);
+  color: var(--navy);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Type ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.eyebrow__line {
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.eyebrow--muted {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.h2 {
+  font-weight: 400;
+  font-size: clamp(34px, 4.4vw, 70px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+.h2 em {
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+.body-l {
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.body-l em {
+  color: var(--fg);
+  font-size: 1.12em;
+}
+.body-l + .body-l {
+  margin-top: 22px;
+}
+
+/* Entra da sinistra (background-position a sinistra mentre cresce in
+   hover), esce da destra (torna ad ancorarsi a destra appena il mouse
+   lascia, quindi si restringe verso lì): stesso trucco di
+   .portfolio__table-link più sotto, qui per la sottolineatura dritta
+   di base usata ovunque nei testi. */
+.link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: 0 1px;
+  transition: background-size 0.5s var(--ease);
+}
+.link:hover {
+  background-position: 0 100%;
+  background-size: 100% 1px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 56px;
+  padding: 0 28px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  isolation: isolate;
+  white-space: nowrap;
+  transition:
+    color 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    background-color 0.5s var(--ease);
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.6s var(--ease);
+}
+.btn:hover::before {
+  transform: translateY(0);
+}
+.btn__arrow {
+  transition: transform 0.5s var(--ease);
+}
+.btn:hover .btn__arrow {
+  transform: translateX(4px);
+}
+/* Riflesso che attraversa il bottone al passaggio del mouse */
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+.btn:hover::after {
+  left: 130%;
+}
+
+.btn--solid {
+  background: var(--btn);
+  color: var(--btn-ink);
+}
+.btn--solid::before {
+  background: var(--fg);
+}
+.btn--solid:hover {
+  color: var(--bg);
+}
+.btn--ghost {
+  border: 1px solid currentColor;
+}
+.btn--ghost::before {
+  background: var(--fg);
+}
+.btn--ghost:hover {
+  color: var(--bg);
+}
+
+/* ---------- Logo ----------
+   Il file è una sagoma monocroma (assets/img/logo-mask.png, sfondo
+   rimosso) applicata come maschera CSS: il colore arriva sempre da
+   currentColor, quindi il logo segue automaticamente il colore del
+   nav/footer/hero invece di restare fisso — niente logo scuro invisibile
+   su sfondo navy quando il tema della sezione cambia. */
+.logo {
+  display: inline-block;
+  width: 124px;
+  aspect-ratio: 1710 / 463;
+  background-color: currentColor;
+  /* Proprietà estese, non lo shorthand "mask: ... / contain": su Safari
+     quella sintassi combinata (posizione/size col carattere "/") non
+     viene sempre applicata — il logo "scompariva" lì pur essendo
+     corretto altrove. */
+  -webkit-mask-image: url("../../assets/img/logo-mask.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url("../../assets/img/logo-mask.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  transition: background-color 0.9s var(--ease);
+}
+.logo--loader {
+  width: 150px;
+}
+.logo--hero {
+  width: clamp(260px, 34vw, 460px);
+}
+/* Variante "banner": logo + claim, già impaginati insieme in un unico
+   asset (da assets/img/eWeb 2006 Banner YouTube.png, ricolorato via
+   maschera — stessa tecnica di .logo, vedi sopra) invece di comporli a
+   parte in HTML. Usata in loader, hero e footer; nel footer accompagnata
+   dal badge "10 years" (vedi sotto), nella nav header senza — lì lo
+   spazio è troppo basso perché il badge in alto a destra resti leggibile. */
+.logo--banner {
+  aspect-ratio: 1711 / 573;
+  -webkit-mask-image: url("../../assets/img/banner-mask.png");
+  mask-image: url("../../assets/img/banner-mask.png");
+}
+.logo--nav {
+  width: clamp(110px, 14vw, 150px);
+}
+.logo--footer {
+  width: 190px;
+}
+
+/* Badge "10 years": non più un ritaglio mascherato dell'artwork originale
+   (assets/img/badge-mask.png, rimosso dalla sagoma .logo--banner stessa
+   per lo stesso motivo — vedi commento lì sopra), ma testo vero — serve
+   per poterlo scomporre in tre pezzi (vedi .hero__badge-one/-zero/-years
+   sotto) e farli entrare in due tempi (script.js, intro/runLoader):
+   prima l'1, poi lo 0 e "years" insieme. "10" in grassetto, "years" in
+   corsivo serif — stesso trattamento già usato per gli accenti numerici
+   altrove nel sito (es. .portfolio__area-num) — per leggersi come un
+   piccolo logotipo a sé, non come testo informativo. Agganciato più
+   vicino allo spigolo in alto a destra del logo (non più staccato fuori
+   dal suo riquadro con offset negativi) per leggersi come parte dello
+   stesso marchio invece che fluttuare isolato. */
+.hero__brand-wrap {
+  position: relative;
+  display: inline-block;
+}
+.hero__badge {
+  display: inline-flex;
+  align-items: baseline;
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  gap: 0.05em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--sun);
+}
+.hero__badge-one,
+.hero__badge-zero {
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: 700;
+}
+.hero__badge-years {
+  margin-left: 0.12em;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(11px, 1.4vw, 16px);
+}
+.footer .hero__badge-one,
+.footer .hero__badge-zero {
+  font-size: 15px;
+}
+.footer .hero__badge-years {
+  font-size: 9px;
+}
+
+/* Nel loader il badge resta quello precedente (ritaglio mascherato
+   dell'artwork originale, invariato): a quella scala, il badge testuale
+   in tre pezzi usato in hero/footer risultava troppo minuto per reggere
+   la scomposizione "10"/"years". .hero__badge--mask sovrascrive il
+   .hero__badge testuale qui sopra, scoped al solo loader. */
+.hero__badge--mask {
+  display: inline-block;
+  position: absolute;
+  top: -8%;
+  right: -10%;
+  width: clamp(26px, 3.4vw, 38px);
+  aspect-ratio: 108 / 44;
+  background-color: var(--sun);
+  -webkit-mask-image: url("../../assets/img/badge-mask.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url("../../assets/img/badge-mask.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* ---------- Loader ---------- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--navy);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--gutter);
+}
+.loader__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.loader__inner .hero__brand {
+  margin-bottom: 0;
+}
+.loader__count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex: 1;
+  font-family: var(--serif);
+  font-style: italic;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(64px, 11vw, 168px);
+  line-height: 1;
+}
+.loader__pct {
+  font-size: 0.38em;
+  color: var(--sun);
+}
+.loader__bar {
+  margin-top: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+.loader__bar span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--sun);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ---------- Cursor ---------- */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  pointer-events: none;
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .cursor {
+    display: block;
+  }
+  /* Il puntatore nativo lascia il posto al pallino custom: senza questo
+     resta visibile anche il cursore di sistema sopra al nostro. */
+  body,
+  a,
+  button {
+    cursor: none;
+  }
+}
+/* Pallino che segue il mouse ovunque nella pagina */
+.cursor::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--sun);
+  transition:
+    transform 0.3s var(--ease),
+    opacity 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+/* Sopra al giallo dei contatti il pallino giallo sparirebbe: qui diventa navy */
+.cursor.on-yellow::before {
+  background: #044d8b;
+}
+/* Sopra agli elementi con data-cursor il pallino si dissolve e al suo posto
+   si espande la bolla con l'etichetta */
+.cursor.is-label::before {
+  transform: scale(0);
+  opacity: 0;
+}
+.cursor__label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--sun);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 500;
+  transform: scale(0);
+  transition: transform 0.5s var(--ease);
+}
+.cursor.is-label .cursor__label {
+  transform: scale(1);
+}
+
+/* ---------- Grain ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--fg);
+  transition: color 0.9s var(--ease);
+}
+/* L'hamburger resta il solo modo di navigare, anche su desktop.
+   L'header è sempre trasparente: il cerchio attorno all'icona (lo stesso
+   trattamento del bottone "torna su" in footer) è quello che lo rende
+   leggibile/tappabile su qualunque sfondo, non uno sfondo della nav. */
+.nav__burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  transition:
+    background-color 0.4s,
+    border-color 0.4s,
+    color 0.4s;
+}
+.nav__burger:hover {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+.nav__burger span {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 1.5px;
+  background: currentColor;
+  transition:
+    transform 0.5s var(--ease),
+    top 0.5s var(--ease);
+}
+.nav__burger span:first-child {
+  top: 18px;
+}
+.nav__burger span:last-child {
+  top: 25px;
+}
+.menu-open .nav__burger span:first-child {
+  top: 21px;
+  transform: rotate(45deg);
+}
+.menu-open .nav__burger span:last-child {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+/* Menu a tutta pagina: si apre a cerchio dal punto dell'hamburger */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--navy);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--nav-h) + 40px) var(--gutter) var(--gutter);
+  clip-path: circle(0% at var(--menu-x, 92%) var(--menu-y, 6%));
+  transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+.menu-open .menu {
+  clip-path: circle(150% at var(--menu-x, 92%) var(--menu-y, 6%));
+  pointer-events: auto;
+}
+.menu-open .nav {
+  color: var(--white);
+}
+.menu-open .nav__burger {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.menu-open .nav__burger:hover {
+  background: var(--white);
+  color: var(--navy);
+  border-color: var(--white);
+}
+
+.menu__links a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: clamp(44px, 12vw, 80px);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+}
+.menu-open .menu__links a {
+  opacity: 1;
+  transform: translateY(0);
+}
+.menu__links a:nth-child(1) {
+  transition-delay: 0.2s;
+}
+.menu__links a:nth-child(2) {
+  transition-delay: 0.3s;
+}
+.menu__links a:nth-child(3) {
+  transition-delay: 0.4s;
+}
+.menu__links a:nth-child(4) {
+  transition-delay: 0.5s;
+}
+.menu__links a:nth-child(5) {
+  transition-delay: 0.6s;
+}
+.menu__links small {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--sun);
+  letter-spacing: 0;
+}
+
+/* Corpo del menu: due "stati" in cross-fade nello stesso spazio, non più
+   due colonne permanenti fianco a fianco (terzo giro su questo pattern,
+   vedi memoria di progetto). Di default si vedono i link grandi (incluso
+   "05 Servizi"); .menu--services (sul body, impostata dal click su quel
+   link — vedi script.js) fa uscire i link ed entrare il catalogo servizi
+   nello stesso punto. position:relative + figli position:absolute inset:0
+   evitano qualsiasi reflow durante il cambio: entrambi i pannelli occupano
+   sempre lo stesso riquadro, flex:1 + min-height:0 così il riquadro è
+   esattamente lo spazio tra il padding superiore e .menu__foot. */
+.menu__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.menu__links,
+.menu__services {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.5s var(--ease);
+}
+.menu__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Catalogo dei servizi, raggruppato per categoria — stesso catalogo di
+   inc/related.php (inc/config.php, $SERVICE_PAGES). Nascosto di default
+   (opacity 0 + pointer-events none), entra al posto dei link grandi quando
+   il body porta anche .menu--services. Due affordance esplicite di "c'è
+   altro sotto" (prima versione non ne aveva nessuna, vedi memoria di
+   progetto): una sfumatura in fondo via mask-image e uno scrollbar sottile
+   ma visibile. */
+.menu__services {
+  max-width: 460px;
+  overflow-y: auto;
+  padding-right: 18px;
+  padding-bottom: 24px;
+  opacity: 0;
+  transform: translateY(24px);
+  pointer-events: none;
+  visibility: hidden;
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent 100%);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+.menu__services::-webkit-scrollbar {
+  width: 6px;
+}
+.menu__services::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+}
+.menu--services .menu__links {
+  opacity: 0;
+  transform: translateY(-24px);
+  pointer-events: none;
+  visibility: hidden;
+}
+.menu--services .menu__links a {
+  transition-delay: 0s;
+}
+.menu--services .menu__services {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+.menu__services-back {
+  display: inline-block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--sun);
+  margin-bottom: 24px;
+}
+.menu__services-group + .menu__services-group {
+  margin-top: 28px;
+}
+.menu__services-cat {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  color: var(--sun);
+  margin-bottom: 10px;
+}
+.menu__services-list a {
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.78);
+}
+.menu__services-list a:hover {
+  color: var(--white);
+}
+
+@media (max-width: 900px) {
+  /* Sotto i 901px il pannello attivo scrolla come blocco (niente scroll
+     annidato su .menu__services): la sfumatura/mask pensata per lo scroll
+     interno desktop andrebbe tolta, altrimenti l'ultima categoria
+     resterebbe visivamente sbiadita anche a fine lista, dove non c'è più
+     nulla sotto. Trattamento provvisorio, da rivedere per il mobile. */
+  .menu__body {
+    overflow-y: auto;
+  }
+  .menu__links,
+  .menu__services {
+    position: static;
+  }
+  .menu--services .menu__links {
+    display: none;
+  }
+  .menu__services {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    overflow-y: visible;
+    padding-right: 4px;
+    text-align: center;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .menu:not(.menu--services) .menu__services {
+    display: none;
+  }
+}
+
+.menu__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease);
+  transition-delay: 0.15s;
+}
+.menu-open .menu__foot {
+  opacity: 1;
+}
+/* Due righe: contatti diretti, poi magazine/social — prima erano impilati
+   uno per riga (4 righe), ora numero+mail stanno fianco a fianco su una
+   riga sola, e la seconda riga raccoglie i link aggiunti dopo (Magazine —
+   segnaposto, vedi inc/header.php — Instagram, LinkedIn). */
+.menu__foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+.menu__foot-row--social {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 14px;
+}
+
+/* Sottolineatura "a matita" sull'hover, su ogni voce del menu (i 4 link
+   grandi, il catalogo servizi a destra, i contatti/social in fondo) —
+   stesso meccanismo di .link sopra (background-size 0→100% animato), ma
+   con un tratto ondulato invece di una riga dritta, per somigliare a un
+   segno tracciato a mano invece che a una sottolineatura "da editor di
+   testo". L'SVG è in `em`: altezza/offset scalano con il font-size di
+   ogni contesto (80px per i link grandi, ~18px per la lista servizi, ~16px
+   per i contatti), una sola definizione per tutti invece di uno scostamento
+   calibrato a mano per ciascuno. Entra da sinistra, esce da destra: come
+   .link, la posizione è a destra da fermo e passa a sinistra in hover,
+   mentre a transizionare è solo la dimensione. */
+.menu__links a,
+.menu__services-list a,
+.menu__services-back,
+.menu__foot a {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1,6.5 C8,3 14,9 21,5.5 C29,1.5 35,8.5 43,5 C51,1.5 57,8 65,4.5 C73,1.5 79,8 87,5 C91,3.5 95,6.5 99,5' fill='none' stroke='%23fcda18' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right bottom -0.08em;
+  background-size: 0% 0.5em;
+  transition: background-size 0.45s var(--ease);
+}
+.menu__links a:hover,
+.menu__services-list a:hover,
+.menu__services-back:hover,
+.menu__foot a:hover {
+  background-position: left bottom -0.08em;
+  background-size: 100% 0.5em;
+}
+/* I 4 link grandi (clamp 44-80px) con lo stesso tratto sottile di sopra
+   risultavano deboli — a quella scala un filo da 2 (su un viewBox 0-10)
+   si perde sotto lettere enormi. Qui due tratti sovrapposti invece di uno
+   solo (il secondo più sottile e semi-trasparente, leggermente sfalsato),
+   come una riga ripassata a mano due volte — più presenza, ancora
+   leggibile come un gesto unico e non come un doppio bordo preciso. */
+.menu__links a {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M1,8 C10,3 18,12 27,7 C36,2 44,12 53,6 C62,1 70,12 79,6 C85,3 92,9 99,6' fill='none' stroke='%23fcda18' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2,10.5 C11,6.5 19,13 28,9.5 C38,5.5 45,13 54,9 C63,5 71,13 80,9 C86,7 92,10.5 98,9' fill='none' stroke='%23fcda18' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' opacity='0.5'/%3E%3C/svg%3E");
+  background-position: right bottom -0.1em;
+  background-size: 0% 0.26em;
+}
+.menu__links a:hover {
+  background-position: left bottom -0.1em;
+  background-size: 100% 0.26em;
+}
+
+/* ---------- Claim band — sotto il video della hero ---------- */
+/* Un filo di sky qui, non solo navy: tre sezioni navy di fila (hero,
+   banda, manifesto) altrimenti si leggono come un unico blocco piatto. */
+.claim-band {
+  background: linear-gradient(
+    100deg,
+    var(--navy) 0%,
+    color-mix(in srgb, var(--navy) 55%, var(--sky)) 100%
+  );
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.claim-band__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 4vw, 48px);
+  padding: clamp(24px, 5vw, 56px) var(--gutter);
+  color: var(--white);
+}
+.claim-band__item {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* Stessa logica del trattino di .eyebrow__line, qui in giallo e senza
+   testo accanto: fa da apertura di capitolo per ciascuna parola. */
+.claim-band__rule {
+  width: 32px;
+  height: 1px;
+  background: var(--sun);
+}
+.claim-band__word {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.claim-band__desc {
+  max-width: 30ch;
+  font-size: clamp(14px, 1vw, 15px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ---------- Hero — versione 1: testo statico grande su video pieno
+   schermo, niente scroll-jacking. Il video è quello della versione 5
+   (stesso file assets/video/hero-loop.mp4). ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--nav-h) + 40px) var(--gutter) 36px;
+  color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--navy);
+}
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.hero__video.is-ready {
+  opacity: 1;
+}
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 45, 82, 0.45) 0%,
+    rgba(4, 45, 82, 0) 28%,
+    rgba(4, 45, 82, 0.1) 50%,
+    rgba(4, 45, 82, 0.85) 100%
+  );
+}
+/* Con il video pronto: velo blu più deciso a sinistra e in basso, per la
+   leggibilità del titolo sopra a immagini chiare. */
+.hero__video.is-ready ~ .hero__shade {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 45, 82, 0.82) 0%,
+      rgba(4, 45, 82, 0.55) 45%,
+      rgba(4, 45, 82, 0.2) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 45, 82, 0.5) 0%,
+      rgba(4, 45, 82, 0) 22%,
+      rgba(4, 45, 82, 0) 50%,
+      rgba(4, 45, 82, 0.9) 100%
+    );
+}
+
+.hero__brand {
+  display: block;
+}
+/* Centrato sia in orizzontale che in verticale sull'intera hero: non è più
+   dentro .hero__content (vedi l'HTML — è un fratello, come .hero__media),
+   quindi anche il centraggio è assoluto sulla hero intera e indipendente
+   dal flusso/padding del blocco di testo sotto, con cui si incrocia in
+   dissolvenza scrollando (vedi script.js). Il 54% invece del 50% esatto è
+   un filo più in basso del centro geometrico: a centro esatto il logo
+   "sembra" alto, uno scostamento leggero corregge otticamente. Scoped a
+   .hero: .hero__brand-wrap è lo stesso markup riusato nel loader e nel
+   footer (vedi sopra), dove invece resta inline-block nel loro layout. */
+.hero .hero__brand-wrap {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero__content {
+  position: relative;
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
+}
+.hero__eyebrow {
+  margin-bottom: clamp(20px, 2.6vw, 36px);
+  color: rgba(255, 255, 255, 0.9);
+}
+.hero__title {
+  font-weight: 400;
+  font-size: clamp(30px, 8.8vw, 168px);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+}
+.hero__title em {
+  color: var(--sun);
+  letter-spacing: -0.02em;
+  padding-right: 0.05em;
+}
+
+.hero__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-top: clamp(28px, 3.6vw, 52px);
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+/* Niente più paragrafo-lista di servizi (troppo commerciale): resta solo
+   una firma breve, come altrove nel sito. */
+.hero__sign {
+  font-size: clamp(16px, 1.2vw, 19px);
+  color: rgba(255, 255, 255, 0.86);
+}
+.hero__bottom--single {
+  justify-content: flex-start;
+  gap: 24px;
+}
+.hero__actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.hero__actions .btn--solid {
+  background: var(--sun);
+  color: var(--navy);
+}
+.hero__actions .btn::before {
+  background: var(--white);
+}
+.hero__actions .btn:hover {
+  color: var(--navy);
+}
+
+.hero__meta {
+  position: relative;
+  max-width: 1560px;
+  width: 100%;
+  margin: 28px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.hero__scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+}
+.hero__scroll i {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+.hero__scroll i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--sun);
+  animation: scrollLine 2s var(--ease) infinite;
+}
+@keyframes scrollLine {
+  to {
+    top: 100%;
+  }
+}
+
+.hero__play {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--white);
+}
+.hero__play small {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+.hero__play-icon {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition:
+    background-color 0.4s,
+    border-color 0.4s,
+    transform 0.6s var(--ease);
+}
+.hero__play-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -7px 0 0 -4px;
+  border-left: 12px solid currentColor;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+.hero__play:hover .hero__play-icon {
+  background: var(--sun);
+  border-color: var(--sun);
+  color: var(--navy);
+  transform: scale(1.08);
+}
+
+/* ---------- Video modal ---------- */
+.vmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(4, 30, 56, 0.94);
+  display: grid;
+  place-items: center;
+  padding: 72px var(--gutter) var(--gutter);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s var(--ease),
+    visibility 0.5s;
+}
+.vmodal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.vmodal__video {
+  width: min(100%, 1280px);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  background: #021a30;
+  transform: scale(0.94);
+  transition: transform 0.7s var(--ease);
+}
+.vmodal.is-open .vmodal__video {
+  transform: scale(1);
+}
+.vmodal__close {
+  position: absolute;
+  top: 20px;
+  right: var(--gutter);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  font-size: 15px;
+}
+.vmodal__close span {
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* ---------- Manifesto — sezione a sé, visto tutto e in grande ---------- */
+.manifesto-section {
+  padding: clamp(90px, 11vw, 160px) 0;
+  background: var(--navy);
+  color: var(--white);
+}
+.manifesto-section .container {
+  display: flex;
+  justify-content: flex-start;
+}
+.manifesto {
+  font-size: clamp(30px, 4.4vw, 76px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  max-width: 34ch;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.manifesto em {
+  color: var(--sun);
+}
+/* Le parole entrano una a una mentre si scorre (script.js, scrub) */
+.manifesto .w {
+  display: inline-block;
+  opacity: 0.16;
+  will-change: opacity;
+}
+
+/* ---------- About / racconto ---------- */
+/* Variabili di tema proprie, non quelle condivise del body: altrimenti lo
+   switch generico (soglia di scroll) può cambiare il body un attimo
+   prima o dopo rispetto a dove la sezione finisce davvero sullo
+   schermo, creando uno strappo di colore sul bordo (visto con portfolio
+   → CTA finale, le cui code restavano sul tema sbagliato). Stesso
+   pattern di .story-section e .finale, qui statico (non animato). */
+.about {
+  --bg: #fafbfc;
+  --fg: #062a4a;
+  --muted: rgba(6, 42, 74, 0.68);
+  --line: rgba(6, 42, 74, 0.14);
+  --accent: #189edc;
+  background: var(--bg);
+  color: var(--fg);
+  padding: clamp(90px, 11vw, 170px) 0 clamp(50px, 6vw, 90px);
+}
+.about__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: clamp(48px, 6vw, 90px);
+}
+/* Parola "pitch" cliccabile/hoverabile nel titolo: apre il pannello
+   che spiega cosa intendiamo. Il pannello vive fuori da .rl (che ha
+   overflow: hidden per l'animazione della riga), posizionato via JS
+   sopra le coordinate reali del bottone — vedi script.js. */
+.pitch-term {
+  position: relative;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: help;
+  -webkit-tap-highlight-color: transparent;
+}
+.pitch-term::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+  border-bottom: 1px dotted currentColor;
+}
+/* Il pannello si apre a destra della parola, sganciato dal flusso del
+   titolo (vedi .about__head position: relative sopra) — posizionato
+   via JS sulle coordinate reali del bottone (script.js). Su schermi
+   stretti, dove a destra non c'è spazio, scende sotto (vedi media
+   query più in basso). */
+.pitch-panel {
+  position: absolute;
+  z-index: 5;
+  width: min(300px, calc(100vw - 2 * var(--gutter)));
+  background: var(--navy);
+  color: var(--white);
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  padding: 18px 20px;
+  border-radius: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: left center;
+}
+/* L'apertura/chiusura (scale + fade, con un piccolo "pop" elastico
+   all'apertura) è animata via GSAP in script.js, non in CSS: serve
+   l'easing back.out, che in puro CSS si approssima male. */
+.pitch-panel strong {
+  color: var(--sun);
+}
+
+.about__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 120px);
+  align-items: start;
+}
+/* Sticky: il testo intro resta fermo mentre i 4 passaggi (più alti)
+   scorrono accanto — scende con lo scroll solo finché non raggiunge
+   l'offset sotto la nav, poi si ferma lì finché dura la colonna a
+   fianco. Richiede .about__split: align-items: start (sopra): altrimenti
+   il grid stirerebbe questa colonna alla stessa altezza dell'altra e lo
+   sticky non avrebbe spazio in cui muoversi. */
+.about__intro {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+}
+.about__split--single {
+  max-width: 720px;
+}
+
+/* I 4 passaggi: stesso linguaggio grafico della timeline sotto
+   (.story__line/.story__progress + pallini che si accendono, vedi
+   "Storia"), solo ruotato in verticale per starci nella colonna più
+   stretta di questo split. Niente più hover micro-interazioni: qui,
+   come nella Storia, è lo scroll a pilotare il completamento — vedi
+   lo stesso ratchet in script.js (il pallino raggiunto resta acceso
+   anche risalendo). */
+.about__list-wrap {
+  position: relative;
+  padding-left: 28px;
+}
+.about__list-line {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  width: 2px;
+  background: var(--line);
+  border-radius: 2px;
+}
+.about__list-progress {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  border-radius: 2px;
+}
+.about__list-step {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 32px) 0;
+}
+.about__list-step::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  transform: translate(-5px, -50%);
+  transition:
+    background-color 0.4s,
+    border-color 0.4s,
+    box-shadow 0.5s,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.about__list-step.is-on::before {
+  background: var(--sun);
+  border-color: var(--accent);
+  transform: translate(-5px, -50%) scale(1.4);
+  box-shadow:
+    0 0 0 6px rgba(252, 218, 24, 0.16),
+    0 0 22px rgba(252, 218, 24, 0.5);
+}
+.about__list-tag {
+  display: block;
+  font-size: clamp(19px, 2.1vw, 25px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 10px;
+}
+.about__list-step p {
+  color: var(--muted);
+  max-width: 40ch;
+}
+
+/* ---------- Storia ---------- */
+/* Lo sfondo vive SOLO qui, come variabile scoperta a questa sezione — non
+   passa dal tema globale del body, quindi non "sporca" mai lo sfondo delle
+   sezioni vicine durante lo scroll: è lo sfondo del box di questa sezione,
+   punto. Parte bianco (--bg qui sotto è solo il valore iniziale/di fallback):
+   script.js lo anima verso l'azzurro con uno scroll scrubbato man mano che
+   ci si avvicina — vedi "Storia: bianco → azzurro" in script.js. */
+.story-section {
+  --bg: var(--mist);
+  --fg: var(--ink);
+  --muted: rgba(6, 42, 74, 0.68);
+  --line: rgba(6, 42, 74, 0.14);
+  --accent: var(--navy);
+  background: var(--bg);
+  color: var(--fg);
+  padding: clamp(50px, 6vw, 90px) 0 clamp(90px, 11vw, 170px);
+}
+.story__head {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: clamp(48px, 6vw, 96px);
+}
+/* Linea e pallini condividono lo stesso sistema di coordinate (.story__steps)
+   così restano sempre sullo stesso asse, qualunque sia lo scroll orizzontale. */
+.story__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 3vw, 48px);
+  padding-top: 32px;
+}
+.story__line {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line);
+  border-radius: 2px;
+}
+.story__progress {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(var(--story-p, 0));
+  transform-origin: left;
+  border-radius: 2px;
+}
+.story__step {
+  position: relative;
+}
+.story__step::before {
+  /* -22px = torna sopra il padding-top di .story__steps (32px) fino al centro della linea (16px) */
+  content: "";
+  position: absolute;
+  top: -22px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  transition:
+    background-color 0.4s,
+    border-color 0.4s,
+    box-shadow 0.5s,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.story__step.is-on::before {
+  background: var(--sun);
+  border-color: var(--accent);
+  transform: scale(1.4);
+  box-shadow:
+    0 0 0 6px rgba(252, 218, 24, 0.16),
+    0 0 22px rgba(252, 218, 24, 0.5);
+}
+.story__year {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(44px, 5vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.story__tag {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.story__step p {
+  color: var(--muted);
+  max-width: 32ch;
+}
+.story__closing {
+  margin-top: clamp(64px, 9vw, 130px);
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  max-width: 44ch;
+}
+
+/* ---------- Portfolio — "I nostri progetti" ----------
+   Titolo importante (stessa scala dell'hero/h2, non un eyebrow+h2 piccolo
+   come le altre sezioni), poi le 5 categorie una sotto l'altra in scroll
+   verticale normale — niente più pin/scorrimento orizzontale. Il rail con
+   i pallini che si accendono è lo stesso linguaggio di .story__line e
+   .about__list-line, solo applicato qui (vedi script.js per il ratchet,
+   identico a quello della Storia). */
+/* --inset: il margine sinistro ridotto di tutta la sezione (titolo, rail,
+   citazione finale) — un solo punto, qui, così titolo/rail/citazione
+   restano sempre sullo stesso asse verticale senza doverlo ripetere. */
+.portfolio {
+  position: relative;
+  --bg: #044d8b;
+  --fg: #ffffff;
+  --muted: rgba(255, 255, 255, 0.74);
+  --line: rgba(255, 255, 255, 0.22);
+  --accent: #fcda18;
+  --inset: calc(var(--gutter) * 0.35);
+  background: var(--bg);
+  color: var(--fg);
+}
+.portfolio__head {
+  padding: calc(var(--nav-h) + 48px) var(--gutter) clamp(40px, 6vw, 80px)
+    var(--inset);
+}
+.portfolio__title {
+  font-weight: 400;
+  font-size: clamp(26px, 8vw, 108px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.portfolio__title em {
+  color: var(--accent);
+}
+
+/* --rail: unica fonte per la posizione del pallino, che sia esattamente
+   sulla linea. Il bordo di un elemento position:absolute si misura dal
+   bordo del padding-box dell'antenato, cioè da PRIMA del suo padding-left
+   — per questo .portfolio__line usa esplicitamente left: var(--inset) e
+   non left: 0 (altrimenti ignorerebbe il padding di .portfolio__wrap e si
+   sposterebbe più a sinistra del contenuto). */
+.portfolio__wrap {
+  position: relative;
+  --rail: 28px;
+  padding-left: var(--inset);
+}
+.portfolio__line {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: var(--inset);
+  width: 2px;
+  background: var(--line);
+  border-radius: 2px;
+}
+.portfolio__line-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  border-radius: 2px;
+}
+.portfolio__list {
+  padding-left: var(--rail);
+}
+.portfolio__area {
+  padding: clamp(32px, 5vw, 56px) 0;
+}
+.portfolio__area + .portfolio__area {
+  border-top: 1px solid var(--line);
+}
+/* Il pallino vive sul titolo della categoria, non sull'intera area: così
+   resta centrato sulla sua riga qualunque sia l'altezza della tabella
+   sotto (4 righe o 6), invece di un offset fisso scollegato dal testo. */
+.portfolio__area-title {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 36px);
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(20px, 2.6vw, 32px);
+}
+.portfolio__area-title::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--rail));
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  transform: translate(-5px, -50%);
+  transition:
+    background-color 0.4s,
+    border-color 0.4s,
+    box-shadow 0.5s,
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.portfolio__area.is-on .portfolio__area-title::before {
+  background: var(--sun);
+  border-color: var(--accent);
+  transform: translate(-5px, -50%) scale(1.4);
+  box-shadow:
+    0 0 0 6px rgba(252, 218, 24, 0.16),
+    0 0 22px rgba(252, 218, 24, 0.5);
+}
+.portfolio__area-num {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--accent);
+  font-size: 0.7em;
+}
+
+.portfolio__area-desc {
+  max-width: 62ch;
+  margin-bottom: clamp(24px, 3vw, 36px);
+  color: var(--muted);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.6;
+}
+.portfolio__area-desc p + p {
+  margin-top: 0.85em;
+}
+
+/* table-layout: fixed, con larghezze esplicite sotto: senza, le colonne
+   si ridimensionano in base al testo delle sole righe visibili in quel
+   momento — rivelando altre righe con "Vedi altri progetti" (o scoprendo
+   quelle pescate a caso ad ogni caricamento) le colonne "ballano". */
+.portfolio__table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.portfolio__table th:first-child,
+.portfolio__table td:first-child {
+  width: 40%;
+}
+.portfolio__table th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  padding: 0 16px 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.portfolio__table td {
+  padding: 13px 16px 13px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(14px, 1vw, 16px);
+  transition: color 0.3s;
+}
+.portfolio__table tr:last-child td {
+  border-bottom: 0;
+}
+.portfolio__table td:first-child {
+  font-weight: 500;
+}
+.portfolio__table td:last-child,
+.portfolio__table th:last-child {
+  width: 80px;
+  color: var(--muted);
+}
+.portfolio__table tbody tr {
+  position: relative;
+  transition: background-color 0.3s var(--ease);
+}
+/* color-mix invece di un rgba fisso: la sezione vive sul tema scuro, il
+   tint deve restare leggibile sia su navy che, in futuro, su sfondo chiaro. */
+.portfolio__table tbody tr:hover {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+/* Righe tenute fuori vista finché non si preme "Vedi altri progetti"
+   (script.js sceglie quali, vedi data-fixed/data-random sull'area). */
+.portfolio__table tbody tr.is-more {
+  display: none;
+}
+
+.portfolio__more {
+  margin-top: clamp(20px, 2.6vw, 28px);
+}
+
+/* Link cliente nella tabella progetti: niente più sottolineatura
+   decorativa all'hover (il cambio di sfondo di tbody tr:hover, qui
+   sopra, segnala già l'hover) — l'area cliccabile si estende invece a
+   tutta la riga con questo ::after in position:absolute: il tr è
+   l'unico antenato positioned, quindi "inset: 0" copre l'intera riga
+   (tutte le colonne), non solo il testo del nome cliente. */
+.portfolio__table-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+/* Chiusura della sezione: stesso trattamento dato a .story__closing — una
+   vera chiusura, non un paragrafo in coda. Il grande apice decorativo
+   riprende il linguaggio già usato per i numeri (.portfolio__area-num,
+   .story__year): serif italic, colore accent. Le parole entrano una a
+   una scrollando, come il manifesto in cima alla pagina (stesso
+   meccanismo, splitWords — vedi script.js), non il generico .reveal. */
+.portfolio__end {
+  position: relative;
+  padding-left: var(--inset);
+}
+/* Graffa del logo (assets/img/brace-mask.png), riusata come elemento
+   grafico a destra per bilanciare il grande apice della citazione a
+   sinistra — stessa tecnica di .logo: mask-image + background-color,
+   così prende da sé il colore accent della sezione. Solo da desktop:
+   sotto i 900px la citazione ha già poco respiro, non ci sta bene. */
+.portfolio__brace {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: clamp(24px, 6vw, 110px);
+  width: clamp(44px, 6vw, 84px);
+  aspect-ratio: 95 / 322;
+  transform: translateY(-50%);
+  background-color: var(--accent);
+  -webkit-mask-image: url("../../assets/img/brace-mask.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url("../../assets/img/brace-mask.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  pointer-events: none;
+}
+@media (min-width: 901px) {
+  .portfolio__brace {
+    display: block;
+  }
+}
+
+/* Versione generica della graffa sopra, dimensionata in "em" (segue il
+   font-size di chi la ospita) invece che con misure fisse legate al solo
+   layout del portfolio — pensata per essere riusata come piccolo richiamo
+   di brand (lo stesso "}" del logo "eWeb}") in punti diversi del sito,
+   non solo lì. Vedi .service-cta__brace per la variante più grande,
+   indipendente dal testo, usata nella CTA delle pagine di servizio. */
+.brace {
+  display: inline-block;
+  width: 0.5em;
+  aspect-ratio: 95 / 322;
+  background-color: currentColor;
+  -webkit-mask-image: url("../../assets/img/brace-mask.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url("../../assets/img/brace-mask.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  vertical-align: -0.08em;
+}
+.portfolio__quote {
+  position: relative;
+  max-width: 50ch;
+  padding: clamp(48px, 7vw, 90px) 0 clamp(64px, 9vw, 120px);
+}
+.portfolio__quote::before {
+  content: "“";
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--accent);
+  font-size: clamp(60px, 8vw, 110px);
+  line-height: 1;
+  margin-bottom: -0.2em;
+}
+.portfolio__quote p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(26px, 3.2vw, 46px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.portfolio__quote .w {
+  display: inline-block;
+  opacity: 0.16;
+  will-change: opacity;
+}
+.portfolio__quote footer {
+  margin-top: 22px;
+  font-size: 15px;
+  font-style: normal;
+  color: var(--muted);
+}
+
+/* ---------- CTA finale — testo e form affiancati ---------- */
+/* Sezione contatti: giallo brand pieno, come il resto dei toni eweb.
+   Vars scoperte qui (stesso pattern di .about/.story-section) così il resto
+   del sistema (.btn--solid, ecc.) si adatta da solo senza duplicare regole. */
+.finale {
+  --bg: var(--sun);
+  --fg: var(--ink);
+  --muted: rgba(6, 42, 74, 0.68);
+  --line: rgba(6, 42, 74, 0.32);
+  --accent: var(--navy);
+  --accent-ink: var(--white);
+  --btn: var(--navy);
+  --btn-ink: var(--white);
+  position: relative;
+  padding: clamp(110px, 14vw, 200px) 0;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.finale__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.finale__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+/* Se/quando la foto del team viene aggiunta, questa sfumatura la riporta
+   verso il giallo della sezione invece dello scuro di prima. */
+.finale__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(252, 218, 24, 0.92) 0%,
+    rgba(252, 218, 24, 0.55) 45%,
+    rgba(252, 218, 24, 0.25) 100%
+  );
+}
+.finale__content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(48px, 8vw, 120px);
+  align-items: center;
+}
+.finale__intro .eyebrow {
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+}
+.finale__lead {
+  font-weight: 400;
+  font-size: clamp(32px, 4.4vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.finale__sign {
+  margin-top: clamp(24px, 3vw, 40px);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* Ogni contatto con una piccola etichetta sopra (stesso schema di
+   .about__list-tag: label, poi il valore) invece di tre link nudi in
+   fila — più leggibile, e più in linea con il resto della pagina. */
+.finale__contacts {
+  display: flex;
+  flex-direction: column;
+  margin-top: clamp(32px, 4vw, 48px);
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+}
+.finale__contacts li {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.finale__contacts-label {
+  flex: 0 0 auto;
+  width: 88px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.finale__contacts a {
+  color: var(--fg);
+  font-size: 17px;
+}
+
+.finale__map {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+.finale__map-note {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.finale__map iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+.finale__form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+/* Honeypot: fuori schermo invece di display:none/visibility:hidden — i bot
+   più furbi controllano proprio quelle due proprietà per evitare le trappole
+   più ovvie. */
+.finale__form-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.finale__form .field {
+  position: relative;
+}
+/* :not([type="checkbox"]) — aggiunto quando .finale__form è stato riusato
+   anche per il form newsletter di magazine.php, che ha una checkbox di
+   consenso oltre al campo email: senza l'esclusione, questa regola (prima
+   pensata solo per input testuali) le avrebbe applicato padding/bordo
+   inferiore/larghezza 100%, rompendola visivamente. Il form contatti qui
+   sotto non ha checkbox, quindi nessun cambio di comportamento per lui. */
+.finale__form input:not([type="checkbox"]),
+.finale__form textarea {
+  width: 100%;
+  padding: 14px 0 10px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  font: inherit;
+  font-size: 17px;
+  color: var(--fg);
+  outline: none;
+  resize: none;
+  border-radius: 0;
+  transition: border-color 0.4s;
+}
+.finale__form .field span {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  color: var(--muted);
+  pointer-events: none;
+  transform-origin: left top;
+  transition:
+    transform 0.4s var(--ease),
+    color 0.4s;
+}
+.finale__form input:focus,
+.finale__form textarea:focus {
+  border-color: var(--accent);
+}
+.finale__form input:focus + span,
+.finale__form input:not(:placeholder-shown) + span,
+.finale__form textarea:focus + span,
+.finale__form textarea:not(:placeholder-shown) + span {
+  transform: translateY(-20px) scale(0.8);
+  color: var(--accent);
+}
+.finale__form .field.is-invalid input,
+.finale__form .field.is-invalid textarea {
+  border-color: #c0392b;
+}
+.finale__form-foot {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.finale__form .form__status {
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 1.4em;
+}
+.finale__form .form__status.is-ok {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Checkbox di consenso (form newsletter di magazine.php) — non è un
+   .field: niente floating label, è una riga normale checkbox+testo.
+   accent-color invece di un checkbox custom disegnato a mano: nativo,
+   accessibile per default, colorato nel giallo del brand. */
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  cursor: pointer;
+}
+.form-consent input {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  accent-color: var(--accent);
+}
+.form-consent.is-invalid {
+  color: #c0392b;
+}
+.magazine-form {
+  margin-top: 40px;
+  max-width: 480px;
+}
+
+.finale__closing {
+  margin-top: clamp(70px, 9vw, 130px);
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+  font-size: clamp(34px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+.finale__closing em {
+  color: var(--accent);
+}
+
+/* ---------- Pagina interna (servizi) ----------
+   Prima pagina di un secondo "tipo" oltre alla home (finora l'unica
+   esistente): niente .hero qui, apposta — quella classe porta con sé il
+   video, il pin a tutta altezza e lo zoom pensati per l'intro cinematica
+   della home, che su una pagina di contenuto sarebbe solo scroll-jacking
+   di troppo. .service-hero riusa lo stesso impianto tipografico
+   (eyebrow/h2/body-l, stesso padding-top "sotto la nav" di .hero) ma senza
+   video né pin. Le sezioni sotto seguono la stessa convenzione di
+   .about/.story-section: variabili di tema proprie (non quelle globali del
+   body), per non "sporcare" il colore delle sezioni vicine durante lo
+   switch a scroll. */
+.service-hero {
+  padding: calc(var(--nav-h) + 56px) 0 clamp(56px, 8vw, 100px);
+  background: var(--navy);
+  color: var(--white);
+}
+/* Due colonne da 901px in su (titolo grande a sinistra, lead+bottone
+   allineati in basso a destra — si legge come un sommario, non tutto
+   impilato alla stessa importanza); sotto, una colonna sola (stesso
+   breakpoint di .about__split/.service-section__grid). Allargato a
+   1180px (era 900px): qui dentro è soprattutto il titolo ad
+   approfittarne, il lead resta leggibile da solo (il suo tetto è già
+   52ch via .body-l). */
+.service-hero__head {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  align-items: end;
+  gap: clamp(28px, 4vw, 64px);
+  max-width: 1180px;
+}
+.service-hero__title-col {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.service-hero__side {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  /* Un filo sotto la base del titolo, non a filo: altrimenti con poche
+     righe di lead la colonna sembra "cadere" più in basso del titolo. */
+  padding-bottom: 6px;
+}
+.service-hero__title {
+  /* Più grande della generica .h2 (34-70px): questa è la prima cosa che si
+     legge sulla pagina, deve pesare come un titolo da apertura — a metà
+     strada tra .h2 e il titolo hero della home (che qui resta escluso,
+     vedi sopra, insieme a tutto il resto di .hero). */
+  font-weight: 400;
+  font-size: clamp(38px, 5.6vw, 92px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.service-hero__title em {
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+.service-hero__lead {
+  margin: 0;
+}
+/* Stesso meccanismo "si legge mentre si scorre" di .manifesto .w — qui
+   sulla lead della hero invece che su un paragrafo a sé, per portare un
+   po' dell'animazione sui testi già usata in home anche nella testata
+   delle pagine di servizio (vedi inc/service-hero.php). */
+.service-hero__lead .w {
+  display: inline-block;
+  opacity: 0.16;
+  will-change: opacity;
+}
+.service-hero__actions {
+  margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+  .service-hero__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 28px;
+  }
+}
+
+.service-section {
+  padding: clamp(70px, 9vw, 130px) 0;
+}
+.service-section--light {
+  --bg: #fafbfc;
+  --fg: #062a4a;
+  --muted: rgba(6, 42, 74, 0.68);
+  --line: rgba(6, 42, 74, 0.14);
+  --accent: #189edc;
+  background: var(--bg);
+  color: var(--fg);
+}
+.service-section--dark {
+  --bg: var(--navy);
+  --fg: var(--white);
+  --muted: rgba(255, 255, 255, 0.74);
+  --line: rgba(255, 255, 255, 0.22);
+  --accent: var(--sun);
+  background: var(--bg);
+  color: var(--fg);
+}
+/* Titolo a sinistra, graffa del logo ("eWeb}", vedi .brace sopra) a
+   destra — non più solo il titolo da solo. Nascosta sotto i 701px: lì la
+   colonna di testo occupa già tutta la larghezza, non c'è spazio per un
+   secondo elemento accanto. */
+.service-section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.service-section__head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 720px;
+}
+.service-section__head-brace {
+  flex: none;
+  width: clamp(28px, 3vw, 40px);
+}
+@media (max-width: 700px) {
+  .service-section__head-brace {
+    display: none;
+  }
+}
+.service-section__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+}
+.service-section__item h3 {
+  font-size: clamp(19px, 2.1vw, 23px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.service-section__item p {
+  color: var(--muted);
+  max-width: 44ch;
+}
+
+/* "Altre pagine della categoria" (inc/related.php): righe con bordo, non
+   card — stesso spirito sobrio del resto delle pagine di servizio.
+   Numero + titolo + teaser (una riga corta, dal campo "teaser" in
+   inc/config.php) invece del solo titolo: dà più peso alla sezione senza
+   introdurre un componente nuovo (stesso linguaggio dei numeri "01/02"
+   già usati nel menu). */
+.service-related__list {
+  border-top: 1px solid var(--line);
+}
+.service-related__link {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  padding: clamp(24px, 3.2vw, 36px) 0;
+  border-bottom: 1px solid var(--line);
+}
+.service-related__link-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--accent);
+  flex: none;
+}
+.service-related__link-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.service-related__link-text {
+  font-size: clamp(19px, 2.4vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.service-related__link-teaser {
+  font-size: 15px;
+  color: var(--muted);
+}
+.service-related__link .btn__arrow {
+  flex: none;
+  transition: transform 0.5s var(--ease);
+}
+.service-related__link:hover .btn__arrow {
+  transform: translateX(6px);
+}
+
+@media (max-width: 560px) {
+  .service-related__link-teaser {
+    display: none;
+  }
+}
+
+/* CTA finale di pagina: rimanda al form unico, in home (#contatti) — non
+   ne duplica uno per ognuna delle pagine di servizio. */
+.service-cta {
+  padding: clamp(64px, 8vw, 110px) 0;
+  background: var(--navy);
+  color: var(--white);
+  text-align: center;
+}
+/* Variante gialla: la CTA finale di OGNI pagina di servizio è gialla, non
+   un'eccezione di una pagina sola (decisione del cliente). Testo in navy
+   (il bianco non regge sul giallo); l'accento <em> resta nello stesso navy
+   del resto, distinto solo dal corsivo. Da usare sempre insieme a
+   data-theme="light" sulla sezione: fa sì che il bottone solido e l'icona
+   della nav restino coerenti (il bottone diventa navy/bianco invece di
+   giallo/navy — su questo sfondo un bottone giallo sparirebbe). */
+.service-cta--yellow {
+  background: var(--sun);
+  color: var(--navy);
+}
+/* Niente bianco qui: l'<em> resta nello stesso navy del resto della
+   frase, distinto solo dal corsivo (il bianco su giallo era poco
+   leggibile). */
+.service-cta--yellow .service-cta__line em {
+  color: inherit;
+}
+.service-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.service-cta__line {
+  font-weight: 400;
+  font-size: clamp(28px, 4.2vw, 52px);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+.service-cta__line em {
+  color: var(--sun);
+}
+/* Stesso meccanismo "si legge mentre si scorre" di .manifesto .w (vedi
+   sopra): qui lo stile di partenza è lo stesso (opacità bassa, poi le
+   parole si accendono una a una via script.js, [data-words], generico). */
+.service-cta__line .w {
+  display: inline-block;
+  opacity: 0.16;
+  will-change: opacity;
+}
+.service-cta__actions {
+  display: flex;
+  gap: 16px;
+}
+/* Piccola firma sotto i bottoni: stesso "}" della graffa del portfolio
+   (vedi .portfolio__brace/.brace sopra), qui a dimensione propria invece
+   che legata al testo — un richiamo ricorrente al logo "eWeb}", non solo
+   nella home. */
+.service-cta__brace {
+  display: block;
+  width: clamp(26px, 3.4vw, 40px);
+  margin: 28px auto 0;
+}
+
+@media (max-width: 900px) {
+  .service-section__grid {
+    grid-template-columns: 1fr;
+  }
+  .service-cta__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .service-cta__actions .btn {
+    justify-content: center;
+  }
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 52px 0;
+  background: var(--navy);
+  color: var(--white);
+}
+.footer__inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+.footer__cols {
+  display: flex;
+  gap: clamp(32px, 6vw, 96px);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.78);
+}
+.footer__legal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.footer__top {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 20px;
+  transition:
+    background-color 0.4s,
+    color 0.4s,
+    border-color 0.4s;
+}
+.footer__top:hover {
+  background: var(--sun);
+  border-color: var(--sun);
+  color: var(--navy);
+}
+
+/* ---------- Cookie banner ----------
+   Colori propri (non le var di tema: vive fuori da qualunque sezione,
+   come .vmodal) — navy/bianco come loader e menu, stesso linguaggio dei
+   pannelli "di sistema" del sito. */
+.cookie-banner {
+  position: fixed;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 950;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.4s var(--ease);
+}
+.cookie-banner[hidden] {
+  display: flex;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+.cookie-banner p {
+  flex: 1 1 320px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+.cookie-banner .link {
+  color: var(--white);
+  margin-left: 4px;
+}
+.cookie-banner__actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.cookie-banner .btn {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+.cookie-banner .btn--solid {
+  background: var(--sun);
+  color: var(--navy);
+}
+.cookie-banner .btn--solid::before {
+  background: var(--white);
+}
+
+/* ---------- Reveal helpers (JS-driven) ---------- */
+.reveal-lines .rl {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.reveal-lines .rl > span {
+  display: inline-block;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 900px) {
+  :root {
+    --nav-h: 68px;
+  }
+
+  .hero__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .hero__actions {
+    width: 100%;
+  }
+  .hero__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .hero__meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .claim-band__inner {
+    flex-direction: column;
+  }
+  .claim-band__desc {
+    max-width: none;
+  }
+
+  .pitch-panel {
+    transform-origin: top left;
+  }
+
+  .about__split {
+    grid-template-columns: 1fr;
+  }
+  .about__intro {
+    position: static;
+  }
+  /* La linea e i pallini sono pensati per una riga sola di 4 colonne
+     (vedi i commenti sopra): a 2x2 la riga restava sopra solo le prime
+     due card, scollegata dai pallini della seconda riga. Sotto i 900px
+     passiamo quindi a una timeline verticale, 1 colonna, con linea e
+     pallini a sinistra — stesso linguaggio di .about__list-line. */
+  .story__steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 0;
+    padding-left: 28px;
+  }
+  .story__line {
+    top: 6px;
+    bottom: 6px;
+    left: 0;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .story__progress {
+    transform: scaleY(var(--story-p, 0));
+    transform-origin: top;
+  }
+  .story__step {
+    padding: clamp(20px, 2.6vw, 32px) 0;
+  }
+  .story__step::before {
+    top: 50%;
+    left: -28px;
+    transform: translate(-5px, -50%);
+  }
+  .story__step.is-on::before {
+    transform: translate(-5px, -50%) scale(1.4);
+  }
+
+  .portfolio__wrap {
+    --rail: 22px;
+  }
+  .portfolio__table td,
+  .portfolio__table th {
+    padding-right: 8px;
+  }
+  .finale__content {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .footer__inner {
+    flex-direction: column;
+  }
+  .footer__cols {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .story__steps {
+    grid-template-columns: 1fr;
+  }
+  .portfolio__table td:last-child,
+  .portfolio__table th:last-child {
+    width: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .manifesto .w {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,162 @@
+# / deve servire index.php (il form posta ancora su "invia", gestito
+# dalla regola di riscrittura qui sotto).
+DirectoryIndex index.php index.html
+
+RewriteEngine On
+
+# Il sito vive per ora in una sottocartella di sviluppo
+# (dev.ewebsolution.it/new-site/versione-8/), non alla radice del dominio —
+# e potrebbe spostarsi. Tutte le regole qui sotto ricostruiscono il
+# percorso completo da %{THE_REQUEST}/%{REQUEST_URI} invece di scriverlo a
+# mano: funzionano così a qualunque profondità, senza dover tenere una
+# "base" sincronizzata qui (provato: lasciare che mod_rewrite la indovini
+# da sé, con sostituzioni relative senza "/" iniziale, può sbagliare — in
+# test un redirect è finito sul percorso del disco invece che sull'URL).
+# L'unico punto equivalente lato PHP è BASE_URL in inc/config.php.
+
+# Chi chiede esplicitamente .php viene rimandato all'URL senza estensione
+# (es. /invia.php -> /invia) — un URL solo per pagina, niente doppioni
+# indicizzabili. Solo sulle GET: una 301 su una POST (il form contatti,
+# che posta su "invia") rischia di arrivare come GET dall'altra parte.
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{THE_REQUEST} \s/+(.*)index\.php[?\s]
+RewriteRule ^index\.php$ /%1 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{THE_REQUEST} \s/+([^?\s]+)\.php[?\s]
+RewriteCond %1 !^index$
+RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+RewriteRule ^ /%1 [R=301,L]
+
+# Le pagine interne (es. /consulenza-web-marketing/) erano indicizzate dal
+# vecchio sito con lo slash finale. Qui ogni pagina è un file piatto senza
+# slash (vedi sopra), quindi quell'URL darebbe 404: lo riportiamo con un
+# 301 alla stessa pagina pulita, per non perdere il posizionamento già
+# acquisito su quegli indirizzi. Generica: vale per ogni pagina che aggiungiamo,
+# non solo per questa. Esclude le vere cartelle (!-d) e il caso "/" (home).
+# Sostituzione "/%1" (il backreference della RewriteCond su REQUEST_URI,
+# che è già il percorso assoluto completo) e non "$1"/"/$1" (quelli della
+# RewriteRule, relativi alla cartella di questo .htaccess): così funziona a
+# qualunque profondità senza bisogno di indovinare nulla.
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+RewriteRule ^(.+)/$ /%1 [R=301,L]
+
+# Stessa cosa, ma per le pagine organizzate in pages/<categoria>/ sul
+# disco (vedi sotto): il file non è più alla radice, quindi la regola
+# sopra non lo trova e non scatta — questa controlla lì. Un blocco di 4
+# righe per ogni cartella di categoria dentro pages/ (oggi "consulenza-
+# strategica", "web-site", "software-web", "google-motori-ricerca",
+# "ecommerce", "social", "email-marketing" e "content"); l'URL pubblico
+# resta piatto in entrambi i casi, cambia solo dove viene cercato il file.
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/consulenza-strategica/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/web-site/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/software-web/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/google-motori-ricerca/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/ecommerce/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/social/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/email-marketing/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/content/%2.php -f
+RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
+
+# L'URL senza estensione, se esiste il .php corrispondente, lo serve
+# internamente — l'utente/il browser continuano a vedere l'URL pulito.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^.]+)$ $1.php [L]
+
+# Stessa cosa per le pagine dentro pages/<categoria>/: se il file piatto
+# sopra non esiste (perché è qui dentro), lo cerca nella cartella prima di
+# arrendersi. Sostituzione relativa ("pages/cartella/$1.php", non
+# "/pages/cartella/$1.php"): risolta da Apache rispetto alla cartella di
+# questo stesso .htaccess, quindi funziona a qualunque profondità il sito
+# sia servito (vedi commento più sopra sulle sostituzioni assolute vs
+# relative). Una coppia di condizione+regola per ogni cartella di categoria.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/consulenza-strategica/%2.php -f
+RewriteRule ^([^.]+)$ pages/consulenza-strategica/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/web-site/%2.php -f
+RewriteRule ^([^.]+)$ pages/web-site/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/software-web/%2.php -f
+RewriteRule ^([^.]+)$ pages/software-web/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/google-motori-ricerca/%2.php -f
+RewriteRule ^([^.]+)$ pages/google-motori-ricerca/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/ecommerce/%2.php -f
+RewriteRule ^([^.]+)$ pages/ecommerce/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/social/%2.php -f
+RewriteRule ^([^.]+)$ pages/social/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/email-marketing/%2.php -f
+RewriteRule ^([^.]+)$ pages/email-marketing/$1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/pages/content/%2.php -f
+RewriteRule ^([^.]+)$ pages/content/$1.php [L]

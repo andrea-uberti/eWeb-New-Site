@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eWeb — Consulenti operativi per il digitale | Bergamo</title>
+  <meta name="description" content="eWeb è una squadra di consulenti operativi a Bergamo dal 2016. Lead generation, software su misura, e-commerce, siti e visibilità su Google e sulle AI. Ascoltiamo, analizziamo, realizziamo. Insieme.">
+  <meta name="theme-color" content="#044d8b">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#top" class="header__logo" aria-label="eWeb — torna all'inizio">
+        <!-- SOSTITUIRE con l'SVG del nuovo logo -->
+        <span class="logo">eweb<i>.</i></span>
+      </a>
+
+      <nav class="header__nav" aria-label="Navigazione principale">
+        <a href="#chi-siamo">Chi siamo</a>
+        <a href="#servizi">Servizi</a>
+        <a href="#progetti">Progetti</a>
+        <a href="#risultati">Risultati</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+
+      <div class="header__actions">
+        <a href="tel:+390350085044" class="header__phone">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          035 00 85 044
+        </a>
+        <a href="#contatti" class="btn btn--sun btn--sm">Richiedi una consulenza</a>
+        <button class="header__burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav>
+        <a href="#chi-siamo">Chi siamo</a>
+        <a href="#servizi">Servizi</a>
+        <a href="#progetti">Progetti</a>
+        <a href="#risultati">Risultati</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+      <a href="tel:+390350085044" class="btn btn--sun">Chiamaci: 035 00 85 044</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__media" aria-hidden="true">
+        <!-- VIDEO AGENZIA: loop muto di sfondo, 1920x1080, 20-40s, <10MB.
+             PROVVISORIO: video stock Mixkit come segnaposto, da sostituire mantenendo lo stesso nome file. -->
+        <video class="hero__video" autoplay muted loop playsinline preload="auto">
+          <source src="assets/video/hero-loop.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <span class="pill pill--glass" data-reveal>
+            <span class="pill__dot"></span> Consulenti operativi a Bergamo, dal 2016
+          </span>
+
+          <h1 class="hero__title" data-reveal>
+            Ragioniamo con te.<br>
+            Poi ci sporchiamo <span class="hl-sun">le mani.</span>
+          </h1>
+
+          <p class="hero__lead" data-reveal>
+            Lead generation, software su misura, e-commerce, siti e visibilità.
+            Un’analisi vera, un progetto su misura e una squadra che lo porta a terra.
+            Tra persone, in carne ed ossa.
+          </p>
+
+          <div class="hero__ctas" data-reveal>
+            <a href="#contatti" class="btn btn--sun">Raccontaci il tuo progetto <span aria-hidden="true">→</span></a>
+            <button class="btn btn--glass" data-video-open>
+              <span class="play" aria-hidden="true"></span> Guarda il video
+            </button>
+          </div>
+        </div>
+
+        <ul class="hero__trust" data-reveal>
+          <li><strong>Google Partner</strong><span>Agenzia certificata</span></li>
+          <li><strong>26+</strong><span>Aziende che ci hanno scelto</span></li>
+          <li><strong>5</strong><span>Aree di competenza</span></li>
+          <li><strong>1.000+</strong><span>Contatti al mese generati</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ VALORI (overlap) ============ -->
+    <section class="values">
+      <div class="container">
+        <div class="values__grid">
+          <article class="value" data-reveal>
+            <span class="value__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2A4.5 4.5 0 0 1 21 18.5"/></svg>
+            </span>
+            <h3>Persone reali</h3>
+            <p>Non intelligenze artificiali infallibili: splendidi umani, pieni di doti e difetti, sempre vicini al cliente.</p>
+          </article>
+          <article class="value" data-reveal>
+            <span class="value__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>
+            </span>
+            <h3>Consulenza vera</h3>
+            <p>Anni di esperienza per analizzare ogni questione e trovare la soluzione migliore. Su misura per ogni obiettivo.</p>
+          </article>
+          <article class="value" data-reveal>
+            <span class="value__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5l4 4L9 19H5v-4z"/><path d="M12.5 7.5l4 4"/></svg>
+            </span>
+            <h3>Mani in pasta</h3>
+            <p>Oltre a parlare, facciamo. Con le nostre forze e con un team di collaboratori preparati, fino al risultato.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHI SIAMO ============ -->
+    <section class="about section" id="chi-siamo">
+      <div class="container about__grid">
+        <div class="about__visual" data-reveal>
+          <!-- SOSTITUIRE con una foto del team: <img src="assets/img/team.jpg" alt="Il team eWeb"> -->
+          <div class="about__photo">
+            <span>Foto del team</span>
+          </div>
+          <div class="about__badge">
+            <strong>Dal 2016</strong>
+            <span>a fianco delle aziende.<br>E la strada inizia molto prima.</span>
+          </div>
+        </div>
+
+        <div class="about__text">
+          <span class="eyebrow" data-reveal>Chi siamo</span>
+          <h2 class="h2" data-reveal>In eWeb lavorano <span class="hl">persone reali.</span></h2>
+          <p class="lead" data-reveal>
+            Saremo alla vecchia, ma preferiamo stare noi vicino al cliente piuttosto che darlo in pasto a prompt digitali che “lavorano per noi”.
+          </p>
+          <p data-reveal>
+            Ascoltiamo i progetti dei clienti, oppure le loro idee. Diamo una consulenza vera, basata su anni di esperienza — tanti, per essere precisi.
+            Ragioniamo sulle opportunità e sulle criticità, proponiamo un progetto e poi lo concretizziamo. Insieme.
+          </p>
+
+          <ol class="steps" data-reveal>
+            <li><span>1</span><div><strong>Ascoltiamo</strong>Un progetto definito o solo un’idea.</div></li>
+            <li><span>2</span><div><strong>Analizziamo</strong>Opportunità e criticità, con onestà.</div></li>
+            <li><span>3</span><div><strong>Proponiamo</strong>Un progetto chiaro e misurabile.</div></li>
+            <li><span>4</span><div><strong>Realizziamo</strong>Con il nostro team, fino al risultato.</div></li>
+          </ol>
+
+          <a href="#contatti" class="btn btn--navy" data-reveal>Parliamo del tuo progetto <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <!-- Storia -->
+      <div class="container">
+        <div class="timeline">
+          <article class="timeline__item" data-reveal>
+            <span class="timeline__year">Prima del 2016</span>
+            <h3>Le radici</h3>
+            <p>Anni di progetti ed esperienze sul campo: un bagaglio costruito davvero, in concreto.</p>
+          </article>
+          <article class="timeline__item" data-reveal>
+            <span class="timeline__year">2016</span>
+            <h3>Nasce eWeb</h3>
+            <p>A Bergamo, coscienti dei nostri difetti e convinti di ciò che abbiamo sperimentato.</p>
+          </article>
+          <article class="timeline__item" data-reveal>
+            <span class="timeline__year">Oggi</span>
+            <h3>Clienti che restano</h3>
+            <p>Aziende che da anni ci confermano la loro fiducia. E noi ci mettiamo l’anima per ripagarla.</p>
+          </article>
+          <article class="timeline__item" data-reveal>
+            <span class="timeline__year">Domani</span>
+            <h3>Sempre avanti</h3>
+            <p>Tutto si muove, cresce e cambia. Noi continuiamo a evolvere e migliorarci.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVIZI ============ -->
+    <section class="services section section--tint" id="servizi">
+      <div class="container">
+        <header class="section__head section__head--center">
+          <span class="eyebrow" data-reveal>Cosa facciamo</span>
+          <h2 class="h2" data-reveal>Cinque aree, <span class="hl">una sola squadra.</span></h2>
+          <p class="lead" data-reveal>Non abbiamo soluzioni per tutto: abbiamo il metodo per trovare quella giusta. E poi la realizziamo.</p>
+        </header>
+
+        <div class="services__grid">
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.8"/></svg></span>
+            <h3>Lead generation</h3>
+            <p>Branding e promozione finalizzati a portarti contatti. Lo dicono i numeri dei report, e i clienti lo vedono nei loro obiettivi raggiunti.</p>
+            <button class="service__link" data-filter-go="lead">Vedi i progetti <span aria-hidden="true">→</span></button>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16"/></svg></span>
+            <h3>Software su misura</h3>
+            <p>Progettati a quattro mani con te e poi scritti da noi. Funzionano come li hai pensati, senza licenze né imposizioni, e crescono con l’azienda.</p>
+            <button class="service__link" data-filter-go="software">Vedi i progetti <span aria-hidden="true">→</span></button>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span>
+            <h3>E-commerce che vendono</h3>
+            <p>Piattaforme realizzate e gestite da noi, ma di tua proprietà, che generano vendite costanti: vere, misurabili e controllabili. In Italia e all’estero.</p>
+            <button class="service__link" data-filter-go="ecommerce">Vedi i progetti <span aria-hidden="true">→</span></button>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 9h18M6.5 6.8h.01M9 6.8h.01"/></svg></span>
+            <h3>Siti e portali che parlano</h3>
+            <p>Non basta avere un sito: conta cosa c’è dentro. I contenuti li creiamo noi, perché tu fai un altro mestiere. Tocca a noi raccontarlo, al meglio.</p>
+            <button class="service__link" data-filter-go="siti">Vedi i progetti <span aria-hidden="true">→</span></button>
+          </article>
+          <article class="service" data-reveal>
+            <span class="service__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></svg></span>
+            <h3>Visibilità everywhere</h3>
+            <p>Su Google e su tutte le fonti di ricerca, comprese le AI come Gemini, ChatGPT e Perplexity. Chi ti cerca ti trova: visite, richieste, contatti.</p>
+            <button class="service__link" data-filter-go="visibilita">Vedi i progetti <span aria-hidden="true">→</span></button>
+          </article>
+          <article class="service service--cta" data-reveal>
+            <h3>Non sai da dove partire?</h3>
+            <p>Raccontaci la tua idea o il tuo problema. Uno di noi ti ascolta, ragiona con te e ti propone una strada.</p>
+            <a href="#contatti" class="btn btn--sun">Parliamone <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROGETTI ============ -->
+    <section class="work section" id="progetti">
+      <div class="container">
+        <header class="section__head section__head--split">
+          <div>
+            <span class="eyebrow" data-reveal>Progetti</span>
+            <h2 class="h2" data-reveal>Lo diciamo noi, <span class="hl">lo confermano i progetti.</span></h2>
+          </div>
+          <p class="lead" data-reveal>Il nostro portfolio è vecchio ogni settimana che passa. Perché tutto si muove, cresce e cambia.</p>
+        </header>
+
+        <div class="filters" role="tablist" aria-label="Filtra i progetti" data-reveal>
+          <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Tutti</button>
+          <button class="filter" data-filter="lead" role="tab" aria-selected="false">Lead generation</button>
+          <button class="filter" data-filter="software" role="tab" aria-selected="false">Software</button>
+          <button class="filter" data-filter="ecommerce" role="tab" aria-selected="false">E-commerce</button>
+          <button class="filter" data-filter="siti" role="tab" aria-selected="false">Siti e portali</button>
+          <button class="filter" data-filter="visibilita" role="tab" aria-selected="false">Visibilità</button>
+        </div>
+
+        <!-- Con le foto: <img class="card__img" src="assets/img/progetti/nome.jpg" alt=""> dentro .card__media (formato 3:2) -->
+        <div class="work__grid">
+          <a href="#" class="card" data-cat="lead"><div class="card__media"><span>AR</span></div><div class="card__body"><span class="tag">Lead generation</span><h3>AR Automotive</h3></div></a>
+          <a href="#" class="card" data-cat="software"><div class="card__media"><span>SG</span></div><div class="card__body"><span class="tag">Software su misura</span><h3>Sangalli</h3></div></a>
+          <a href="#" class="card" data-cat="ecommerce"><div class="card__media"><span>GZ</span></div><div class="card__body"><span class="tag">E-commerce</span><h3>Gazzera</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>MC</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>Monza Calcio</h3></div></a>
+          <a href="#" class="card" data-cat="visibilita"><div class="card__media"><span>GL</span></div><div class="card__body"><span class="tag">Visibilità</span><h3>Gamba Logistica</h3></div></a>
+          <a href="#" class="card" data-cat="lead software"><div class="card__media"><span>TS</span></div><div class="card__body"><span class="tag">Lead generation · Software</span><h3>Tecnosystem</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>LZ</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>Lozza SpA</h3></div></a>
+          <a href="#" class="card" data-cat="software"><div class="card__media"><span>CS</span></div><div class="card__body"><span class="tag">Software su misura</span><h3>CISL Brescia</h3></div></a>
+          <a href="#" class="card" data-cat="ecommerce"><div class="card__media"><span>LB</span></div><div class="card__body"><span class="tag">E-commerce</span><h3>Legend Bikers</h3></div></a>
+          <a href="#" class="card" data-cat="lead"><div class="card__media"><span>NY</span></div><div class="card__body"><span class="tag">Lead generation</span><h3>Neyen</h3></div></a>
+          <a href="#" class="card" data-cat="visibilita"><div class="card__media"><span>FR</span></div><div class="card__body"><span class="tag">Visibilità</span><h3>Franchini</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>FF</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>Fondazione Flander</h3></div></a>
+          <a href="#" class="card" data-cat="software"><div class="card__media"><span>FD</span></div><div class="card__body"><span class="tag">Software su misura</span><h3>Freedom</h3></div></a>
+          <a href="#" class="card" data-cat="ecommerce"><div class="card__media"><span>PS</span></div><div class="card__body"><span class="tag">E-commerce</span><h3>Paca Shop</h3></div></a>
+          <a href="#" class="card" data-cat="lead"><div class="card__media"><span>AL</span></div><div class="card__body"><span class="tag">Lead generation</span><h3>Accaelle</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>CT</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>City Stone</h3></div></a>
+          <a href="#" class="card" data-cat="visibilita"><div class="card__media"><span>CO</span></div><div class="card__body"><span class="tag">Visibilità</span><h3>Corti</h3></div></a>
+          <a href="#" class="card" data-cat="software"><div class="card__media"><span>JM</span></div><div class="card__body"><span class="tag">Software su misura</span><h3>JM Fit</h3></div></a>
+          <a href="#" class="card" data-cat="ecommerce"><div class="card__media"><span>VZ</span></div><div class="card__body"><span class="tag">E-commerce</span><h3>Verzeroli</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>FB</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>Free Bikers</h3></div></a>
+          <a href="#" class="card" data-cat="visibilita"><div class="card__media"><span>ST</span></div><div class="card__body"><span class="tag">Visibilità</span><h3>Safe Trucks</h3></div></a>
+          <a href="#" class="card" data-cat="software"><div class="card__media"><span>CR</span></div><div class="card__body"><span class="tag">Software su misura</span><h3>Ceress</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>LT</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>LTa</h3></div></a>
+          <a href="#" class="card" data-cat="software"><div class="card__media"><span>KX</span></div><div class="card__body"><span class="tag">Software su misura</span><h3>KNX</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>PT</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>Pontoglio</h3></div></a>
+          <a href="#" class="card" data-cat="siti"><div class="card__media"><span>SF</span></div><div class="card__body"><span class="tag">Siti e portali</span><h3>SALF</h3></div></a>
+        </div>
+
+        <div class="work__more">
+          <button class="btn btn--outline" data-more>Mostra tutti i progetti</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RISULTATI / AUTHORITY ============ -->
+    <section class="results" id="risultati">
+      <div class="container">
+        <div class="stats">
+          <div class="stat" data-reveal><strong><span data-count="2016" data-from="2000">2016</span></strong><span>Anno di fondazione</span></div>
+          <div class="stat" data-reveal><strong><span data-count="26">26</span>+</strong><span>Aziende nel portfolio</span></div>
+          <div class="stat" data-reveal><strong><span data-count="5">5</span></strong><span>Aree di competenza</span></div>
+          <div class="stat" data-reveal><strong><span data-count="1000" data-format="it">1.000</span>+</strong><span>Contatti al mese per i clienti</span></div>
+        </div>
+
+        <div class="results__grid">
+          <figure class="quote" data-reveal>
+            <svg class="quote__mark" viewBox="0 0 48 36" aria-hidden="true"><path d="M0 36V20C0 8 7 1 19 0l2 6c-7 2-10 6-10 12h9v18zm27 0V20C27 8 34 1 46 0l2 6c-7 2-10 6-10 12h9v18z"/></svg>
+            <blockquote>Abbiamo il piacere e l’onore di stare a fianco di aziende che da anni confermano la loro fiducia in ciò che facciamo per loro. E noi ci mettiamo sempre l’anima per ripagarle.</blockquote>
+            <figcaption>Il team eWeb</figcaption>
+          </figure>
+
+          <div class="badges">
+            <div class="badge" data-reveal>
+              <span class="badge__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span>
+              <div><strong>Google Partner</strong><span>Agenzia certificata Google</span></div>
+            </div>
+            <div class="badge" data-reveal>
+              <span class="badge__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></svg></span>
+              <div><strong>Visibili everywhere</strong><span>Google, Gemini, ChatGPT, Perplexity</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="clients">
+          <p class="clients__title" data-reveal>Alcune delle aziende che ci hanno scelto</p>
+          <!-- SOSTITUIRE i nomi con i loghi (SVG/PNG monocromatici) -->
+          <ul class="clients__grid" data-reveal>
+            <li>AR Automotive</li><li>Tecnosystem</li><li>Monza Calcio</li><li>Lozza SpA</li><li>Gazzera</li><li>CISL Brescia</li>
+            <li>Sangalli</li><li>Legend Bikers</li><li>Fondazione Flander</li><li>Gamba Logistica</li><li>Franchini</li><li>Safe Trucks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta">
+      <div class="container cta__inner">
+        <div data-reveal>
+          <h2 class="h2">Hai un’idea? Una necessità? Un problema?</h2>
+          <p>Chiamaci: uno di noi sarà sempre ben lieto di ascoltarti. Ragionare, analizzare e trovare una soluzione. Insieme.</p>
+        </div>
+        <div class="cta__actions" data-reveal>
+          <a href="tel:+390350085044" class="btn btn--navy btn--lg">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            035 00 85 044
+          </a>
+          <a href="#contatti" class="cta__link">oppure scrivici →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTATTI ============ -->
+    <section class="contact section" id="contatti">
+      <div class="container contact__grid">
+        <div class="contact__info">
+          <span class="eyebrow" data-reveal>Contatti</span>
+          <h2 class="h2" data-reveal>Parliamone, <span class="hl">tra persone.</span></h2>
+          <p class="lead" data-reveal>Raccontaci di cosa hai bisogno: ti risponde una persona del team, non un bot.</p>
+
+          <ul class="contact__list" data-reveal>
+            <li>
+              <span class="contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+              <div><span>Telefono</span><a href="tel:+390350085044">+39 035 00 85 044</a></div>
+            </li>
+            <li>
+              <span class="contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/></svg></span>
+              <div><span>Email</span><a href="mailto:info@ewebsolution.it">info@ewebsolution.it</a></div>
+            </li>
+            <li>
+              <span class="contact__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+              <div><span>Sede</span><a href="https://www.google.com/maps/search/?api=1&query=Via+Broseta+101G+Bergamo" target="_blank" rel="noopener">Via Broseta, 101G — 24128 Bergamo (BG)</a></div>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form" novalidate data-reveal>
+          <h3 class="form__title">Scrivici</h3>
+          <div class="form__row">
+            <label class="field"><span>Nome e cognome *</span><input type="text" name="nome" required autocomplete="name"></label>
+            <label class="field"><span>Azienda</span><input type="text" name="azienda" autocomplete="organization"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Email *</span><input type="email" name="email" required autocomplete="email"></label>
+            <label class="field"><span>Telefono</span><input type="tel" name="telefono" autocomplete="tel"></label>
+          </div>
+          <label class="field"><span>Di cosa hai bisogno?</span>
+            <select name="servizio">
+              <option value="">Seleziona un’area</option>
+              <option>Lead generation</option>
+              <option>Software su misura</option>
+              <option>E-commerce</option>
+              <option>Sito o portale</option>
+              <option>Visibilità su Google e AI</option>
+              <option>Non lo so ancora</option>
+            </select>
+          </label>
+          <label class="field"><span>Messaggio *</span><textarea name="messaggio" rows="4" required placeholder="Raccontaci la tua idea, la tua necessità o il tuo problema"></textarea></label>
+          <label class="check"><input type="checkbox" name="privacy" required><span>Ho letto e accetto l’<a href="#">informativa privacy</a> *</span></label>
+          <button type="submit" class="btn btn--navy btn--block">Invia la richiesta</button>
+          <p class="form__status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <span class="logo">eweb<i>.</i></span>
+        <p>Consulenti operativi per il digitale. Tra persone, pensanti, in carne ed ossa.</p>
+        <ul class="footer__social">
+          <li><a href="https://www.linkedin.com/company/eweb-web-tailor-design-and-marketing/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a></li>
+          <li><a href="https://www.instagram.com/eweb_srl/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5v.01"/></svg></a></li>
+          <li><a href="https://www.facebook.com/ewebsrl/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8z"/></svg></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigazione</h4>
+        <ul>
+          <li><a href="#chi-siamo">Chi siamo</a></li>
+          <li><a href="#servizi">Servizi</a></li>
+          <li><a href="#progetti">Progetti</a></li>
+          <li><a href="#contatti">Contatti</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servizi</h4>
+        <ul>
+          <li>Lead generation</li>
+          <li>Software su misura</li>
+          <li>E-commerce</li>
+          <li>Siti e portali</li>
+          <li>SEO e visibilità AI</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contatti</h4>
+        <ul>
+          <li><a href="tel:+390350085044">+39 035 00 85 044</a></li>
+          <li><a href="mailto:info@ewebsolution.it">info@ewebsolution.it</a></li>
+          <li>Via Broseta, 101G<br>24128 Bergamo (BG)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© <span class="year">2026</span> eWeb s.r.l. · P.IVA 04153070166 · REA 439742</span>
+      <span><a href="#">Privacy policy</a> · <a href="#">Cookie policy</a></span>
+    </div>
+  </footer>
+
+  <!-- ============ VIDEO MODAL ============ -->
+  <div class="vmodal" aria-hidden="true" role="dialog" aria-label="Video eWeb">
+    <button class="vmodal__close" data-video-close aria-label="Chiudi il video">×</button>
+    <!-- VIDEO AGENZIA versione completa, con audio -->
+    <video class="vmodal__video" controls playsinline preload="none">
+      <source src="assets/video/eweb-agenzia.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

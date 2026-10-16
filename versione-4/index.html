@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>eWeb — Persone in carne ed ossa.</title>
+    <meta
+      name="description"
+      content="eWeb è una squadra di Bergamo, dal 2016. Questa non è una pagina per vendere: è la nostra storia, raccontata da chi la vive ogni giorno."
+    />
+    <meta name="theme-color" content="#044d8b" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="is-loading">
+    <!-- ============ PRELOADER ============ -->
+    <div class="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__count">
+          <span class="loader__num">0</span><span class="loader__pct">%</span>
+        </div>
+        <span class="logo logo--loader">eweb<i>.</i></span>
+      </div>
+      <div class="loader__bar"><span></span></div>
+    </div>
+
+    <!-- ============ CURSOR ============ -->
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor__label"></span>
+    </div>
+
+    <!-- ============ GRAIN ============ -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="nav">
+      <a href="#top" class="nav__logo" aria-label="eWeb — torna all'inizio">
+        <!-- SOSTITUIRE con l'SVG del nuovo logo -->
+        <span class="logo">eweb<i>.</i></span>
+      </a>
+
+      <button
+        class="nav__burger"
+        aria-label="Apri il menu"
+        aria-expanded="false"
+        data-cursor="Menu"
+        data-magnetic
+      >
+        <span></span><span></span>
+      </button>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="menu" aria-hidden="true">
+      <nav class="menu__links">
+        <a href="#chi-siamo"><small>01</small>Chi siamo</a>
+        <a href="#storia"><small>02</small>La storia</a>
+        <a href="#contatti"><small>03</small>Contatti</a>
+      </nav>
+      <div class="menu__foot">
+        <a href="tel:+390350085044">+39 035 00 85 044</a>
+        <a href="mailto:info@ewebsolution.it">info@ewebsolution.it</a>
+      </div>
+    </div>
+
+    <main id="top">
+      <!-- ============ HERO — si entra nel video scrollando ============
+         Un'unica inquadratura (il "frame") che si allarga e perde i bordi
+         mentre si scorre, fino a riempire lo schermo: l'illusione di
+         entrare fisicamente nel video. Il manifesto compare solo quando
+         siamo "dentro". -->
+      <section class="hero-zoom" data-theme="dark">
+        <div class="hero-zoom__sticky">
+          <div class="hero-zoom__stage">
+            <div class="hero-zoom__frame">
+              <!-- VIDEO AGENZIA: loop muto, 1920x1080, 20-40s, <10MB.
+                 PROVVISORIO: ora c'è un video stock come segnaposto,
+                 da sostituire con il video dell'agenzia mantenendo lo stesso nome file. -->
+              <video
+                class="hero-zoom__video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="auto"
+              >
+                <source src="assets/video/hero-loop.mp4" type="video/mp4" />
+              </video>
+            </div>
+
+            <div class="hero-zoom__shade" aria-hidden="true"></div>
+
+            <div class="hero-zoom__intro">
+              <span class="logo logo--hero">eweb<i>.</i></span>
+              <span class="hero-zoom__hint" data-cursor="Entra"
+                ><i></i>Scorri per entrare<b
+                  class="hero-zoom__hint-arrow"
+                  aria-hidden="true"
+                  >↓</b
+                ></span
+              >
+            </div>
+
+            <div class="hero-zoom__manifesto">
+              <p class="manifesto manifesto--hero">
+                In eWeb lavorano persone reali. Non intelligenze artificiali
+                infallibili, ma splendidi umani pieni di doti e difetti. Saremo
+                alla vecchia, ma preferiamo stare <em>noi</em> vicino al cliente
+                piuttosto che darlo in pasto a prompt digitali che “lavorano per
+                noi”.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CHI SIAMO — racconto ============ -->
+      <section class="about" id="chi-siamo" data-theme="light">
+        <div class="container">
+          <div class="about__head">
+            <span class="eyebrow eyebrow--muted">Chi siamo</span>
+            <h2 class="h2 reveal-lines">
+              Non abbiamo un pitch.<br /><em>Abbiamo un metodo.</em>
+            </h2>
+          </div>
+
+          <div class="about__split">
+            <div class="about__intro">
+              <p class="body-l reveal">
+                Non siamo qui per convincerti di qualcosa. Non troverai numeri
+                messi in fila per impressionarti, né un catalogo di progetti da
+                sfogliare. Questa pagina racconta soltanto chi siamo e come
+                ragioniamo — poi, se avrà senso, ne parliamo di persona.
+              </p>
+              <p class="body-l reveal">
+                Ascoltiamo un’idea o un progetto già definito. Ci prendiamo il
+                tempo di capirlo davvero, con l’esperienza di anni passati sul
+                campo — non per avere una risposta pronta per tutto, ma per
+                saper fare le domande giuste.
+              </p>
+            </div>
+
+            <ol class="about__list">
+              <li class="reveal">
+                <span class="about__list-num">01</span>
+                <p>
+                  Ascoltiamo un’idea o un progetto già definito. Si parte da lì,
+                  senza formule preconfezionate.
+                </p>
+              </li>
+              <li class="reveal">
+                <span class="about__list-num">02</span>
+                <p>
+                  Analizziamo cosa ha senso e cosa no, con onestà. L’esperienza
+                  serve soprattutto a questo.
+                </p>
+              </li>
+              <li class="reveal">
+                <span class="about__list-num">03</span>
+                <p>
+                  Ne parliamo, chiaramente. Nessun documento calato dall’alto,
+                  solo un confronto vero.
+                </p>
+              </li>
+              <li class="reveal">
+                <span class="about__list-num">04</span>
+                <p>
+                  Se ha senso per entrambi, andiamo avanti. Con le nostre forze,
+                  non a parole.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LA NOSTRA STORIA ============ -->
+      <section class="story-section" id="storia" data-theme="dark">
+        <div class="container">
+          <div class="story__head">
+            <span class="eyebrow eyebrow--muted">La nostra storia</span>
+            <h2 class="h2 reveal-lines">
+              Nel 2016 inizia eWeb.<br /><em>La strada, molto prima.</em>
+            </h2>
+          </div>
+
+          <div class="story__steps">
+            <div class="story__line"><span class="story__progress"></span></div>
+
+            <article class="story__step">
+              <span class="story__year">Prima</span>
+              <span class="story__tag">Il mestiere, prima del nome</span>
+              <p>
+                Anni passati a sporcarci le mani su progetti veri, tra prove ed
+                errori che hanno insegnato più di qualsiasi corso. Quando nasce
+                eWeb, il bagaglio c’è già.
+              </p>
+            </article>
+            <article class="story__step">
+              <span class="story__year">2016</span>
+              <span class="story__tag">Nasce eWeb</span>
+              <p>
+                A Bergamo, con la consapevolezza dei nostri limiti e la certezza
+                di tutto ciò che avevamo già sperimentato sul campo.
+              </p>
+            </article>
+            <article class="story__step">
+              <span class="story__year">Oggi</span>
+              <span class="story__tag">La fiducia che resta</span>
+              <p>
+                Aziende che ci scelgono da anni e continuano a farlo. Non per
+                abitudine: perché il lavoro, alla fine, si vede.
+              </p>
+            </article>
+            <article class="story__step">
+              <span class="story__year">Domani</span>
+              <span class="story__tag">Sempre in movimento</span>
+              <p>
+                Il mestiere cambia ogni settimana, e noi con lui. Non
+                rincorriamo le mode: restiamo semplicemente sul pezzo.
+              </p>
+            </article>
+          </div>
+
+          <p class="body-l reveal story__closing">
+            Non ci piace parlare di noi con gli aggettivi giusti al momento
+            giusto. Preferiamo che a parlare sia il tempo che ci mettiamo, le
+            persone che restano, i progetti che continuano a crescere anche dopo
+            essere “finiti”.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ CTA FINALE — unica, dopo il racconto ============ -->
+      <section class="finale" id="contatti" data-theme="light">
+        <div class="finale__media">
+          <!-- FOTO: immagine del team/ufficio, non uno stock patinato.
+             PROVVISORIO: finché il file assets/img/team.jpg non esiste resta visibile
+             il gradiente di sfondo qui sotto; basta aggiungere il file con questo nome per sostituirlo. -->
+          <img
+            class="finale__img"
+            src="assets/img/team.jpg"
+            alt="Il team eWeb"
+            loading="lazy"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="finale__shade"></div>
+        </div>
+
+        <div class="container finale__content">
+          <div class="finale__intro">
+            <p class="finale__lead reveal-lines">
+              Se questa storia ti somiglia,<br />parliamone. <br />Senza fretta.
+            </p>
+            <p class="finale__sign">Tra persone, in carne ed ossa.</p>
+
+            <ul class="finale__contacts reveal">
+              <li>
+                <a
+                  class="link"
+                  href="https://www.google.com/maps/search/?api=1&query=Via+Broseta+101G+24128+Bergamo"
+                  target="_blank"
+                  rel="noopener"
+                  >Via Broseta, 101G — 24128 Bergamo</a
+                >
+              </li>
+              <li><a class="link" href="tel:+390350085044">+39 035 00 85 044</a></li>
+              <li><a class="link" href="mailto:info@ewebsolution.it">info@ewebsolution.it</a></li>
+            </ul>
+          </div>
+
+          <form class="finale__form" novalidate>
+            <div class="field">
+              <input type="text" name="nome" placeholder=" " required /><span
+                >Nome e cognome</span
+              >
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder=" " required /><span
+                >Email</span
+              >
+            </div>
+            <div class="field field--area">
+              <textarea
+                name="messaggio"
+                rows="3"
+                placeholder=" "
+                required
+              ></textarea
+              ><span>Raccontaci la tua idea</span>
+            </div>
+
+            <div class="finale__form-foot">
+              <button
+                type="submit"
+                class="btn btn--solid finale__cta"
+                data-magnetic
+              >
+                <span class="btn__text">Invia</span>
+                <span class="btn__arrow">→</span>
+              </button>
+              <p class="form__status" role="status"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer" data-theme="dark">
+      <div class="container footer__inner">
+        <span class="logo logo--footer">eweb<i>.</i></span>
+        <div class="footer__cols">
+          <p>
+            eWeb s.r.l.<br />Via Broseta, 101G — 24128 Bergamo<br />P.IVA
+            04153070166 · REA 439742
+          </p>
+          <ul class="footer__legal">
+            <li><a href="#" class="link">Privacy</a></li>
+            <li><a href="#" class="link">Cookie</a></li>
+            <li>© <span class="year">2026</span> eWeb</li>
+          </ul>
+        </div>
+        <button
+          class="footer__top"
+          data-magnetic
+          data-cursor="Su"
+          aria-label="Torna su"
+        >
+          ↑
+        </button>
+      </div>
+    </footer>
+
+    <!-- ============ LIBS ============ -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
