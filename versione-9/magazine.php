@@ -5,10 +5,14 @@
    In radice come index.php/invia.php (non in pages/<categoria>/), quindi
    nessuna nuova regola .htaccess: già coperta da quella generica "URL
    senza estensione -> stesso nome .php".
-   I 6 numeri già usciti vivono ancora solo sul sito storico
-   (ewebsolution.it) — non ancora migrati qui — quindi la sezione "numeri
-   usciti finora" linka fuori, target="_blank", invece di fingere pagine
-   locali che non esistono. */
+   I 6 numeri hanno ora una pagina propria qui sul nuovo sito (vedi
+   magazine/educational-1.php..6.php) con gli articoli reali di quel
+   numero — URL unificato a /magazine/educational-N indipendentemente da
+   come si chiamava quel numero sul sito storico (lì erano
+   magazine-1/2/3, edicational-4 — refuso originale, non ripreso —,
+   educational-5/6: incoerenza esplicitamente non mantenuta su richiesta).
+   I singoli ARTICOLI dentro ogni numero restano invece sul sito storico
+   per ora (non migrati): lo spiega anche il testo della sezione sotto. */
 require __DIR__ . "/inc/config.php";
 $annoCorrente = date("Y");
 $menuBase = BASE_URL . "/"; // logo e menu puntano alla home, non sono ancore di questa pagina
@@ -21,14 +25,16 @@ $heroLead = 'Niente promozioni ogni due giorni: una email quando abbiamo
   davvero qualcosa da dire — SEO, marketing, strumenti, cose imparate
   lavorando sul campo, non teoria riciclata.';
 
-// I 6 numeri già pubblicati, ancora sul sito storico (vedi commento sopra).
+// I 6 numeri già pubblicati, ora con una pagina propria qui (vedi commento
+// sopra). "teaser" è il titolo del primo articolo di quel numero — una
+// vera anteprima, non un placeholder generico.
 $numeriPrecedenti = [
-  ["num" => "01", "url" => "https://www.ewebsolution.it/magazine/scopri/educational-1/"],
-  ["num" => "02", "url" => "https://www.ewebsolution.it/magazine/scopri/educational-2/"],
-  ["num" => "03", "url" => "https://www.ewebsolution.it/magazine/scopri/educational-3/"],
-  ["num" => "04", "url" => "https://www.ewebsolution.it/magazine/scopri/educational-4/"],
-  ["num" => "05", "url" => "https://www.ewebsolution.it/magazine/scopri/educational-5/"],
-  ["num" => "06", "url" => "https://www.ewebsolution.it/magazine/scopri/educational-6/"],
+  ["num" => "01", "slug" => "educational-1", "teaser" => "Perché abbiamo smesso di comunicare. E adesso riprendiamo."],
+  ["num" => "02", "slug" => "educational-2", "teaser" => "Professionisti da oltre 25 anni. Ma sbagliamo anche noi."],
+  ["num" => "03", "slug" => "educational-3", "teaser" => "L'AI c'è ma (ancora) non si vede. Si vedrà?"],
+  ["num" => "04", "slug" => "educational-4", "teaser" => "Non siamo contro Wordpress, siamo per il cliente."],
+  ["num" => "05", "slug" => "educational-5", "teaser" => "Testi, foto, video e niente AI: come comunica eWeb."],
+  ["num" => "06", "slug" => "educational-6", "teaser" => "Qualità e prezzo non vanno sempre a braccetto."],
 ];
 ?>
 <!doctype html>
@@ -162,27 +168,25 @@ $numeriPrecedenti = [
             <div class="service-section__head-text">
               <span class="eyebrow eyebrow--muted">I numeri usciti finora</span>
               <h2 class="h2 reveal-lines">
-                Sei numeri,<br /><em>ancora sul vecchio sito.</em>
+                Sei numeri,<br /><em>uno via l'altro.</em>
               </h2>
             </div>
           </div>
           <p class="body-l reveal">
-            Non ancora trasferiti qui — per ora restano leggibili dove
-            sono nati.
+            Ogni numero raccoglie gli articoli di quel periodo — i singoli
+            articoli, per ora, restano leggibili sul sito storico.
           </p>
           <ul class="service-related__list">
             <?php foreach ($numeriPrecedenti as $n): ?>
               <li class="reveal">
                 <a
                   class="service-related__link"
-                  href="<?php echo htmlspecialchars($n["url"]); ?>"
-                  target="_blank"
-                  rel="noopener"
+                  href="<?php echo BASE_URL . "/magazine/" . $n["slug"]; ?>"
                 >
                   <span class="service-related__link-num"><?php echo $n["num"]; ?></span>
                   <span class="service-related__link-body">
                     <span class="service-related__link-text">Numero <?php echo $n["num"]; ?></span>
-                    <span class="service-related__link-teaser">Sul sito storico, si apre in un'altra scheda</span>
+                    <span class="service-related__link-teaser"><?php echo htmlspecialchars($n["teaser"]); ?></span>
                   </span>
                   <span class="btn__arrow">→</span>
                 </a>

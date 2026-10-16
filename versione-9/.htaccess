@@ -99,6 +99,18 @@ RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
 RewriteCond %{DOCUMENT_ROOT}/%1/pages/content/%2.php -f
 RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
 
+# Caso speciale: "magazine" è sia il file magazine.php (l'indice, URL
+# pulito /magazine) sia il nome della cartella che contiene i singoli
+# numeri (magazine/educational-N.php, per /magazine/educational-N — vedi
+# magazine.php). La regola generica subito sotto esclude le vere cartelle
+# (!-d) apposta per non interferire col comportamento normale di Apache,
+# ma "magazine" ora è anche una cartella vera: senza questa eccezione,
+# /magazine da solo verrebbe intercettato PRIMA da mod_dir, che lo
+# redirige con lo slash finale (cercando un index dentro la cartella)
+# invece di arrivare alla regola sotto e servire magazine.php. Specifica e
+# PRIMA della generica apposta, [L] per fermarsi subito qui.
+RewriteRule ^magazine/?$ magazine.php [L]
+
 # L'URL senza estensione, se esiste il .php corrispondente, lo serve
 # internamente — l'utente/il browser continuano a vedere l'URL pulito.
 RewriteCond %{REQUEST_FILENAME} !-f

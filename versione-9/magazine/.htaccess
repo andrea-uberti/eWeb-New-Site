@@ -1,0 +1,9 @@
+# Senza questo: "magazine" è sia il file magazine.php (indice, URL pulito
+# /magazine) sia questa cartella (i singoli numeri, magazine/educational-
+# N.php). mod_dir, prima ancora che la RewriteRule dedicata nell'.htaccess
+# di radice possa farsi valere, vede che "/magazine" risolve a una cartella
+# vera e la redirige da sé con lo slash finale — DirectorySlash Off
+# disattiva solo quel comportamento per questa cartella (non tocca nient'
+# altro: nessun'altra cartella del sito viene mai richiesta come URL a sé,
+# solo come target interno di rewrite).
+DirectorySlash Off
