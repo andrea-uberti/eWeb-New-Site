@@ -735,10 +735,18 @@ em {
 .menu__services {
   position: absolute;
   inset: 0;
-  transition:
-    opacity 0.5s var(--ease),
-    transform 0.5s var(--ease);
 }
+/* Il fade del pannello non è più sul contenitore (vedi sotto: ogni link
+   grande e ogni gruppo di categoria anima opacity/transform per conto
+   proprio, a cascata) — qui resta solo visibility. Il ritardo va SOLO sulla
+   direzione "sto per sparire" (così il pannello uscente non si nasconde di
+   colpo tagliando la sua stessa animazione a metà): usare lo stesso ritardo
+   anche per "sto per apparire" era il bug di partenza — il contenitore
+   restava visibility:hidden per i primi ~0.6s, quindi i figli animavano
+   invisibili dietro le quinte e comparivano tutti insieme di colpo appena
+   il ritardo scadeva, altro che cascata. Le due regole sotto (una per
+   elemento, con lo scope ":not(.menu--services)"/".menu--services" giusto)
+   azzerano il ritardo solo per la direzione "apparire". */
 .menu__links {
   display: flex;
   flex-direction: column;
@@ -749,6 +757,14 @@ em {
      vedi sotto) finisce per disegnarsi sotto tutta la riga vuota invece
      che sotto la sola parola. */
   align-items: flex-start;
+  /* 0.75s copre l'ultimo link in uscita (delay 0.12s + 0.6s di durata). */
+  transition: visibility 0s linear 0.75s;
+}
+.menu:not(.menu--services) .menu__links {
+  transition-delay: 0s;
+}
+.menu--services .menu__services {
+  transition-delay: 0s;
 }
 
 /* Catalogo dei servizi, raggruppato per categoria — stesso catalogo di
@@ -765,13 +781,20 @@ em {
   column-width: 230px;
   column-count: 4;
   column-gap: 40px;
+  /* Di base, con un'altezza vincolata (inset:0, non auto) molti browser
+     riempiono le colonne in sequenza invece di bilanciarle: la prima si
+     riempiva fino in fondo prima di passare alla seconda, con risultato
+     scalettato. column-fill:balance forza la distribuzione più uniforme
+     tra le 4 colonne, a parità di ordine delle categorie. */
+  column-fill: balance;
   overflow-y: auto;
   padding-right: 18px;
   padding-bottom: 24px;
-  opacity: 0;
-  transform: translateY(24px);
   pointer-events: none;
   visibility: hidden;
+  /* 1s copre l'ultimo gruppo-categoria in uscita (delay più alto 0.43s +
+     0.55s di durata, vedi inc/header.php per i delay inline). */
+  transition: visibility 0s linear 1s;
   mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent 100%);
   scrollbar-width: thin;
@@ -785,27 +808,54 @@ em {
   border-radius: 3px;
 }
 .menu--services .menu__links {
-  opacity: 0;
-  transform: translateY(-24px);
   pointer-events: none;
   visibility: hidden;
 }
-.menu--services .menu__links a {
-  transition-delay: 0s;
-}
 .menu--services .menu__services {
-  opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
   visibility: visible;
 }
-.menu__services-back {
-  display: inline-block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 18px;
-  color: var(--sun);
-  margin-bottom: 24px;
+/* Uscita a cascata dei 4 link quando si clicca "Servizi": ogni link scivola
+   a sinistra invece di limitarsi a sparire in blocco col contenitore (come
+   prima), con uno sfalsamento rapido tra uno e l'altro — direzione opposta
+   all'ingresso del catalogo qui sotto (quello sale da sotto), per leggersi
+   come uno scambio e non due fade sovrapposti a caso. */
+.menu--services .menu__links a {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+.menu--services .menu__links a:nth-child(1) {
+  transition-delay: 0s;
+}
+.menu--services .menu__links a:nth-child(2) {
+  transition-delay: 0.03s;
+}
+.menu--services .menu__links a:nth-child(3) {
+  transition-delay: 0.06s;
+}
+.menu--services .menu__links a:nth-child(4) {
+  transition-delay: 0.09s;
+}
+.menu--services .menu__links a:nth-child(5) {
+  transition-delay: 0.12s;
+}
+/* Entrata a cascata del catalogo: "Indietro" e ogni gruppo-categoria
+   animano opacity/transform per conto proprio invece del contenitore
+   intero in blocco — il ritardo progressivo di ogni .menu__services-group
+   è inline da inc/header.php (scala col numero di categorie, vedi lì)
+   mentre qui sta solo la forma dell'animazione, uguale per tutti. */
+.menu__services-back,
+.menu__services-group {
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+  transition:
+    opacity 0.55s var(--ease),
+    transform 0.55s var(--ease);
+}
+.menu--services .menu__services-back,
+.menu--services .menu__services-group {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 .menu__services-group {
   break-inside: avoid;

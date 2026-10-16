@@ -80,8 +80,13 @@
              (invece di un vero scroll/swipe) non lo faceva emergere. -->
         <div class="menu__services" data-lenis-prevent>
           <a href="#indietro" class="menu__services-back">&larr; Indietro</a>
-          <?php foreach ($menuCategories as $categoryName => $pages): ?>
-            <div class="menu__services-group">
+          <?php $catIndex = 0; foreach ($menuCategories as $categoryName => $pages): ?>
+            <!-- transition-delay inline, non in CSS: scala con il numero di
+                 categorie (oggi 8) invece di un nth-of-type fisso che
+                 smetterebbe di coprire tutto il giorno in cui se ne
+                 aggiunge una nona — vedi .menu__services-group in
+                 style.css per il resto dell'animazione a cascata. -->
+            <div class="menu__services-group" style="transition-delay: <?php echo 0.08 + min($catIndex, 7) * 0.05; ?>s">
               <span class="menu__services-cat"><?php echo htmlspecialchars($categoryName); ?></span>
               <ul class="menu__services-list">
                 <?php foreach ($pages as $p): ?>
@@ -91,7 +96,7 @@
                 <?php endforeach; ?>
               </ul>
             </div>
-          <?php endforeach; ?>
+          <?php $catIndex++; endforeach; ?>
         </div>
         <?php endif; ?>
       </div>

@@ -637,6 +637,14 @@
       burger.setAttribute("aria-expanded", String(open));
       menu.setAttribute("aria-hidden", String(!open));
       if (lenisRef) open ? lenisRef.stop() : lenisRef.start();
+      // lenis.stop() ferma solo lo scroll fluido gestito da Lenis, non lo
+      // scroll nativo del browser (rotellina/trackpad/tasti freccia
+      // bubblano comunque su html/body dietro al menu a schermo intero):
+      // overflow:hidden qui lo blocca davvero, senza toccare scrollY (a
+      // differenza di un position:fixed con salvataggio/ripristino, che
+      // qui non serve visto che non c'è alcun salto quando si riapre).
+      document.documentElement.style.overflow = open ? "hidden" : "";
+      document.body.style.overflow = open ? "hidden" : "";
     };
     burger.addEventListener("click", () =>
       toggle(!document.body.classList.contains("menu-open")),
