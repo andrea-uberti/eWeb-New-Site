@@ -743,17 +743,28 @@ em {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* align-items:flex-start (non lo stretch di default): senza, ogni <a>
+     si allarga a tutta la larghezza di .menu__links (position:absolute
+     inset:0), e la sottolineatura hover (dimensionata in % sull'elemento,
+     vedi sotto) finisce per disegnarsi sotto tutta la riga vuota invece
+     che sotto la sola parola. */
+  align-items: flex-start;
 }
 
 /* Catalogo dei servizi, raggruppato per categoria — stesso catalogo di
    inc/related.php (inc/config.php, $SERVICE_PAGES). Nascosto di default
    (opacity 0 + pointer-events none), entra al posto dei link grandi quando
-   il body porta anche .menu--services. Due affordance esplicite di "c'è
-   altro sotto" (prima versione non ne aveva nessuna, vedi memoria di
-   progetto): una sfumatura in fondo via mask-image e uno scrollbar sottile
-   ma visibile. */
+   il body porta anche .menu--services. Da desktop in su va a colonne
+   (8 categorie/27 pagine in una sola colonna verticale avrebbero richiesto
+   scroll: con "columns" il catalogo usa tutta la larghezza del menu, non
+   più i 460px della vecchia colonna laterale fissa, e si spalma su più
+   colonne restando dentro l'altezza disponibile — niente scroll su
+   desktop). overflow-y:auto/mask/scrollbar restano come rete di sicurezza
+   per viewport molto bassi dove anche a colonne non entrasse tutto. */
 .menu__services {
-  max-width: 460px;
+  column-width: 230px;
+  column-count: 4;
+  column-gap: 40px;
   overflow-y: auto;
   padding-right: 18px;
   padding-bottom: 24px;
@@ -796,6 +807,10 @@ em {
   color: var(--sun);
   margin-bottom: 24px;
 }
+.menu__services-group {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
 .menu__services-group + .menu__services-group {
   margin-top: 28px;
 }
@@ -834,6 +849,8 @@ em {
     display: none;
   }
   .menu__services {
+    column-width: auto;
+    column-count: 1;
     max-width: 420px;
     width: 100%;
     margin: 0 auto;
