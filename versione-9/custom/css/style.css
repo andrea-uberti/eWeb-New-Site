@@ -778,14 +778,19 @@ em {
    desktop). overflow-y:auto/mask/scrollbar restano come rete di sicurezza
    per viewport molto bassi dove anche a colonne non entrasse tutto. */
 .menu__services {
-  column-width: 230px;
-  column-count: 4;
-  column-gap: 40px;
+  /* 4 colonne strette lasciavano molto vuoto in basso (il contenuto non
+     arrivava mai a riempire l'altezza disponibile del menu) — 3 colonne
+     più larghe usano meglio lo spazio della pagina, sia in orizzontale
+     (ogni colonna più generosa) sia in verticale (più vicine a riempire
+     l'altezza del riquadro invece di fermarsi a metà). */
+  column-width: 320px;
+  column-count: 3;
+  column-gap: 56px;
   /* Di base, con un'altezza vincolata (inset:0, non auto) molti browser
      riempiono le colonne in sequenza invece di bilanciarle: la prima si
      riempiva fino in fondo prima di passare alla seconda, con risultato
      scalettato. column-fill:balance forza la distribuzione più uniforme
-     tra le 4 colonne, a parità di ordine delle categorie. */
+     tra le colonne, a parità di ordine delle categorie. */
   column-fill: balance;
   overflow-y: auto;
   padding-right: 18px;
@@ -851,6 +856,21 @@ em {
   transition:
     opacity 0.55s var(--ease),
     transform 0.55s var(--ease);
+}
+/* Persa per sbaglio nel refactor dell'animazione a cascata (la regola qui
+   sopra, aggiunta allora, aveva rimpiazzato questa invece di affiancarla):
+   senza, "Indietro" rendeva come testo bianco inline qualunque, appiccicato
+   alla categoria sotto (margin-bottom:0) — probabilmente la causa vera di
+   "non mi convince"/"troppo vicino al testo sotto", non solo un problema di
+   spaziatura. margin-bottom più generoso di prima (24px → 40px) per uno
+   stacco netto dalla prima categoria. */
+.menu__services-back {
+  display: inline-block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--sun);
+  margin-bottom: 40px;
 }
 .menu--services .menu__services-back,
 .menu--services .menu__services-group {
