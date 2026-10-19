@@ -99,6 +99,15 @@ RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)/$
 RewriteCond %{DOCUMENT_ROOT}/%1/pages/content/%2.php -f
 RewriteRule ^(.+)/$ /%1/%2 [R=301,L]
 
+# Stessa cosa per gli articoli del magazine (vedi più sotto per il blocco
+# "serve-interno" gemello): file fisico in magazine/articoli/, URL
+# pubblico piatto /magazine/<slug-articolo> (non /magazine/articoli/...).
+RewriteCond %{REQUEST_METHOD} GET
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/magazine/([^/]+)/$
+RewriteCond %{DOCUMENT_ROOT}/%1/magazine/articoli/%2.php -f
+RewriteRule ^(.+)/$ /%1/magazine/%2 [R=301,L]
+
 # Caso speciale: "magazine" è sia il file magazine.php (l'indice, URL
 # pulito /magazine) sia il nome della cartella che contiene i singoli
 # numeri (magazine/educational-N.php, per /magazine/educational-N — vedi
@@ -172,3 +181,19 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/(.*)/([^/]+)$
 RewriteCond %{DOCUMENT_ROOT}/%1/pages/content/%2.php -f
 RewriteRule ^([^.]+)$ pages/content/$1.php [L]
+
+# Articoli del magazine: URL pubblico piatto /magazine/<slug-articolo>
+# (deciso così apposta, stesso schema del sito storico — non annidato
+# sotto il numero di appartenenza), file fisico in
+# magazine/articoli/<slug>.php. A differenza delle righe pages/<categoria>
+# sopra (dove $1 della RewriteRule è l'intero slug, un solo segmento),
+# qui il pattern della RewriteRule porta esplicitamente il prefisso
+# "magazine/" perché l'URL ha due segmenti: $1 cattura solo lo slug, non
+# anche "magazine/" davanti. Dopo la regola generica più sopra (che serve
+# già magazine/educational-N.php direttamente): se arriva qui vuol dire
+# che quel file non esiste, quindi è un articolo, non un numero.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.*)/magazine/([^/.]+)$
+RewriteCond %{DOCUMENT_ROOT}/%1/magazine/articoli/%2.php -f
+RewriteRule ^magazine/([^/.]+)$ magazine/articoli/$1.php [L]

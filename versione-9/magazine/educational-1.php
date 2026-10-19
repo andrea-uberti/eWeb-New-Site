@@ -2,14 +2,13 @@
 /* Pagina di un singolo numero del Magazine (newsletter eWeb) — non una
    pagina di servizio (niente service-cta/related.php, stesso principio di
    ../magazine.php). Contenuto reale (titoli/teaser/autore) recuperato dal
-   sito storico (ewebsolution.it/magazine/scopri/...) l'articolo completo di
-   ciascuna voce resta però SOLO là per ora (non migrato): ogni link della
-   lista qui sotto apre il sito storico in un'altra scheda, di proposito.
-   URL vecchio non mantenuto (l'utente ha detto esplicitamente di non
-   curarsene): qui tutti i numeri vivono sotto /magazine/educational-N,
-   indipendentemente da come si chiamavano sul sito storico
-   (magazine-1/2/3, edicational-4, educational-5/6 — incoerenza che non
-   riprendiamo). */
+   sito storico, come i singoli articoli (vedi magazine/articoli/*.php,
+   ora migrati qui: ogni voce della lista sotto apre una pagina interna,
+   non più il sito storico). URL vecchio non mantenuto (l'utente ha detto
+   esplicitamente di non curarsene): qui tutti i numeri vivono sotto
+   /magazine/educational-N, indipendentemente da come si chiamavano sul
+   sito storico (magazine-1/2/3, edicational-4, educational-5/6 —
+   incoerenza che non riprendiamo). */
 require __DIR__ . "/../inc/config.php";
 $annoCorrente = date("Y");
 $menuBase = BASE_URL . "/"; // logo e menu puntano alla home
@@ -22,16 +21,16 @@ $heroLead = 'La newsletter di eWeb, numero per numero — qui sotto gli
   articoli di questa uscita, in ordine.';
 
 // Contenuto reale di questo numero (titolo/teaser/autore quando presente),
-// recuperato dal sito storico — vedi commento sopra. "href" punta ancora
-// all'articolo completo là, non è un placeholder.
+// recuperato dal sito storico — vedi commento sopra. "slug" è il file in
+// magazine/articoli/<slug>.php (l'URL pubblico è /magazine/<slug>).
 $articoli = [
-  ["title" => 'Perché abbiamo smesso di comunicare. E adesso riprendiamo.', "teaser" => 'Comunicare significa far conoscere agli altri il tuo approccio, il tuo punto di vista rispetto ad un argomento ben...', "author" => 'Fabio Gennari', "href" => 'https://www.ewebsolution.it/magazine/perche-abbiamo-smesso/'],
-  ["title" => 'Progettare bene per lavorare meglio', "teaser" => 'La parte di progettazione, di analisi, il tempo dedicato ad ascoltare il cliente è la parte che preferisco. In eWeb viene da ...', "author" => 'Andrea Zigliana', "href" => 'https://www.ewebsolution.it/magazine/progettare-bene-lavorare-meglio/'],
-  ["title" => 'Il segreto non è essere bravi, ma farlo sapere', "teaser" => 'Essere bravi non basta, bisogna farlo sapere. Nell\'era del rumore e dell\'effetto "wow", noi rifiutiamo le scorciatoie. La nostra forza...', "author" => 'Fabio Gennari', "href" => 'https://www.ewebsolution.it/magazine/competenze-dati-soluzioni/'],
-  ["title" => 'Google ha cambiato le regole. La nostra strategia è pronta', "teaser" => 'Per anni, il nostro obiettivo è stato chiaro: conquistare la prima posizione su Google. La pagina con i "dieci link blu" era il...', "author" => 'Giorgio Pesenti', "href" => 'https://www.ewebsolution.it/magazine/google-seo-geo-eweb/'],
-  ["title" => 'L’AI è una bolla o la chiave per il futuro?', "teaser" => 'CAP. 1 - Ma è corretto o fuorviante chiamarla intelligenza?', "author" => 'Pietro Cortinovis', "href" => 'https://www.ewebsolution.it/magazine/ai-bolla-o-futuro/'],
-  ["title" => 'Registrazione marchio: il valore della tutela (e come ottenerla per il tuo brand)', "teaser" => 'Il tuo marchio è davvero tuo? La registrazione garantisce l\'esclusiva e la tutela legale. Scopri il valore strategico (e il simbolo ®) e...', "author" => 'Federica Ferranti', "href" => 'https://www.ewebsolution.it/magazine/marchio-registrato-con-eweb/'],
-  ["title" => 'Prendi il calendario, ci sono scadenze che non puoi mancare!', "teaser" => 'Novembre, la fine dell\'anno è vicina ma si pensa già al futuro. Ai prossimi mesi. Attenzione, però: segna bene tutto quello che può...', "author" => 'Federica Ferranti', "href" => 'https://www.ewebsolution.it/magazine/novembre-da-non-perdere/'],
+  ["title" => 'Perché abbiamo smesso di comunicare. E adesso riprendiamo.', "teaser" => 'Comunicare significa far conoscere agli altri il tuo approccio, il tuo punto di vista rispetto ad un argomento ben...', "author" => 'Fabio Gennari', "slug" => 'perche-abbiamo-smesso'],
+  ["title" => 'Progettare bene per lavorare meglio', "teaser" => 'La parte di progettazione, di analisi, il tempo dedicato ad ascoltare il cliente è la parte che preferisco. In eWeb viene da ...', "author" => 'Andrea Zigliana', "slug" => 'progettare-bene-lavorare-meglio'],
+  ["title" => 'Il segreto non è essere bravi, ma farlo sapere', "teaser" => 'Essere bravi non basta, bisogna farlo sapere. Nell\'era del rumore e dell\'effetto "wow", noi rifiutiamo le scorciatoie. La nostra forza...', "author" => 'Fabio Gennari', "slug" => 'competenze-dati-soluzioni'],
+  ["title" => 'Google ha cambiato le regole. La nostra strategia è pronta', "teaser" => 'Per anni, il nostro obiettivo è stato chiaro: conquistare la prima posizione su Google. La pagina con i "dieci link blu" era il...', "author" => 'Giorgio Pesenti', "slug" => 'google-seo-geo-eweb'],
+  ["title" => 'L’AI è una bolla o la chiave per il futuro?', "teaser" => 'CAP. 1 - Ma è corretto o fuorviante chiamarla intelligenza?', "author" => 'Pietro Cortinovis', "slug" => 'ai-bolla-o-futuro'],
+  ["title" => 'Registrazione marchio: il valore della tutela (e come ottenerla per il tuo brand)', "teaser" => 'Il tuo marchio è davvero tuo? La registrazione garantisce l\'esclusiva e la tutela legale. Scopri il valore strategico (e il simbolo ®) e...', "author" => 'Federica Ferranti', "slug" => 'marchio-registrato-con-eweb'],
+  ["title" => 'Prendi il calendario, ci sono scadenze che non puoi mancare!', "teaser" => 'Novembre, la fine dell\'anno è vicina ma si pensa già al futuro. Ai prossimi mesi. Attenzione, però: segna bene tutto quello che può...', "author" => 'Federica Ferranti', "slug" => 'novembre-da-non-perdere'],
 ];
 ?>
 <!doctype html>
@@ -105,17 +104,14 @@ $articoli = [
             </div>
           </div>
           <p class="body-l reveal">
-            Ogni articolo completo resta per ora sul sito storico — il link
-            apre lì, in un'altra scheda.
+            Un articolo via l'altro, in ordine.
           </p>
           <ul class="service-related__list">
             <?php foreach ($articoli as $i => $a): ?>
               <li class="reveal">
                 <a
                   class="service-related__link"
-                  href="<?php echo htmlspecialchars($a["href"]); ?>"
-                  target="_blank"
-                  rel="noopener"
+                  href="<?php echo BASE_URL . "/magazine/" . $a["slug"]; ?>"
                 >
                   <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
                   <span class="service-related__link-body">

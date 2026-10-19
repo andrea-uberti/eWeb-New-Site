@@ -2,14 +2,13 @@
 /* Pagina di un singolo numero del Magazine (newsletter eWeb) — non una
    pagina di servizio (niente service-cta/related.php, stesso principio di
    ../magazine.php). Contenuto reale (titoli/teaser/autore) recuperato dal
-   sito storico (ewebsolution.it/magazine/scopri/...) l'articolo completo di
-   ciascuna voce resta però SOLO là per ora (non migrato): ogni link della
-   lista qui sotto apre il sito storico in un'altra scheda, di proposito.
-   URL vecchio non mantenuto (l'utente ha detto esplicitamente di non
-   curarsene): qui tutti i numeri vivono sotto /magazine/educational-N,
-   indipendentemente da come si chiamavano sul sito storico
-   (magazine-1/2/3, edicational-4, educational-5/6 — incoerenza che non
-   riprendiamo). */
+   sito storico, come i singoli articoli (vedi magazine/articoli/*.php,
+   ora migrati qui: ogni voce della lista sotto apre una pagina interna,
+   non più il sito storico). URL vecchio non mantenuto (l'utente ha detto
+   esplicitamente di non curarsene): qui tutti i numeri vivono sotto
+   /magazine/educational-N, indipendentemente da come si chiamavano sul
+   sito storico (magazine-1/2/3, edicational-4, educational-5/6 —
+   incoerenza che non riprendiamo). */
 require __DIR__ . "/../inc/config.php";
 $annoCorrente = date("Y");
 $menuBase = BASE_URL . "/"; // logo e menu puntano alla home
@@ -22,15 +21,15 @@ $heroLead = 'La newsletter di eWeb, numero per numero — qui sotto gli
   articoli di questa uscita, in ordine.';
 
 // Contenuto reale di questo numero (titolo/teaser/autore quando presente),
-// recuperato dal sito storico — vedi commento sopra. "href" punta ancora
-// all'articolo completo là, non è un placeholder.
+// recuperato dal sito storico — vedi commento sopra. "slug" è il file in
+// magazine/articoli/<slug>.php (l'URL pubblico è /magazine/<slug>).
 $articoli = [
-  ["title" => 'Qualità e prezzo NON vanno sempre a braccetto', "teaser" => 'No, i prodotti digitali non sono tutti uguali. Su altre newsletter come quella che stai leggendo, anche nel recente passato, abbiamo cercato di affrontare i temi posti dall’entrata in scena dell’IA e la stesura dei testi ma anche la soluzione per aziende che cercano siti veloci a poco prezzo sono senza dubbio questioni che si possono “smarcare” anche con un prompt fatto bene.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/qualita-al-giusto-prezzo/'],
-  ["title" => 'Usiamo e rivendiamo Hosting ARUBA BUSINESS', "teaser" => 'La scelta aziendale di vendere o non rivendere servizi IT di terze parti è stata sul tavolo di eWeb per diverso tempo, non vi nascondiamo il fatto che eravamo propensi e conviti di scegliere la strada del no. Ci sono ragioni valide che davano forza a questo pensiero. Anni di esperienza pre eWeb di forniture e di “rotture”, tecniche ed umane.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/hosting-aruba-business/'],
-  ["title" => 'Sviluppo e Comunicazione: dove devi investire?', "teaser" => 'Il tema degli investimenti, soprattutto in momenti come quello che stiamo vivendo dal punto di vista della situazione internazionale, è molto delicato. Dal punto di vista digitale, il dibattito è spesso concentrato su due filoni che solo all’apparenza sono “slegati”: sviluppo e comunicazione. Giusto cercare di migliorare gli strumenti interni per lavorare meglio oppure comunicare all’esterno?', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/sviluppo-e-comunicazione/'],
-  ["title" => 'Analisi SEO, solo software PROFESSIONALI', "teaser" => 'Quando si mette on-line un nuovo portale o si alimenta un blog con nuovi contenuti, l’aspettativa è quella di vedere le nuove pagine già rintracciabili sulla SERP di Google dopo pochi giorni. Si passa dall’indicizzazione al successivo posizionamento e si “pesa” una keyword in base a diversi parametri, per capire quanto questa intrecci l’interesse del pubblico e quanto porti contatti e nuovi lead.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/analisi-seo-fatta-bene/'],
-  ["title" => 'eWeb ha due anime, Dev e Com: perché questo fa la differenza', "teaser" => 'eWeb ha due anime, Dev e Com: perché questo fa la differenza', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/le-due-anime-di-eweb/'],
-  ["title" => 'Realizziamo il tuo CRM', "teaser" => 'Dentro i processi aziendali ci sono tanti dettagli che caratterizzano, dati che fanno prendere decisioni, problemi che si possono risolvere solo se si conoscono. Spesso questi aspetti vengono sottovalutati e si ragiona soltanto sulla realizzazione di un sito internet (magari vetrina) che garantisca una presenza on-line ma, di fatto, senza interconnessioni che permettano di fare quel passo in più, quel qualcosa di più strutturato e armonizzato che si possa considerare davvero funzionale alle analisi e agli obiettivi aziendali.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/realizziamo-il-tuo-crm/'],
+  ["title" => 'Qualità e prezzo NON vanno sempre a braccetto', "teaser" => 'No, i prodotti digitali non sono tutti uguali. Su altre newsletter come quella che stai leggendo, anche nel recente passato, abbiamo cercato di affrontare i temi posti dall’entrata in scena dell’IA e la stesura dei testi ma anche la soluzione per aziende che cercano siti veloci a poco prezzo sono senza dubbio questioni che si possono “smarcare” anche con un prompt fatto bene.', "author" => null, "slug" => 'qualita-al-giusto-prezzo'],
+  ["title" => 'Usiamo e rivendiamo Hosting ARUBA BUSINESS', "teaser" => 'La scelta aziendale di vendere o non rivendere servizi IT di terze parti è stata sul tavolo di eWeb per diverso tempo, non vi nascondiamo il fatto che eravamo propensi e conviti di scegliere la strada del no. Ci sono ragioni valide che davano forza a questo pensiero. Anni di esperienza pre eWeb di forniture e di “rotture”, tecniche ed umane.', "author" => null, "slug" => 'hosting-aruba-business'],
+  ["title" => 'Sviluppo e Comunicazione: dove devi investire?', "teaser" => 'Il tema degli investimenti, soprattutto in momenti come quello che stiamo vivendo dal punto di vista della situazione internazionale, è molto delicato. Dal punto di vista digitale, il dibattito è spesso concentrato su due filoni che solo all’apparenza sono “slegati”: sviluppo e comunicazione. Giusto cercare di migliorare gli strumenti interni per lavorare meglio oppure comunicare all’esterno?', "author" => null, "slug" => 'sviluppo-e-comunicazione'],
+  ["title" => 'Analisi SEO, solo software PROFESSIONALI', "teaser" => 'Quando si mette on-line un nuovo portale o si alimenta un blog con nuovi contenuti, l’aspettativa è quella di vedere le nuove pagine già rintracciabili sulla SERP di Google dopo pochi giorni. Si passa dall’indicizzazione al successivo posizionamento e si “pesa” una keyword in base a diversi parametri, per capire quanto questa intrecci l’interesse del pubblico e quanto porti contatti e nuovi lead.', "author" => null, "slug" => 'analisi-seo-fatta-bene'],
+  ["title" => 'eWeb ha due anime, Dev e Com: perché questo fa la differenza', "teaser" => 'eWeb ha due anime, Dev e Com: perché questo fa la differenza', "author" => null, "slug" => 'le-due-anime-di-eweb'],
+  ["title" => 'Realizziamo il tuo CRM', "teaser" => 'Dentro i processi aziendali ci sono tanti dettagli che caratterizzano, dati che fanno prendere decisioni, problemi che si possono risolvere solo se si conoscono. Spesso questi aspetti vengono sottovalutati e si ragiona soltanto sulla realizzazione di un sito internet (magari vetrina) che garantisca una presenza on-line ma, di fatto, senza interconnessioni che permettano di fare quel passo in più, quel qualcosa di più strutturato e armonizzato che si possa considerare davvero funzionale alle analisi e agli obiettivi aziendali.', "author" => null, "slug" => 'realizziamo-il-tuo-crm'],
 ];
 ?>
 <!doctype html>
@@ -104,17 +103,14 @@ $articoli = [
             </div>
           </div>
           <p class="body-l reveal">
-            Ogni articolo completo resta per ora sul sito storico — il link
-            apre lì, in un'altra scheda.
+            Un articolo via l'altro, in ordine.
           </p>
           <ul class="service-related__list">
             <?php foreach ($articoli as $i => $a): ?>
               <li class="reveal">
                 <a
                   class="service-related__link"
-                  href="<?php echo htmlspecialchars($a["href"]); ?>"
-                  target="_blank"
-                  rel="noopener"
+                  href="<?php echo BASE_URL . "/magazine/" . $a["slug"]; ?>"
                 >
                   <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
                   <span class="service-related__link-body">

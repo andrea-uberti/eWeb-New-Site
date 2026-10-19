@@ -1,0 +1,139 @@
+<?php
+/* Pagina di un singolo articolo del Magazine (newsletter eWeb), dal
+   numero 5. Contenuto reale (titolo/testo/autore) recuperato dal
+   sito storico (ewebsolution.it/magazine/developer-per-passione/) — paragrafi fedeli
+   all'originale, non riscritti. URL pubblico piatto /magazine/developer-per-passione
+   (stesso schema del sito storico, deciso così apposta — non annidato
+   sotto /magazine/educational-5/, vedi .htaccess), file fisico in
+   magazine/articoli/ (due livelli sotto radice, come pages/<categoria>/).
+   Percorsi assoluti da BASE_URL per CSS/JS/favicon (non relativi): stesso
+   motivo di magazine.php e magazine/educational-N.php, l'URL pubblico ha
+   due segmenti quindi un percorso relativo risolverebbe un livello troppo
+   in profondità. */
+require __DIR__ . "/../../inc/config.php";
+$annoCorrente = date("Y");
+$menuBase = BASE_URL . "/"; // logo e menu puntano alla home
+
+// Variabili per inc/service-hero.php (vedi lì) — riusato come hero
+// generico, come in magazine.php/magazine/educational-N.php.
+$heroCategory = "Magazine — Numero 05";
+$heroTitle = 'Mettiamo le mani nel DB, sempre';
+$heroLead = 'Dal numero 05 del Magazine eWeb.';
+
+$autore = null;
+$paragrafi = [
+  'Partiamo dall’inizio, l’acronimo DB sta per Database. Ora una definizione del termine.',
+  'In informatica una base di dati, detta anche banca dati oppure database o data base, è una collezione di dati organizzati immagazzinata e accessibile per via elettronica.',
+  'Nella società attuale, nel mondo del lavoro di oggi, il concetto di dato, l’importanza dei dati è un mantra che sentiamo in continuazione, pure troppo per certi aspetti.',
+  'Data Science, Big data, Data Analytics sono solo un esempio dei “mondi” che ruotano attorno al concetto di bade dati.',
+  'Riprendiamo la definizione iniziale e cerchiamo di capire meglio di cosa stiamo parlando, estrapolando i concetti a mio avviso fondamentali, per padroneggiare in modo sereno i “nostri dati”.',
+  '• Collezione di dati: quindi non ci riferiamo ad un solo tipo di dato, all’interno delle nostre aziende e delle nostre attività, ci sono svariate tipologie di dati che dovrebbero essere il più possibile gestite in modo unico, messe il più possibile in relazione tra loro.',
+  '• Dati organizzati: dobbiamo essere noi a scegliere cosa vogliamo “salvare” quale sia il dato che vogliamo leggere ed interpretare in futuro.',
+  'L’esempio più banale è la “rubrica telefonica”. Quali “dati” di ogni singolo contatto sono di interesse per la mia azienda? Una struttura di base standard è ovvia, ma ogni singola azienda avrà esigenze diverse, finalizzate allo sviluppo della propria attività.',
+  '• Dati immagazzinati: dopo aver scelto quali e come organizzare i “dati”, scegliamo dove immagazzinarli, vi assicuro che un file xlsx non è la scelta più lungimirante.',
+  '• Dati accessibili: la scelta giusta del “dove” tenere i nostri dati, ci porta alla possibilità di fruirli, in svariate modalità con relazioni differente, confronti, visualizzazioni mirate, esportazioni funzionali ad utilizzi esterni, ecc.',
+  'I concetti spiegati, non sono riservati a grandi aziende che di conseguenza hanno a che fare con volumi di dati importanti, in termini di quantità, sono indicazioni applicabili a qualsiasi azienda dalla piccola/piccolissima alla grande industria.',
+];
+?>
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mettiamo le mani nel DB, sempre — Magazine eWeb</title>
+    <meta
+      name="description"
+      content='Partiamo dall’inizio, l’acronimo DB sta per Database.'
+    />
+    <meta name="theme-color" content="#044d8b" />
+
+    <!-- Favicon: la graffa del logo ("eWeb}"), colorata in navy — vedi assets/img/favicon.ico/generazione in memoria di progetto. -->
+    <link rel="icon" href="<?php echo BASE_URL; ?>/assets/img/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo BASE_URL; ?>/assets/img/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo BASE_URL; ?>/assets/img/favicon-16.png" />
+    <link rel="apple-touch-icon" href="<?php echo BASE_URL; ?>/assets/img/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/custom/css/style.css" />
+  </head>
+  <body class="is-loading">
+    <!-- ============ PRELOADER ============ -->
+    <div class="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__count">
+          <span class="loader__num">0</span><span class="loader__pct">%</span>
+        </div>
+        <div class="hero__brand-wrap">
+          <span
+            class="logo logo--loader logo--banner hero__brand"
+            role="img"
+            aria-label="eWeb — Progettiamo. Sviluppiamo. Comunichiamo. 10 years."
+          ></span>
+          <span class="hero__badge" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="loader__bar"><span></span></div>
+    </div>
+
+    <!-- ============ CURSOR ============ -->
+    <div class="cursor" aria-hidden="true">
+      <span class="cursor__label"></span>
+    </div>
+
+    <!-- ============ GRAIN ============ -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <?php include __DIR__ . "/../../inc/header.php"; ?>
+
+    <main id="top">
+      <?php include __DIR__ . "/../../inc/service-hero.php"; ?>
+
+      <!-- ============ ARTICOLO ============ -->
+      <section class="service-section service-section--light" data-theme="light">
+        <div class="container">
+          <?php if ($autore): ?>
+            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
+          <?php endif; ?>
+          <?php foreach ($paragrafi as $p): ?>
+            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <?php endforeach; ?>
+
+          <p class="body-l reveal" style="margin-top: 40px">
+            <a href="<?php echo BASE_URL; ?>/magazine/educational-5" class="link">← Numero 05 del Magazine</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <?php include __DIR__ . "/../../inc/footer.php"; ?>
+
+    <!-- ============ COOKIE BANNER ============ -->
+    <div class="cookie-banner" data-cookie-banner hidden>
+      <p>
+        Usiamo solo cookie tecnici necessari al funzionamento del sito.
+        <a href="#" class="link">Cookie Policy</a>
+      </p>
+      <div class="cookie-banner__actions">
+        <button type="button" class="btn btn--ghost" data-cookie-reject>
+          Solo necessari
+        </button>
+        <button type="button" class="btn btn--solid" data-cookie-accept>
+          Accetta
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ LIBS ============ -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>/custom/functions/script.js"></script>
+  </body>
+</html>

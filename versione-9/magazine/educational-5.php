@@ -2,14 +2,13 @@
 /* Pagina di un singolo numero del Magazine (newsletter eWeb) — non una
    pagina di servizio (niente service-cta/related.php, stesso principio di
    ../magazine.php). Contenuto reale (titoli/teaser/autore) recuperato dal
-   sito storico (ewebsolution.it/magazine/scopri/...) l'articolo completo di
-   ciascuna voce resta però SOLO là per ora (non migrato): ogni link della
-   lista qui sotto apre il sito storico in un'altra scheda, di proposito.
-   URL vecchio non mantenuto (l'utente ha detto esplicitamente di non
-   curarsene): qui tutti i numeri vivono sotto /magazine/educational-N,
-   indipendentemente da come si chiamavano sul sito storico
-   (magazine-1/2/3, edicational-4, educational-5/6 — incoerenza che non
-   riprendiamo). */
+   sito storico, come i singoli articoli (vedi magazine/articoli/*.php,
+   ora migrati qui: ogni voce della lista sotto apre una pagina interna,
+   non più il sito storico). URL vecchio non mantenuto (l'utente ha detto
+   esplicitamente di non curarsene): qui tutti i numeri vivono sotto
+   /magazine/educational-N, indipendentemente da come si chiamavano sul
+   sito storico (magazine-1/2/3, edicational-4, educational-5/6 —
+   incoerenza che non riprendiamo). */
 require __DIR__ . "/../inc/config.php";
 $annoCorrente = date("Y");
 $menuBase = BASE_URL . "/"; // logo e menu puntano alla home
@@ -22,15 +21,15 @@ $heroLead = 'La newsletter di eWeb, numero per numero — qui sotto gli
   articoli di questa uscita, in ordine.';
 
 // Contenuto reale di questo numero (titolo/teaser/autore quando presente),
-// recuperato dal sito storico — vedi commento sopra. "href" punta ancora
-// all'articolo completo là, non è un placeholder.
+// recuperato dal sito storico — vedi commento sopra. "slug" è il file in
+// magazine/articoli/<slug>.php (l'URL pubblico è /magazine/<slug>).
 $articoli = [
-  ["title" => 'Testi, foto, video e niente AI: come COMUNICA eWeb', "teaser" => 'Non c’è un modo solo di comunicare. Lo abbiamo sperimentato e lo vediamo ogni giorno.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/come-comunichiamo/'],
-  ["title" => 'Mettiamo le mani nel DB, sempre', "teaser" => 'Partiamo dall’inizio, l’acronimo DB sta per Database.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/developer-per-passione/'],
-  ["title" => 'Il Piano Editoriale ti salva la faccia (e non solo)', "teaser" => 'Quando si stende un piano di comunicazione, il primo passo è decidere quando affrontare un argomento e contestualizzarne la pubblicazione rispetto agli altri spunti che caratterizzano il progetto.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/piano-editoriale-in-soccorso/'],
-  ["title" => 'Vincono le risposte, parliamo di FAQ', "teaser" => 'In un mondo dell’informazione digitale che sempre di più si sbilancia verso i motori di ricerca, con le relative regole che diventano quindi mandatorie, la produzione dei contenuti non può non tener conto di quanto i discorsi vengano messi costantemente in primo piano.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/vincono-le-risposte/'],
-  ["title" => 'Perché dovrei affidarmi ad un’agenzia?', "teaser" => 'Da quando lavoro in eWeb in tantissimi (soprattutto miei ex colleghi) mi chiedono: “ma che cosa fate di così speciale? I social dell’azienda di mio marito/cugino/zio li gestisce mio figlio/nipote, ect… anche il sito glie l’ha fatto lui! Perché venire da voi?”', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/affidati-a-una-agenzia-di-valore/'],
-  ["title" => 'Comunicazione Video eWeb', "teaser" => 'Ciascuna delle nostre aziende ha la necessità di comunicare. I canali ed i linguaggi attraverso i quali può farlo sono molteplici. In questo articolo ci concentriamo sull’utilizzo dei video.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/comunicare-con-video/'],
+  ["title" => 'Testi, foto, video e niente AI: come COMUNICA eWeb', "teaser" => 'Non c’è un modo solo di comunicare. Lo abbiamo sperimentato e lo vediamo ogni giorno.', "author" => null, "slug" => 'come-comunichiamo'],
+  ["title" => 'Mettiamo le mani nel DB, sempre', "teaser" => 'Partiamo dall’inizio, l’acronimo DB sta per Database.', "author" => null, "slug" => 'developer-per-passione'],
+  ["title" => 'Il Piano Editoriale ti salva la faccia (e non solo)', "teaser" => 'Quando si stende un piano di comunicazione, il primo passo è decidere quando affrontare un argomento e contestualizzarne la pubblicazione rispetto agli altri spunti che caratterizzano il progetto.', "author" => null, "slug" => 'piano-editoriale-in-soccorso'],
+  ["title" => 'Vincono le risposte, parliamo di FAQ', "teaser" => 'In un mondo dell’informazione digitale che sempre di più si sbilancia verso i motori di ricerca, con le relative regole che diventano quindi mandatorie, la produzione dei contenuti non può non tener conto di quanto i discorsi vengano messi costantemente in primo piano.', "author" => null, "slug" => 'vincono-le-risposte'],
+  ["title" => 'Perché dovrei affidarmi ad un’agenzia?', "teaser" => 'Da quando lavoro in eWeb in tantissimi (soprattutto miei ex colleghi) mi chiedono: “ma che cosa fate di così speciale? I social dell’azienda di mio marito/cugino/zio li gestisce mio figlio/nipote, ect… anche il sito glie l’ha fatto lui! Perché venire da voi?”', "author" => null, "slug" => 'affidati-a-una-agenzia-di-valore'],
+  ["title" => 'Comunicazione Video eWeb', "teaser" => 'Ciascuna delle nostre aziende ha la necessità di comunicare. I canali ed i linguaggi attraverso i quali può farlo sono molteplici. In questo articolo ci concentriamo sull’utilizzo dei video.', "author" => null, "slug" => 'comunicare-con-video'],
 ];
 ?>
 <!doctype html>
@@ -104,17 +103,14 @@ $articoli = [
             </div>
           </div>
           <p class="body-l reveal">
-            Ogni articolo completo resta per ora sul sito storico — il link
-            apre lì, in un'altra scheda.
+            Un articolo via l'altro, in ordine.
           </p>
           <ul class="service-related__list">
             <?php foreach ($articoli as $i => $a): ?>
               <li class="reveal">
                 <a
                   class="service-related__link"
-                  href="<?php echo htmlspecialchars($a["href"]); ?>"
-                  target="_blank"
-                  rel="noopener"
+                  href="<?php echo BASE_URL . "/magazine/" . $a["slug"]; ?>"
                 >
                   <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
                   <span class="service-related__link-body">

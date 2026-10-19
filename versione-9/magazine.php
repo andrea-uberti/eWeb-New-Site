@@ -11,8 +11,10 @@
    come si chiamava quel numero sul sito storico (lì erano
    magazine-1/2/3, edicational-4 — refuso originale, non ripreso —,
    educational-5/6: incoerenza esplicitamente non mantenuta su richiesta).
-   I singoli ARTICOLI dentro ogni numero restano invece sul sito storico
-   per ora (non migrati): lo spiega anche il testo della sezione sotto. */
+   I singoli ARTICOLI dentro ogni numero hanno anche loro una pagina
+   propria ora (vedi magazine/articoli/*.php), URL piatto
+   /magazine/<slug-articolo> come sul sito storico (deciso così apposta,
+   non annidato sotto /magazine/educational-N/). */
 require __DIR__ . "/inc/config.php";
 $annoCorrente = date("Y");
 $menuBase = BASE_URL . "/"; // logo e menu puntano alla home, non sono ancore di questa pagina
@@ -27,15 +29,30 @@ $heroLead = 'Niente promozioni ogni due giorni: una email quando abbiamo
 
 // I 6 numeri già pubblicati, ora con una pagina propria qui (vedi commento
 // sopra). "teaser" è il titolo del primo articolo di quel numero — una
-// vera anteprima, non un placeholder generico.
+// vera anteprima, non un placeholder generico. Ordine: dal più recente al
+// più vecchio (06 prima, 01 per ultimo) — il numero più alto è sempre
+// l'ultimo uscito, non serve un campo data a parte per ordinarli.
 $numeriPrecedenti = [
-  ["num" => "01", "slug" => "educational-1", "teaser" => "Perché abbiamo smesso di comunicare. E adesso riprendiamo."],
-  ["num" => "02", "slug" => "educational-2", "teaser" => "Professionisti da oltre 25 anni. Ma sbagliamo anche noi."],
-  ["num" => "03", "slug" => "educational-3", "teaser" => "L'AI c'è ma (ancora) non si vede. Si vedrà?"],
-  ["num" => "04", "slug" => "educational-4", "teaser" => "Non siamo contro Wordpress, siamo per il cliente."],
-  ["num" => "05", "slug" => "educational-5", "teaser" => "Testi, foto, video e niente AI: come comunica eWeb."],
   ["num" => "06", "slug" => "educational-6", "teaser" => "Qualità e prezzo non vanno sempre a braccetto."],
+  ["num" => "05", "slug" => "educational-5", "teaser" => "Testi, foto, video e niente AI: come comunica eWeb."],
+  ["num" => "04", "slug" => "educational-4", "teaser" => "Non siamo contro Wordpress, siamo per il cliente."],
+  ["num" => "03", "slug" => "educational-3", "teaser" => "L'AI c'è ma (ancora) non si vede. Si vedrà?"],
+  ["num" => "02", "slug" => "educational-2", "teaser" => "Professionisti da oltre 25 anni. Ma sbagliamo anche noi."],
+  ["num" => "01", "slug" => "educational-1", "teaser" => "Perché abbiamo smesso di comunicare. E adesso riprendiamo."],
 ];
+
+// Paginazione, 5 numeri a pagina: oggi sono solo 6 (quindi 2 pagine), ma
+// il meccanismo regge da solo quando se ne aggiungeranno altri — non va
+// toccato quando si aggiunge un settimo numero, solo l'array sopra.
+$numeriPerPagina = 5;
+$numeriTotalePagine = max(1, (int) ceil(count($numeriPrecedenti) / $numeriPerPagina));
+$numeriPagina = isset($_GET["pagina"]) ? (int) $_GET["pagina"] : 1;
+$numeriPagina = max(1, min($numeriPagina, $numeriTotalePagine));
+$numeriPrecedentiPagina = array_slice(
+  $numeriPrecedenti,
+  ($numeriPagina - 1) * $numeriPerPagina,
+  $numeriPerPagina,
+);
 ?>
 <!doctype html>
 <html lang="it">
@@ -181,11 +198,10 @@ $numeriPrecedenti = [
             </div>
           </div>
           <p class="body-l reveal">
-            Ogni numero raccoglie gli articoli di quel periodo — i singoli
-            articoli, per ora, restano leggibili sul sito storico.
+            Ogni numero raccoglie gli articoli di quel periodo.
           </p>
           <ul class="service-related__list">
-            <?php foreach ($numeriPrecedenti as $n): ?>
+            <?php foreach ($numeriPrecedentiPagina as $n): ?>
               <li class="reveal">
                 <a
                   class="service-related__link"
@@ -201,6 +217,46 @@ $numeriPrecedenti = [
               </li>
             <?php endforeach; ?>
           </ul>
+
+          <?php if ($numeriTotalePagine > 1): ?>
+            <!-- Paginazione via query string (?pagina=N), non un nuovo URL
+               pulito: nessuna regola .htaccess in più, e a 5 numeri a
+               pagina non ne vale la pena finché i numeri non crescono
+               molto. "Più recenti"/"Più vecchi" invece di "Precedente"/
+               "Successiva": l'elenco va dal numero più alto (recente) al
+               più basso (vecchio), pagina 1 = più recenti. -->
+            <nav class="magazine-pagination" aria-label="Altri numeri">
+              <?php if ($numeriPagina > 1): ?>
+                <a
+                  class="magazine-pagination__nav link"
+                  href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $numeriPagina - 1; ?>"
+                  >← Più recenti</a
+                >
+              <?php else: ?>
+                <span class="magazine-pagination__nav is-disabled">← Più recenti</span>
+              <?php endif; ?>
+
+              <span class="magazine-pagination__pages">
+                <?php for ($i = 1; $i <= $numeriTotalePagine; $i++): ?>
+                  <?php if ($i === $numeriPagina): ?>
+                    <span class="magazine-pagination__page is-current" aria-current="page"><?php echo $i; ?></span>
+                  <?php else: ?>
+                    <a class="magazine-pagination__page" href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              </span>
+
+              <?php if ($numeriPagina < $numeriTotalePagine): ?>
+                <a
+                  class="magazine-pagination__nav link"
+                  href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $numeriPagina + 1; ?>"
+                  >Più vecchi →</a
+                >
+              <?php else: ?>
+                <span class="magazine-pagination__nav is-disabled">Più vecchi →</span>
+              <?php endif; ?>
+            </nav>
+          <?php endif; ?>
         </div>
       </section>
     </main>

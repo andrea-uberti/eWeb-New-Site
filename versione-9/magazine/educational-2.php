@@ -2,14 +2,13 @@
 /* Pagina di un singolo numero del Magazine (newsletter eWeb) — non una
    pagina di servizio (niente service-cta/related.php, stesso principio di
    ../magazine.php). Contenuto reale (titoli/teaser/autore) recuperato dal
-   sito storico (ewebsolution.it/magazine/scopri/...) l'articolo completo di
-   ciascuna voce resta però SOLO là per ora (non migrato): ogni link della
-   lista qui sotto apre il sito storico in un'altra scheda, di proposito.
-   URL vecchio non mantenuto (l'utente ha detto esplicitamente di non
-   curarsene): qui tutti i numeri vivono sotto /magazine/educational-N,
-   indipendentemente da come si chiamavano sul sito storico
-   (magazine-1/2/3, edicational-4, educational-5/6 — incoerenza che non
-   riprendiamo). */
+   sito storico, come i singoli articoli (vedi magazine/articoli/*.php,
+   ora migrati qui: ogni voce della lista sotto apre una pagina interna,
+   non più il sito storico). URL vecchio non mantenuto (l'utente ha detto
+   esplicitamente di non curarsene): qui tutti i numeri vivono sotto
+   /magazine/educational-N, indipendentemente da come si chiamavano sul
+   sito storico (magazine-1/2/3, edicational-4, educational-5/6 —
+   incoerenza che non riprendiamo). */
 require __DIR__ . "/../inc/config.php";
 $annoCorrente = date("Y");
 $menuBase = BASE_URL . "/"; // logo e menu puntano alla home
@@ -22,14 +21,14 @@ $heroLead = 'La newsletter di eWeb, numero per numero — qui sotto gli
   articoli di questa uscita, in ordine.';
 
 // Contenuto reale di questo numero (titolo/teaser/autore quando presente),
-// recuperato dal sito storico — vedi commento sopra. "href" punta ancora
-// all'articolo completo là, non è un placeholder.
+// recuperato dal sito storico — vedi commento sopra. "slug" è il file in
+// magazine/articoli/<slug>.php (l'URL pubblico è /magazine/<slug>).
 $articoli = [
-  ["title" => 'Professionisti da oltre 25 anni. Ma sbagliamo anche noi.', "teaser" => 'Non c’è una ricetta certamente e completamente vincente. Non c’è la sicurezza che tutto quanto viene fatto porterà dei risultati da urlo e senza intoppi.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/non-siamo-perfetti/'],
-  ["title" => 'Conta di più quello che non si vede: un buon Back-End', "teaser" => 'Argomento tecnico, ma non solo. Quello che sta “dietro le quinte” è spesso la parte più importante, più pragmatica ed al tempo stesso invisibile del lavoro che svolgiamo, ciò che consente di raggiungere ottimi risultati “visivi” e “funzionali” per il pubblico.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/backend-dev/'],
-  ["title" => 'Farsi conoscere. Come? Ti aiuta eWeb', "teaser" => 'Il segreto del successo di un’attività, di un servizio o di un prodotto non è nel valore di quanto viene proposto ma nella capacità di far conoscere al più ampio pubblico possibile di quello che si mette sul mercato', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/canali-migliori-comunicazione/'],
-  ["title" => 'Dalla SERP all\'AI Mode: la nuova architettura della visibilità digitale', "teaser" => 'Per vent’anni il contratto implicito tra noi e Google è stato chiaro: noi fornivamo i contenuti, il motore forniva l’indicizzazione', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/seo-ai-mode/'],
-  ["title" => 'A proteggere e registrare il tuo software ci pensa eWeb!', "teaser" => 'Noi di eWeb ci occupiamo anche della registrazione di un software presso la SIAE.', "author" => null, "href" => 'https://www.ewebsolution.it/magazine/registrazione-software/'],
+  ["title" => 'Professionisti da oltre 25 anni. Ma sbagliamo anche noi.', "teaser" => 'Non c’è una ricetta certamente e completamente vincente. Non c’è la sicurezza che tutto quanto viene fatto porterà dei risultati da urlo e senza intoppi.', "author" => null, "slug" => 'non-siamo-perfetti'],
+  ["title" => 'Conta di più quello che non si vede: un buon Back-End', "teaser" => 'Argomento tecnico, ma non solo. Quello che sta “dietro le quinte” è spesso la parte più importante, più pragmatica ed al tempo stesso invisibile del lavoro che svolgiamo, ciò che consente di raggiungere ottimi risultati “visivi” e “funzionali” per il pubblico.', "author" => null, "slug" => 'backend-dev'],
+  ["title" => 'Farsi conoscere. Come? Ti aiuta eWeb', "teaser" => 'Il segreto del successo di un’attività, di un servizio o di un prodotto non è nel valore di quanto viene proposto ma nella capacità di far conoscere al più ampio pubblico possibile di quello che si mette sul mercato', "author" => null, "slug" => 'canali-migliori-comunicazione'],
+  ["title" => 'Dalla SERP all\'AI Mode: la nuova architettura della visibilità digitale', "teaser" => 'Per vent’anni il contratto implicito tra noi e Google è stato chiaro: noi fornivamo i contenuti, il motore forniva l’indicizzazione', "author" => null, "slug" => 'seo-ai-mode'],
+  ["title" => 'A proteggere e registrare il tuo software ci pensa eWeb!', "teaser" => 'Noi di eWeb ci occupiamo anche della registrazione di un software presso la SIAE.', "author" => null, "slug" => 'registrazione-software'],
 ];
 ?>
 <!doctype html>
@@ -103,17 +102,14 @@ $articoli = [
             </div>
           </div>
           <p class="body-l reveal">
-            Ogni articolo completo resta per ora sul sito storico — il link
-            apre lì, in un'altra scheda.
+            Un articolo via l'altro, in ordine.
           </p>
           <ul class="service-related__list">
             <?php foreach ($articoli as $i => $a): ?>
               <li class="reveal">
                 <a
                   class="service-related__link"
-                  href="<?php echo htmlspecialchars($a["href"]); ?>"
-                  target="_blank"
-                  rel="noopener"
+                  href="<?php echo BASE_URL . "/magazine/" . $a["slug"]; ?>"
                 >
                   <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
                   <span class="service-related__link-body">
