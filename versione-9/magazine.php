@@ -49,11 +49,19 @@ $numeriPrecedenti = [
     />
     <meta name="theme-color" content="#044d8b" />
 
-    <!-- Favicon: la graffa del logo ("eWeb}"), colorata in navy — vedi assets/img/favicon.ico/generazione in memoria di progetto. -->
-    <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png" />
-    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <!-- Favicon: la graffa del logo ("eWeb}"), colorata in navy — vedi assets/img/favicon.ico/generazione in memoria di progetto.
+       Percorsi assoluti da BASE_URL (non relativi come nelle altre pagine
+       alla radice): "magazine" è anche il nome della cartella dei singoli
+       numeri (vedi magazine/educational-N.php), quindi se il browser
+       arriva qui con uno slash finale ("/magazine/", es. per un redirect
+       di mod_dir sul server reale anche con DirectorySlash Off nella
+       cartella — comportamento non riproducibile in locale, trovato solo
+       in produzione) un percorso relativo risolverebbe un livello più in
+       profondità e romperebbe tutti gli asset. -->
+    <link rel="icon" href="<?php echo BASE_URL; ?>/assets/img/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo BASE_URL; ?>/assets/img/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo BASE_URL; ?>/assets/img/favicon-16.png" />
+    <link rel="apple-touch-icon" href="<?php echo BASE_URL; ?>/assets/img/apple-touch-icon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -62,7 +70,7 @@ $numeriPrecedenti = [
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="custom/css/style.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/custom/css/style.css" />
   </head>
   <body class="is-loading">
     <!-- ============ PRELOADER ============ -->
@@ -124,7 +132,7 @@ $numeriPrecedenti = [
                senza bisogno di generalizzare quella funzione. -->
           <form
             class="finale__form magazine-form"
-            action="iscriviti"
+            action="<?php echo BASE_URL; ?>/iscriviti"
             method="post"
             novalidate
             data-success="Fatto! Controlla la posta: la prima email arriva al prossimo numero."
@@ -220,6 +228,6 @@ $numeriPrecedenti = [
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="custom/functions/script.js"></script>
+    <script src="<?php echo BASE_URL; ?>/custom/functions/script.js"></script>
   </body>
 </html>
