@@ -1817,12 +1817,14 @@ em {
    sopra, segnala già l'hover) — l'area cliccabile si estende invece a
    tutta la riga con questo ::after in position:absolute: il tr è
    l'unico antenato positioned, quindi "inset: 0" copre l'intera riga
-   (tutte le colonne), non solo il testo del nome cliente. */
+   (tutte le colonne), non solo il testo del nome cliente. Niente
+   cursor:pointer qui: con il cursore custom attivo (vedi .cursor più
+   sopra, cursor:none su a/button) questo pseudo-elemento lo sovrascriveva
+   con la manina di sistema, visibile insieme al pallino ingrandito. */
 .portfolio__table-link::after {
   content: "";
   position: absolute;
   inset: 0;
-  cursor: pointer;
 }
 
 /* Chiusura della sezione: stesso trattamento dato a .story__closing — una
