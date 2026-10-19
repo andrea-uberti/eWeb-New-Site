@@ -4,9 +4,13 @@
    nuova pagina possa "dimenticarselo" copiando il blocco a mano. La pagina
    che include questo file imposta PRIMA $ctaLine (string, HTML — può
    contenere <em>). Rimanda sempre al form unico in home (#contatti), mai
-   una copia del form. */
+   una copia del form. L'id="contatti" sulla section è per le pagine
+   articolo del magazine: il loro bottone "Parliamone" in hero punta a
+   "#contatti" nella STESSA pagina invece che alla home (vedi
+   $heroCtaHref in inc/service-hero.php) — su tutte le altre pagine resta
+   semplicemente un id inutilizzato, nessun cambiamento di comportamento. */
 ?>
-<section class="service-cta service-cta--yellow" data-theme="light">
+<section class="service-cta service-cta--yellow" id="contatti" data-theme="light">
   <div class="container service-cta__inner">
     <p class="service-cta__line" data-words><?php echo $ctaLine; ?></p>
     <div class="service-cta__actions">

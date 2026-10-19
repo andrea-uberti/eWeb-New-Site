@@ -6,6 +6,13 @@
    - $heroCategory  (string)       eyebrow, es. "Web site"
    - $heroTitle     (string, HTML) titolo — può contenere <br>/<em>
    - $heroLead      (string, HTML) paragrafo lead — può contenere <em>
+   Opzionale, $heroCtaHref: dove porta il bottone "Parliamone". Di
+   default va al form di contatto in home (comportamento di sempre, non
+   cambia se non lo si imposta) — le pagine articolo del magazine lo
+   puntano invece a "#contatti" nella STESSA pagina (l'id che
+   inc/service-cta.php porta ora), per scorrere fino alla loro CTA in
+   fondo invece di saltare subito via dalla pagina. Vedi
+   magazine/articoli/*.php.
    Layout a due colonne da 901px in su (titolo grande a sinistra, lead +
    bottone allineati in basso a destra — si legge come un sommario, non
    più tutto impilato uguale) e a una colonna sotto, stesso breakpoint di
@@ -32,7 +39,7 @@
     <div class="service-hero__side">
       <p class="body-l service-hero__lead" data-words><?php echo $heroLead; ?></p>
       <div class="service-hero__actions reveal">
-        <a class="btn btn--ghost" href="<?php echo BASE_URL; ?>/#contatti" data-magnetic>
+        <a class="btn btn--ghost" href="<?php echo $heroCtaHref ?? (BASE_URL . "/#contatti"); ?>" data-magnetic>
           <span class="btn__text">Parliamone</span>
           <span class="btn__arrow">→</span>
         </a>

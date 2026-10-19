@@ -19,6 +19,9 @@ $menuBase = BASE_URL . "/"; // logo e menu puntano alla home
 $heroCategory = "Magazine — Numero 01";
 $heroTitle = 'L’AI è una bolla o la chiave per il futuro?';
 $heroLead = 'Ma è corretto o fuorviante chiamarla intelligenza?';
+$heroCtaHref = "#contatti"; // scorre al CTA in fondo a questa stessa pagina, non alla home
+
+$ctaLine = 'Se quello che hai letto ti ha fatto venire voglia di parlarne, <em>scrivici.</em>';
 
 $autore = 'Pietro Cortinovis';
 $paragrafi = [
@@ -135,38 +138,9 @@ $altriArticoli = [
         </div>
       </section>
 
-      <?php if ($altriArticoli): ?>
-        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
-        <section class="service-section service-section--dark" data-theme="dark">
-          <div class="container">
-            <div class="service-section__head">
-              <div class="service-section__head-text">
-                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
-                <h2 class="h2 reveal-lines">
-                  Leggi anche<br /><em>gli altri articoli.</em>
-                </h2>
-              </div>
-            </div>
-            <ul class="service-related__list">
-              <?php foreach ($altriArticoli as $i => $alt): ?>
-                <li class="reveal">
-                  <a
-                    class="service-related__link"
-                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
-                  >
-                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
-                    <span class="service-related__link-body">
-                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
-                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
-                    </span>
-                    <span class="btn__arrow">→</span>
-                  </a>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-        </section>
-      <?php endif; ?>
+      <?php include __DIR__ . "/../../inc/magazine-related.php"; ?>
+
+      <?php include __DIR__ . "/../../inc/service-cta.php"; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>
