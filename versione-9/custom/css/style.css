@@ -2338,6 +2338,45 @@ em {
   }
 }
 
+/* Paginazione dei numeri del magazine (?pagina=N, vedi magazine.php) —
+   prev/next testuali (riusano .link, già definito sopra) + i numeri di
+   pagina in mezzo. Pensata per pochissime pagine (oggi 2): se in futuro
+   ne servissero molte di più andrebbe ripensata (es. ellissi "..."), non
+   un problema da risolvere ora. */
+.magazine-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: clamp(32px, 4vw, 48px);
+  flex-wrap: wrap;
+}
+.magazine-pagination__nav.is-disabled {
+  color: var(--muted);
+  opacity: 0.4;
+}
+.magazine-pagination__pages {
+  display: flex;
+  gap: 8px;
+}
+.magazine-pagination__page {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 14px;
+  color: var(--muted);
+}
+.magazine-pagination__page:not(.is-current):hover {
+  color: var(--fg);
+}
+.magazine-pagination__page.is-current {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
 /* CTA finale di pagina: rimanda al form unico, in home (#contatti) — non
    ne duplica uno per ognuna delle pagine di servizio. */
 .service-cta {
