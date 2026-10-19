@@ -28,6 +28,17 @@ $paragrafi = [
   'Sedersi accanto al cliente fa sembrare tutto molto più naturale, semplice, diretto. Se ti metti di fronte a chi ha una necessità e chiede il tuo supporto sembra quasi di stare ad aspettare la richiesta per dare la tua risposta. Fianco a fianco, invece, sembra quasi di accompagnare, sorreggere, aiutare l’azienda o il professionista che ha deciso di affidarsi alla tua esperienza e alla tua professionalità nel cammino verso il successo. Quel successo che può avere tante forme, tanti colori, tanti risultati.',
   'In ogni nostro progetto ci sono idee, professionalità, tempo ed errori. Non bisogna aver paura nell’ammettere che sbagliamo anche noi. La strategia che nasce può essere pensata bene ma da aggiustare in corsa, il codice che si scrive parte in un modo e poi viene corretto, la trattativa commerciale idem, l’analisi SEO pure. Nessuno può ritenersi esente da errori. Riconoscerlo prima di cominciare, metterlo in conto quando ancora c’è lavoro da fare significa essere onesti, prima con sé stessi e poi verso chi ti affida un pezzo dal suo business per cercare di migliorare.',
 ];
+
+// Gli altri articoli dello stesso numero (titolo/teaser reali, stesso
+// campo "teaser" usato altrove) — non un elenco a caso, per restare nel
+// tema di quella uscita della newsletter. Niente qui se il numero ha un
+// solo articolo (non capita oggi, ma il controllo sotto regge comunque).
+$altriArticoli = [
+  ["slug" => 'backend-dev', "title" => 'Conta di più quello che non si vede: un buon Back-End', "teaser" => 'Argomento tecnico, ma non solo. Quello che sta “dietro le quinte” è spesso la parte più importante, più pragmatica ed al tempo stesso invisibile del lavoro che svolgiamo, ciò che consente di raggiungere ottimi risultati “visivi” e “funzionali” per il pubblico.'],
+  ["slug" => 'canali-migliori-comunicazione', "title" => 'Farsi conoscere. Come? Ti aiuta eWeb', "teaser" => 'Il segreto del successo di un’attività, di un servizio o di un prodotto non è nel valore di quanto viene proposto ma nella capacità di far conoscere al più ampio pubblico possibile di quello che si mette sul mercato'],
+  ["slug" => 'seo-ai-mode', "title" => 'Dalla SERP all\'AI Mode: la nuova architettura della visibilità digitale', "teaser" => 'Per vent’anni il contratto implicito tra noi e Google è stato chiaro: noi fornivamo i contenuti, il motore forniva l’indicizzazione'],
+  ["slug" => 'registrazione-software', "title" => 'A proteggere e registrare il tuo software ci pensa eWeb!', "teaser" => 'Noi di eWeb ci occupiamo anche della registrazione di un software presso la SIAE.'],
+];
 ?>
 <!doctype html>
 <html lang="it">
@@ -91,11 +102,15 @@ $paragrafi = [
       <!-- ============ ARTICOLO ============ -->
       <section class="service-section service-section--light" data-theme="light">
         <div class="container">
-          <?php if ($autore): ?>
-            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
-          <?php endif; ?>
-          <?php foreach ($paragrafi as $p): ?>
-            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <div class="article__meta reveal">
+            <span>Numero 02</span>
+            <?php if ($autore): ?>
+              <span class="article__meta-sep">·</span>
+              <span class="article__meta-author">di <?php echo htmlspecialchars($autore); ?></span>
+            <?php endif; ?>
+          </div>
+          <?php foreach ($paragrafi as $i => $p): ?>
+            <p class="<?php echo $i === 0 ? "article__lead" : "body-l"; ?> reveal"><?php echo htmlspecialchars($p); ?></p>
           <?php endforeach; ?>
 
           <p class="body-l reveal" style="margin-top: 40px">
@@ -103,6 +118,39 @@ $paragrafi = [
           </p>
         </div>
       </section>
+
+      <?php if ($altriArticoli): ?>
+        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
+        <section class="service-section service-section--dark" data-theme="dark">
+          <div class="container">
+            <div class="service-section__head">
+              <div class="service-section__head-text">
+                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
+                <h2 class="h2 reveal-lines">
+                  Leggi anche<br /><em>gli altri articoli.</em>
+                </h2>
+              </div>
+            </div>
+            <ul class="service-related__list">
+              <?php foreach ($altriArticoli as $i => $alt): ?>
+                <li class="reveal">
+                  <a
+                    class="service-related__link"
+                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
+                  >
+                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
+                    <span class="service-related__link-body">
+                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
+                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
+                    </span>
+                    <span class="btn__arrow">→</span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </section>
+      <?php endif; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>

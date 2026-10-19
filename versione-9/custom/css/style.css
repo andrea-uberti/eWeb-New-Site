@@ -2338,6 +2338,38 @@ em {
   }
 }
 
+/* Pagina di un singolo articolo del magazine (magazine/articoli/*.php) —
+   riga meta (numero + autore) sopra il testo, con un bordo sotto per
+   staccarla dal corpo, e il primo paragrafo un po' più grande degli
+   altri (stesso trucco editoriale del "lead" in testa a un articolo),
+   per dare un minimo di gerarchia a una pagina che altrimenti è solo
+   paragrafi uguali uno via l'altro. */
+.article__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 20px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+.article__meta-author {
+  color: var(--fg);
+}
+.article__meta-sep {
+  opacity: 0.5;
+}
+.article__lead {
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.5;
+  color: var(--fg);
+  max-width: 62ch;
+}
+.article__lead + .body-l {
+  margin-top: 28px;
+}
+
 /* Paginazione dei numeri del magazine (?pagina=N, vedi magazine.php) —
    prev/next testuali (riusano .link, già definito sopra) + i numeri di
    pagina in mezzo. Pensata per pochissime pagine (oggi 2): se in futuro

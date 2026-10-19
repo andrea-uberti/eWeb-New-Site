@@ -27,6 +27,17 @@ $paragrafi = [
   'Anche quando si parla della localizzazione del bacino d’utenza che può essere interessato ad un prodotto o un servizio bisogna fare grande attenzione. Ci sono realtà che si propongono su scala nazionale e altri, avendo una piscina o un centro medico, che vogliono farsi notare da tutti quelli nell’arco di qualche chilometro. L’obiettivo è lo stesso, farsi conoscere. I mezzi da utilizzare però cambiano profondamente e in questo caso, su quella seggiola lì di fianco, ci sediamo volentieri noi. Per trovare, insieme, la soluzione migliore.',
   'Nel corso di questi anni ci siamo imbattuti in diverse forme di comunicazione. Digitale ma anche cartacea, organica e a pagamento, dentro e fuori dalle piattaforme social. Nel prossimo Magazine di eWeb racconteremo un po’ la differenza tra un sito web, le DEM (Direct Email Marketing) e le ADS di Google piuttosto che Meta ma è giusto sottolineare come l’approccio verso la comunicazione vecchio stile, volantinaggio e vetrofanie, non sia da noi esclusa a priori. Perché i clienti non sono tutti uguali, perché quello che va comunicato non è sempre uguale e perché capire quale sia la strada migliore da percorrere si capisce solo analizzando insieme necessità e obiettivi. Per carsi conoscere. Come? Ti aiuta eWeb.',
 ];
+
+// Gli altri articoli dello stesso numero (titolo/teaser reali, stesso
+// campo "teaser" usato altrove) — non un elenco a caso, per restare nel
+// tema di quella uscita della newsletter. Niente qui se il numero ha un
+// solo articolo (non capita oggi, ma il controllo sotto regge comunque).
+$altriArticoli = [
+  ["slug" => 'non-siamo-perfetti', "title" => 'Professionisti da oltre 25 anni. Ma sbagliamo anche noi.', "teaser" => 'Non c’è una ricetta certamente e completamente vincente. Non c’è la sicurezza che tutto quanto viene fatto porterà dei risultati da urlo e senza intoppi.'],
+  ["slug" => 'backend-dev', "title" => 'Conta di più quello che non si vede: un buon Back-End', "teaser" => 'Argomento tecnico, ma non solo. Quello che sta “dietro le quinte” è spesso la parte più importante, più pragmatica ed al tempo stesso invisibile del lavoro che svolgiamo, ciò che consente di raggiungere ottimi risultati “visivi” e “funzionali” per il pubblico.'],
+  ["slug" => 'seo-ai-mode', "title" => 'Dalla SERP all\'AI Mode: la nuova architettura della visibilità digitale', "teaser" => 'Per vent’anni il contratto implicito tra noi e Google è stato chiaro: noi fornivamo i contenuti, il motore forniva l’indicizzazione'],
+  ["slug" => 'registrazione-software', "title" => 'A proteggere e registrare il tuo software ci pensa eWeb!', "teaser" => 'Noi di eWeb ci occupiamo anche della registrazione di un software presso la SIAE.'],
+];
 ?>
 <!doctype html>
 <html lang="it">
@@ -90,11 +101,15 @@ $paragrafi = [
       <!-- ============ ARTICOLO ============ -->
       <section class="service-section service-section--light" data-theme="light">
         <div class="container">
-          <?php if ($autore): ?>
-            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
-          <?php endif; ?>
-          <?php foreach ($paragrafi as $p): ?>
-            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <div class="article__meta reveal">
+            <span>Numero 02</span>
+            <?php if ($autore): ?>
+              <span class="article__meta-sep">·</span>
+              <span class="article__meta-author">di <?php echo htmlspecialchars($autore); ?></span>
+            <?php endif; ?>
+          </div>
+          <?php foreach ($paragrafi as $i => $p): ?>
+            <p class="<?php echo $i === 0 ? "article__lead" : "body-l"; ?> reveal"><?php echo htmlspecialchars($p); ?></p>
           <?php endforeach; ?>
 
           <p class="body-l reveal" style="margin-top: 40px">
@@ -102,6 +117,39 @@ $paragrafi = [
           </p>
         </div>
       </section>
+
+      <?php if ($altriArticoli): ?>
+        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
+        <section class="service-section service-section--dark" data-theme="dark">
+          <div class="container">
+            <div class="service-section__head">
+              <div class="service-section__head-text">
+                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
+                <h2 class="h2 reveal-lines">
+                  Leggi anche<br /><em>gli altri articoli.</em>
+                </h2>
+              </div>
+            </div>
+            <ul class="service-related__list">
+              <?php foreach ($altriArticoli as $i => $alt): ?>
+                <li class="reveal">
+                  <a
+                    class="service-related__link"
+                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
+                  >
+                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
+                    <span class="service-related__link-body">
+                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
+                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
+                    </span>
+                    <span class="btn__arrow">→</span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </section>
+      <?php endif; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>

@@ -27,6 +27,18 @@ $paragrafi = [
   'Ogni logica di mercato passa dalla legge della domanda e dell’offerta. Il problema principale di ogni azienda è farsi conoscere sul mercato e proporre i propri prodotti o servizi al pari dei concorrenti. Se un potenziale cliente conosce la mia esistenza probabilmente valuterà anche me al momento in cui deve fare una scelta. Se ho un grande prodotto, un super servizio e anche un sito web all’avanguardia ma le visite sono poche e, quindi, la percezione del mercato rispetto al mio brand è quasi nulla diventa complicato pensare di fare business. Dal punto di vista strategico, quindi, nessun dubbio sul primo canale di investimento da privilegiare in caso di scelta: la comunicazione permette di farsi conoscere, quindi aumentare visibilità e reputazione in modo da essere potenzialmente contattabili da un numero sempre maggiore di lead e interessati.',
   'Chiaramente, è questo è forse uno dei plus più importanti che il team di eWeb può mettere a disposizione del mercato, ragionare la comunicazione di un brand o di un servizio consapevoli della struttura software a disposizione permette a chi studia la strategia si privilegiare un canale piuttosto di un altro. Esempio pratico: se ci si rivolge ad un pubblico B2B, l’utilizzo di LinkedIn o delle DEM rispetto al mondo META è molto più strategico, se si ha la possibilità di creare contenuti video accattivanti anche la promozione su canali come YouTube diventa importante. Quindi sì, prediligere la comunicazione senza mai dimenticare il contesto tecnico di riferimento.',
 ];
+
+// Gli altri articoli dello stesso numero (titolo/teaser reali, stesso
+// campo "teaser" usato altrove) — non un elenco a caso, per restare nel
+// tema di quella uscita della newsletter. Niente qui se il numero ha un
+// solo articolo (non capita oggi, ma il controllo sotto regge comunque).
+$altriArticoli = [
+  ["slug" => 'qualita-al-giusto-prezzo', "title" => 'Qualità e prezzo NON vanno sempre a braccetto', "teaser" => 'No, i prodotti digitali non sono tutti uguali. Su altre newsletter come quella che stai leggendo, anche nel recente passato, abbiamo cercato di affrontare i temi posti dall’entrata in scena dell’IA e la stesura dei testi ma anche la soluzione per aziende che cercano siti veloci a poco prezzo sono senza dubbio questioni che si possono “smarcare” anche con un prompt fatto bene.'],
+  ["slug" => 'hosting-aruba-business', "title" => 'Usiamo e rivendiamo Hosting ARUBA BUSINESS', "teaser" => 'La scelta aziendale di vendere o non rivendere servizi IT di terze parti è stata sul tavolo di eWeb per diverso tempo, non vi nascondiamo il fatto che eravamo propensi e conviti di scegliere la strada del no. Ci sono ragioni valide che davano forza a questo pensiero. Anni di esperienza pre eWeb di forniture e di “rotture”, tecniche ed umane.'],
+  ["slug" => 'analisi-seo-fatta-bene', "title" => 'Analisi SEO, solo software PROFESSIONALI', "teaser" => 'Quando si mette on-line un nuovo portale o si alimenta un blog con nuovi contenuti, l’aspettativa è quella di vedere le nuove pagine già rintracciabili sulla SERP di Google dopo pochi giorni. Si passa dall’indicizzazione al successivo posizionamento e si “pesa” una keyword in base a diversi parametri, per capire quanto questa intrecci l’interesse del pubblico e quanto porti contatti e nuovi lead.'],
+  ["slug" => 'le-due-anime-di-eweb', "title" => 'eWeb ha due anime, Dev e Com: perché questo fa la differenza', "teaser" => 'eWeb ha due anime, Dev e Com: perché questo fa la differenza'],
+  ["slug" => 'realizziamo-il-tuo-crm', "title" => 'Realizziamo il tuo CRM', "teaser" => 'Dentro i processi aziendali ci sono tanti dettagli che caratterizzano, dati che fanno prendere decisioni, problemi che si possono risolvere solo se si conoscono. Spesso questi aspetti vengono sottovalutati e si ragiona soltanto sulla realizzazione di un sito internet (magari vetrina) che garantisca una presenza on-line ma, di fatto, senza interconnessioni che permettano di fare quel passo in più, quel qualcosa di più strutturato e armonizzato che si possa considerare davvero funzionale alle analisi e agli obiettivi aziendali.'],
+];
 ?>
 <!doctype html>
 <html lang="it">
@@ -90,11 +102,15 @@ $paragrafi = [
       <!-- ============ ARTICOLO ============ -->
       <section class="service-section service-section--light" data-theme="light">
         <div class="container">
-          <?php if ($autore): ?>
-            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
-          <?php endif; ?>
-          <?php foreach ($paragrafi as $p): ?>
-            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <div class="article__meta reveal">
+            <span>Numero 06</span>
+            <?php if ($autore): ?>
+              <span class="article__meta-sep">·</span>
+              <span class="article__meta-author">di <?php echo htmlspecialchars($autore); ?></span>
+            <?php endif; ?>
+          </div>
+          <?php foreach ($paragrafi as $i => $p): ?>
+            <p class="<?php echo $i === 0 ? "article__lead" : "body-l"; ?> reveal"><?php echo htmlspecialchars($p); ?></p>
           <?php endforeach; ?>
 
           <p class="body-l reveal" style="margin-top: 40px">
@@ -102,6 +118,39 @@ $paragrafi = [
           </p>
         </div>
       </section>
+
+      <?php if ($altriArticoli): ?>
+        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
+        <section class="service-section service-section--dark" data-theme="dark">
+          <div class="container">
+            <div class="service-section__head">
+              <div class="service-section__head-text">
+                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
+                <h2 class="h2 reveal-lines">
+                  Leggi anche<br /><em>gli altri articoli.</em>
+                </h2>
+              </div>
+            </div>
+            <ul class="service-related__list">
+              <?php foreach ($altriArticoli as $i => $alt): ?>
+                <li class="reveal">
+                  <a
+                    class="service-related__link"
+                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
+                  >
+                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
+                    <span class="service-related__link-body">
+                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
+                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
+                    </span>
+                    <span class="btn__arrow">→</span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </section>
+      <?php endif; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>

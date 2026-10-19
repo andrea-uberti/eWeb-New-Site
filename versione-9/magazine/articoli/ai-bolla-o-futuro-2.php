@@ -42,6 +42,18 @@ $paragrafi = [
   'Il tema, infine, dei siti web è sempre molto caldo. Dal punto di vista tecnico è impressionante come pochi minuti di generazione AI abbiamo prodotto un risultato che magari si arriva ad avere con una settimana di lavoro di un programmatore. Anche l’approccio sulla possibilità di fare tante prove, con indicazioni sempre diverse e specifiche apre scenari molto interessanti. Il tema è legato però alla personalizzazione di quanto prodotto, davvero molto bassa e troppo standardizzata: da quello che si è visto, la comunicazione che passa non è personalizzata ed empatica ma decisamente uguale a tante altre che gi si erano viste.',
   'Complessivamente, la sensazione è che ci sia molta carne al fuoco che ogni giorni ne arrivi di nuova. Gli strumenti per gestire necessità e richieste ci sono ma i migliori risultati sono ad oggi, a mio parere, ancora molto legati alla combinazione tra la ratio umana e quei tool di facilitazione che permettono di abbattere i tempi senza rinunciare alla qualità del pensiero. Affidarsi completamente all’AI è troppo, studiarla e conoscerla per poi farla fruttare al massimo, invece, è la strada maestra.',
 ];
+
+// Gli altri articoli dello stesso numero (titolo/teaser reali, stesso
+// campo "teaser" usato altrove) — non un elenco a caso, per restare nel
+// tema di quella uscita della newsletter. Niente qui se il numero ha un
+// solo articolo (non capita oggi, ma il controllo sotto regge comunque).
+$altriArticoli = [
+  ["slug" => 'intelligenza-artificiale-e-futuri', "title" => 'L’AI c’è ma (ancora) non si vede. Si vedrà?', "teaser" => 'Per esserci, c’è. La percepiamo, ne sentiamo parlare, se ne legge praticamente ovunque dell’AI (o IA, come volete chiamarla). Sulle ricerche di Google la vediamo anche all’opera ma la sensazione diffusa, per chi non si lascia travolgere dalla narrazione di popolo secondo al quale grazie all’intelligenza artificiale tutto sarà automatizzato, standardizzato, appiattito nelle sue sfumature più belle, privo di errori e con la perfezione assoluta lì ad un passo, è che ancora non si vede davvero quello che ci si aspettava. E forse nemmeno lo si vedrà mai.'],
+  ["slug" => 'novita-subito-o-quando-matura', "title" => 'Le novità non son sempre una buona cosa', "teaser" => 'Questo mese il tema è particolarmente caldo. Parlare di novità in ambiente ICT (web, comunicazione, software, ecc.) equivale alla volontà di affrontare un discorso sulla “cucina” durante una cena “italiana”.'],
+  ["slug" => 'differenze-dem-social-siti', "title" => 'Sito, Dem e Social: le differenze', "teaser" => 'Tre mondi legati a doppio filo l’uno all’altro che, paradossalmente, non hanno unitariamente la stessa forza che invece acquisiscono se vengono visti d’insieme. Per un’azienda, il sito web e i profili social sono veicoli formidabili di comunicazione perché permettono di accedere alle informazioni più importanti in modo organizzato, preciso e dettagliato. Le DEM, acronimo di Direct Email Marketing, sono invece delle comunicazioni a mezzo posta elettronica da inviare a destinatari o gruppi di destinatari con informazioni specifiche.'],
+  ["slug" => 'seo-num100-effetti-serp', "title" => 'SERP, Num=100 e la storia dei colossi caduti', "teaser" => 'L\'analisi dell\'impatto del parametro num=100 e la sua interazione con strumenti come Google Search Console rappresenta un caso di studio fondamentale per i professionisti del digital marketing. Anche se Google ha limitato l\'uso diretto di questo parametro nell\'URL per l\'utente finale, il concetto di visualizzazione estesa rimane un pilastro per l\'analisi avanzata.'],
+  ["slug" => 'protezione-marchio-googleads', "title" => 'Protezione del marchio negli annunci Google ADS', "teaser" => 'Quando un inserzionista pubblica un annuncio ADS su Google significa che “acquista” una o più parole chiave.'],
+];
 ?>
 <!doctype html>
 <html lang="it">
@@ -105,11 +117,15 @@ $paragrafi = [
       <!-- ============ ARTICOLO ============ -->
       <section class="service-section service-section--light" data-theme="light">
         <div class="container">
-          <?php if ($autore): ?>
-            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
-          <?php endif; ?>
-          <?php foreach ($paragrafi as $p): ?>
-            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <div class="article__meta reveal">
+            <span>Numero 03</span>
+            <?php if ($autore): ?>
+              <span class="article__meta-sep">·</span>
+              <span class="article__meta-author">di <?php echo htmlspecialchars($autore); ?></span>
+            <?php endif; ?>
+          </div>
+          <?php foreach ($paragrafi as $i => $p): ?>
+            <p class="<?php echo $i === 0 ? "article__lead" : "body-l"; ?> reveal"><?php echo htmlspecialchars($p); ?></p>
           <?php endforeach; ?>
 
           <p class="body-l reveal" style="margin-top: 40px">
@@ -117,6 +133,39 @@ $paragrafi = [
           </p>
         </div>
       </section>
+
+      <?php if ($altriArticoli): ?>
+        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
+        <section class="service-section service-section--dark" data-theme="dark">
+          <div class="container">
+            <div class="service-section__head">
+              <div class="service-section__head-text">
+                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
+                <h2 class="h2 reveal-lines">
+                  Leggi anche<br /><em>gli altri articoli.</em>
+                </h2>
+              </div>
+            </div>
+            <ul class="service-related__list">
+              <?php foreach ($altriArticoli as $i => $alt): ?>
+                <li class="reveal">
+                  <a
+                    class="service-related__link"
+                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
+                  >
+                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
+                    <span class="service-related__link-body">
+                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
+                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
+                    </span>
+                    <span class="btn__arrow">→</span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </section>
+      <?php endif; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>

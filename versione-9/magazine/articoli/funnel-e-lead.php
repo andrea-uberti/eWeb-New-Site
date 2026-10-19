@@ -27,6 +27,18 @@ $paragrafi = [
   'Il Funnel, letteralmente “imbuto”, è quel percorso verso cui convogliare gli utenti interessati ad un prodotto o un servizio partendo dal pubblico generico e scremando, passo dopo passo, chi non è in target. L’esempio più semplice da fare è quello legato alle DEM – Direct Email Marketing. Ho un prodotto che può interessare ad una certa categoria di professionisti, invio la prima mail a 100 contatti e di questi ce ne sono 60 che la aprono e 10 che cliccano sulla CTA – Call To Action “Scopri di più”. A quei 60 si manda una seconda mail ancora più dettagliata per invogliarsi a cliccare, quei 10 che hanno già cliccato troveranno conferme della propria azione (interessata) con il secondo invio. Dopo il secondo invio, di quei 60 ce ne sono 50 che aprono e 30 che cliccano: la forbice tra aperture e clic si riduce, il Funnel si chiude con una terza mail per quei 50 con qualcosa di ancora più diretto e specifico: in 40 aprono l’ultima mail e in 35 cliccano. Quei 35 sono il risultato del nostro Funnel.',
   'Per spiegare cosa sono i Lead, partiamo proprio dalla coda del Funnel precedente che ha portato 35 persone a cliccare su “Scopri di più”. Fino a quel momento, la comunicazione è ad una sola via: l’azienda propone e descrive, i potenziali clienti leggono e cliccano per scoprire di più. Quei contatti diventano dei Lead nel momento in cui manifestano la volontà di avere nuove informazioni, approfondire la conoscenza del prodotto o del servizio e creare un filo diretto con l’azienda proponente. Il Lead può essere più o meno caldo in base a quello che viene chiesto in quello “Scopri di più”, può esserci un form da compilare oppure la possibilità di aggiungere un contatto telefonico. L’aspetto più importante riguarda la volontà di andare avanti nello scambio di informazioni. Trasformare un Lead in un cliente è normalmente attività della parte commerciale di un’azienda e il lavoro di comunicazione dell’agenzia è orientato e concentrato sulla raccolta e ricerca dei contatti “caldi” che possono trasformarsi in qualcosa di importante e prezioso per l’azienda.',
 ];
+
+// Gli altri articoli dello stesso numero (titolo/teaser reali, stesso
+// campo "teaser" usato altrove) — non un elenco a caso, per restare nel
+// tema di quella uscita della newsletter. Niente qui se il numero ha un
+// solo articolo (non capita oggi, ma il controllo sotto regge comunque).
+$altriArticoli = [
+  ["slug" => 'sito-custom-vantaggi', "title" => 'Non siamo contro Wordpress, siamo per il cliente', "teaser" => '“Ah, ma fate i siti? Anche voi con Wordpress? Perché ho sentito che parlano tutti di Wordpress”. No, noi non facciamo siti.'],
+  ["slug" => 'php-linguaggio-programmazione-eweb', "title" => 'Scriviamo codice, niente PLUG-IN. Ed è tutto VOSTRO', "teaser" => 'Nelle precedenti comunicazioni, credo si sia intuito che non utilizziamo (e non amiamo molto) i CMS commerciali, anche se c’è un rispetto di fondo per il prodotto in sé, e per chi ha scelto di proporlo e/o utilizzarlo.'],
+  ["slug" => 'intento-di-ricerca-llm', "title" => 'La sfida è negli intenti, non solo nelle keyword', "teaser" => 'Il 2026 sta tracciando un solco netto rispetto al passato: la ricerca online non è più una scansione di parole chiave, ma una conversazione stratificata'],
+  ["slug" => 'differenze-app-webapp', "title" => 'APP NATIVE o WEB APP: che differenza c’è e quale scegliere?', "teaser" => 'È noto che la maggior parte di noi utilizza internet tramite il proprio cellulare, ovvero da mobile. E ciò si riferisce ormai a tutte le tipologie di utenti, non più solo i privati, ma anche in larga parte i professionisti, ovvero il traffico B2B tra aziende.'],
+  ["slug" => 'strategia-ads-google-meta', "title" => 'La dualità della domanda: spingere o attrarre', "teaser" => 'Nel marketing digitale del 2026, la distinzione tra Google ads e Meta ads non riguarda i costi di piattaforma, ma il presidio delle diverse fasi d\'acquisto.'],
+];
 ?>
 <!doctype html>
 <html lang="it">
@@ -90,11 +102,15 @@ $paragrafi = [
       <!-- ============ ARTICOLO ============ -->
       <section class="service-section service-section--light" data-theme="light">
         <div class="container">
-          <?php if ($autore): ?>
-            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
-          <?php endif; ?>
-          <?php foreach ($paragrafi as $p): ?>
-            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <div class="article__meta reveal">
+            <span>Numero 04</span>
+            <?php if ($autore): ?>
+              <span class="article__meta-sep">·</span>
+              <span class="article__meta-author">di <?php echo htmlspecialchars($autore); ?></span>
+            <?php endif; ?>
+          </div>
+          <?php foreach ($paragrafi as $i => $p): ?>
+            <p class="<?php echo $i === 0 ? "article__lead" : "body-l"; ?> reveal"><?php echo htmlspecialchars($p); ?></p>
           <?php endforeach; ?>
 
           <p class="body-l reveal" style="margin-top: 40px">
@@ -102,6 +118,39 @@ $paragrafi = [
           </p>
         </div>
       </section>
+
+      <?php if ($altriArticoli): ?>
+        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
+        <section class="service-section service-section--dark" data-theme="dark">
+          <div class="container">
+            <div class="service-section__head">
+              <div class="service-section__head-text">
+                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
+                <h2 class="h2 reveal-lines">
+                  Leggi anche<br /><em>gli altri articoli.</em>
+                </h2>
+              </div>
+            </div>
+            <ul class="service-related__list">
+              <?php foreach ($altriArticoli as $i => $alt): ?>
+                <li class="reveal">
+                  <a
+                    class="service-related__link"
+                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
+                  >
+                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
+                    <span class="service-related__link-body">
+                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
+                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
+                    </span>
+                    <span class="btn__arrow">→</span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </section>
+      <?php endif; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>

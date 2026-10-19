@@ -48,6 +48,18 @@ $paragrafi = [
   'A chiusura di questo articolo ritengo importante sottolineare che l’utilizzo del linguaggio video non va in alcun modo ad annullare o rendere superflua la creazione di contenuti testuali, anzi. Certo gli utenti fanno molta più fatica a leggere un testo, ma anche alla base di un buon video è necessario avere un ottimo testo. A questo si aggiunge che l’utente che vuole approfondire, che è sempre il target migliore da raggiungere, molto probabilmente vorrà poter leggere contenuti più specifici e dettagliati di quanto presente solo in un video.',
   'E la soddisfazione di completare la lettura di un libro, sia esso un racconto, piuttosto che un saggio, un manuale o quant’altro resta inevitabilmente, e per fortuna, alla base della formazione e della crescita cultura di ciascuno di noi.',
 ];
+
+// Gli altri articoli dello stesso numero (titolo/teaser reali, stesso
+// campo "teaser" usato altrove) — non un elenco a caso, per restare nel
+// tema di quella uscita della newsletter. Niente qui se il numero ha un
+// solo articolo (non capita oggi, ma il controllo sotto regge comunque).
+$altriArticoli = [
+  ["slug" => 'come-comunichiamo', "title" => 'Testi, foto, video e niente AI: come COMUNICA eWeb', "teaser" => 'Non c’è un modo solo di comunicare. Lo abbiamo sperimentato e lo vediamo ogni giorno.'],
+  ["slug" => 'developer-per-passione', "title" => 'Mettiamo le mani nel DB, sempre', "teaser" => 'Partiamo dall’inizio, l’acronimo DB sta per Database.'],
+  ["slug" => 'piano-editoriale-in-soccorso', "title" => 'Il Piano Editoriale ti salva la faccia (e non solo)', "teaser" => 'Quando si stende un piano di comunicazione, il primo passo è decidere quando affrontare un argomento e contestualizzarne la pubblicazione rispetto agli altri spunti che caratterizzano il progetto.'],
+  ["slug" => 'vincono-le-risposte', "title" => 'Vincono le risposte, parliamo di FAQ', "teaser" => 'In un mondo dell’informazione digitale che sempre di più si sbilancia verso i motori di ricerca, con le relative regole che diventano quindi mandatorie, la produzione dei contenuti non può non tener conto di quanto i discorsi vengano messi costantemente in primo piano.'],
+  ["slug" => 'affidati-a-una-agenzia-di-valore', "title" => 'Perché dovrei affidarmi ad un’agenzia?', "teaser" => 'Da quando lavoro in eWeb in tantissimi (soprattutto miei ex colleghi) mi chiedono: “ma che cosa fate di così speciale? I social dell’azienda di mio marito/cugino/zio li gestisce mio figlio/nipote, ect… anche il sito glie l’ha fatto lui! Perché venire da voi?”'],
+];
 ?>
 <!doctype html>
 <html lang="it">
@@ -111,11 +123,15 @@ $paragrafi = [
       <!-- ============ ARTICOLO ============ -->
       <section class="service-section service-section--light" data-theme="light">
         <div class="container">
-          <?php if ($autore): ?>
-            <p class="eyebrow eyebrow--muted reveal">di <?php echo htmlspecialchars($autore); ?></p>
-          <?php endif; ?>
-          <?php foreach ($paragrafi as $p): ?>
-            <p class="body-l reveal"><?php echo htmlspecialchars($p); ?></p>
+          <div class="article__meta reveal">
+            <span>Numero 05</span>
+            <?php if ($autore): ?>
+              <span class="article__meta-sep">·</span>
+              <span class="article__meta-author">di <?php echo htmlspecialchars($autore); ?></span>
+            <?php endif; ?>
+          </div>
+          <?php foreach ($paragrafi as $i => $p): ?>
+            <p class="<?php echo $i === 0 ? "article__lead" : "body-l"; ?> reveal"><?php echo htmlspecialchars($p); ?></p>
           <?php endforeach; ?>
 
           <p class="body-l reveal" style="margin-top: 40px">
@@ -123,6 +139,39 @@ $paragrafi = [
           </p>
         </div>
       </section>
+
+      <?php if ($altriArticoli): ?>
+        <!-- ============ ALTRI ARTICOLI DI QUESTO NUMERO ============ -->
+        <section class="service-section service-section--dark" data-theme="dark">
+          <div class="container">
+            <div class="service-section__head">
+              <div class="service-section__head-text">
+                <span class="eyebrow eyebrow--muted">Dallo stesso numero</span>
+                <h2 class="h2 reveal-lines">
+                  Leggi anche<br /><em>gli altri articoli.</em>
+                </h2>
+              </div>
+            </div>
+            <ul class="service-related__list">
+              <?php foreach ($altriArticoli as $i => $alt): ?>
+                <li class="reveal">
+                  <a
+                    class="service-related__link"
+                    href="<?php echo BASE_URL . "/magazine/" . $alt["slug"]; ?>"
+                  >
+                    <span class="service-related__link-num"><?php echo str_pad($i + 1, 2, "0", STR_PAD_LEFT); ?></span>
+                    <span class="service-related__link-body">
+                      <span class="service-related__link-text"><?php echo htmlspecialchars($alt["title"]); ?></span>
+                      <span class="service-related__link-teaser"><?php echo htmlspecialchars($alt["teaser"]); ?></span>
+                    </span>
+                    <span class="btn__arrow">→</span>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </section>
+      <?php endif; ?>
     </main>
 
     <?php include __DIR__ . "/../../inc/footer.php"; ?>
