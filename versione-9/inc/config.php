@@ -1,10 +1,10 @@
 <?php
 /* Base del sito: vuota quando vive alla radice del dominio; con il percorso
    quando invece sta in una sottocartella — come ora, in sviluppo, su
-   https://dev.ewebsolution.it/new-site/versione-8/. Unico punto da
+   https://dev.ewebsolution.it/new-site/versione-9/. Unico punto da
    aggiornare quando il sito si sposta, invece di cercare e correggere "/"
    a mano in ogni pagina interna. */
-define("BASE_URL", "/new-site/versione-8");
+define("BASE_URL", "/new-site/versione-9");
 
 /* Catalogo delle pagine di servizio, per categoria — unica fonte usata dai
    collegamenti "altre pagine di questa categoria" (vedi inc/related.php) e

@@ -5,7 +5,7 @@ DirectoryIndex index.php index.html
 RewriteEngine On
 
 # Il sito vive per ora in una sottocartella di sviluppo
-# (dev.ewebsolution.it/new-site/versione-8/), non alla radice del dominio —
+# (dev.ewebsolution.it/new-site/versione-9/), non alla radice del dominio —
 # e potrebbe spostarsi. Tutte le regole qui sotto ricostruiscono il
 # percorso completo da %{THE_REQUEST}/%{REQUEST_URI} invece di scriverlo a
 # mano: funzionano così a qualunque profondità, senza dover tenere una
