@@ -1183,6 +1183,15 @@
       const withLabel = e.target.closest("[data-cursor]");
       cursor.classList.toggle("is-label", !!withLabel);
       if (withLabel) label.textContent = withLabel.dataset.cursor;
+      // Su un link qualunque il pallino si ingrandisce — prima non c'era
+      // nessun feedback che lì sotto ci fosse qualcosa di cliccabile, a
+      // meno di passare esplicitamente da data-cursor (sopra), che resta
+      // il caso speciale con l'etichetta: i due stati si escludono a
+      // vicenda apposta.
+      cursor.classList.toggle(
+        "is-link",
+        !withLabel && !!e.target.closest("a"),
+      );
       // Sul giallo (contatti in home, CTA gialla delle pagine di servizio)
       // il pallino giallo sparirebbe: qui diventa navy.
       cursor.classList.toggle(

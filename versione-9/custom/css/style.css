@@ -550,6 +550,14 @@ em {
   transform: scale(0);
   opacity: 0;
 }
+/* Sopra un link qualunque il pallino si ingrandisce — unico feedback che
+   lì sotto c'è qualcosa di cliccabile (prima nessuno, a meno di passare
+   da data-cursor sopra). .is-label vince se presente: il JS imposta le
+   due classi come mutuamente esclusive, ma qui restano separate (non
+   "a, b { }" insieme) per chiarezza di cosa controlla cosa. */
+.cursor.is-link::before {
+  transform: scale(2.4);
+}
 .cursor__label {
   position: absolute;
   left: 0;
