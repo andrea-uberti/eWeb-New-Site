@@ -187,7 +187,7 @@ $numeriPrecedentiPagina = array_slice(
       </section>
 
       <!-- ============ NUMERI PRECEDENTI ============ -->
-      <section class="service-section service-section--dark" data-theme="dark">
+      <section class="service-section service-section--dark" id="numeri" data-theme="dark">
         <div class="container">
           <div class="service-section__head">
             <div class="service-section__head-text">
@@ -224,12 +224,20 @@ $numeriPrecedentiPagina = array_slice(
                pagina non ne vale la pena finché i numeri non crescono
                molto. "Più recenti"/"Più vecchi" invece di "Precedente"/
                "Successiva": l'elenco va dal numero più alto (recente) al
-               più basso (vecchio), pagina 1 = più recenti. -->
+               più basso (vecchio), pagina 1 = più recenti.
+               "#numeri" in fondo a ogni link: cambiare pagina è una
+               navigazione vera (query string diversa, non un semplice
+               scroll via Lenis), quindi senza l'ancora il browser
+               ricaricherebbe la pagina da cima, lontano dall'elenco che
+               si stava guardando — con l'ancora il browser stesso (nessun
+               JS in più) riporta dritti alla sezione dopo il caricamento,
+               il loader iniziale la copre comunque per intero nel
+               frattempo. -->
             <nav class="magazine-pagination" aria-label="Altri numeri">
               <?php if ($numeriPagina > 1): ?>
                 <a
                   class="magazine-pagination__nav link"
-                  href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $numeriPagina - 1; ?>"
+                  href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $numeriPagina - 1; ?>#numeri"
                   >← Più recenti</a
                 >
               <?php else: ?>
@@ -241,7 +249,7 @@ $numeriPrecedentiPagina = array_slice(
                   <?php if ($i === $numeriPagina): ?>
                     <span class="magazine-pagination__page is-current" aria-current="page"><?php echo $i; ?></span>
                   <?php else: ?>
-                    <a class="magazine-pagination__page" href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <a class="magazine-pagination__page" href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $i; ?>#numeri"><?php echo $i; ?></a>
                   <?php endif; ?>
                 <?php endfor; ?>
               </span>
@@ -249,7 +257,7 @@ $numeriPrecedentiPagina = array_slice(
               <?php if ($numeriPagina < $numeriTotalePagine): ?>
                 <a
                   class="magazine-pagination__nav link"
-                  href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $numeriPagina + 1; ?>"
+                  href="<?php echo BASE_URL; ?>/magazine?pagina=<?php echo $numeriPagina + 1; ?>#numeri"
                   >Più vecchi →</a
                 >
               <?php else: ?>
