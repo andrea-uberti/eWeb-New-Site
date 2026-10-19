@@ -951,25 +951,6 @@ $annoCorrente = date("Y");
                 >
               </li>
             </ul>
-
-            <!-- Mappa sempre visibile, ma l'iframe (cookie di terze parti
-               di Google) parte solo dopo il consenso dato nel banner cookie
-               qui sotto — script.js lo pilota in base alla scelta salvata.
-               Finché non c'è un consenso, mostra un link diretto a Google
-               Maps (nessun cookie, è una normale navigazione). -->
-            <div class="finale__map" data-map>
-              <p class="finale__map-note" data-map-note>
-                In attesa del consenso ai cookie di terze parti puoi aprire
-                la mappa direttamente su
-                <a
-                  class="link"
-                  href="https://www.google.com/maps/search/?api=1&query=Via+Broseta+101G+24128+Bergamo"
-                  target="_blank"
-                  rel="noopener"
-                  >Google Maps</a
-                >.
-              </p>
-            </div>
           </div>
 
           <form
@@ -1053,15 +1034,14 @@ $annoCorrente = date("Y");
     <?php include __DIR__ . "/inc/footer.php"; ?>
 
     <!-- ============ COOKIE BANNER ============
-       Solo cookie tecnici di default: quelli di terze parti (al momento,
-       la mappa di Google in fondo ai contatti) partono solo dopo
-       "Accetta" qui sotto — la scelta resta salvata (localStorage),
-       riapribile dal link "Cookie Policy" in footer. -->
+       Solo cookie tecnici per ora: niente di terze parti è ancora attivo
+       sul sito (era solo la mappa di Google in fondo ai contatti, tolta —
+       vedi memoria di progetto). Il banner/toggle Accetta/Solo necessari
+       resta com'era (riapribile dal link "Cookie Policy" in footer),
+       pronto per quando servirà di nuovo qualcosa da consentire. -->
     <div class="cookie-banner" data-cookie-banner hidden>
       <p>
-        Usiamo cookie tecnici necessari al funzionamento del sito. Con il
-        tuo consenso carichiamo anche la mappa di Google, che pianta
-        cookie di terze parti.
+        Usiamo solo cookie tecnici necessari al funzionamento del sito.
         <a href="#" class="link">Cookie Policy</a>
       </p>
       <div class="cookie-banner__actions">

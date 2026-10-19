@@ -20,25 +20,14 @@
   if (year) year.textContent = new Date().getFullYear();
 
   /* ---------------------------------------------------------
-     Cookie consent: solo tecnici di default. I cookie di terze parti
-     (per ora solo la mappa di Google nei contatti) partono solo dopo
-     un consenso esplicito — scelta salvata in localStorage, valida
-     per le visite successive, riapribile dal link "Cookie Policy" nel
-     footer. Indipendente da GSAP: deve funzionare anche se non carica.
+     Cookie consent: solo tecnici di default. Il banner resta (vedi
+     footer, link "Cookie Policy") per eventuali cookie di terze parti
+     futuri, ma al momento non ne gestisce nessuno — la mappa di Google
+     che era l'unico caso d'uso è stata tolta dai contatti. Indipendente
+     da GSAP: deve funzionare anche se non carica.
      --------------------------------------------------------- */
   const COOKIE_KEY = "eweb-cookie-consent";
   const cookieBanner = $("[data-cookie-banner]");
-  const mapBox = $("[data-map]");
-
-  function loadMap() {
-    if (!mapBox || mapBox.querySelector("iframe")) return;
-    mapBox.innerHTML = `<iframe
-      src="https://www.google.com/maps?q=Via+Broseta+101G+24128+Bergamo&output=embed"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Mappa — eWeb, Via Broseta 101G, Bergamo"
-    ></iframe>`;
-  }
 
   function getStoredConsent() {
     try {
@@ -55,13 +44,11 @@
       /* storage non disponibile (privacy mode, ecc.): la scelta vale
          solo per questa visita, si richiede di nuovo la prossima volta */
     }
-    if (value === "accepted") loadMap();
     if (cookieBanner) cookieBanner.hidden = true;
   }
 
   const storedConsent = getStoredConsent();
-  if (storedConsent === "accepted") loadMap();
-  else if (!storedConsent && cookieBanner) cookieBanner.hidden = false;
+  if (!storedConsent && cookieBanner) cookieBanner.hidden = false;
 
   $("[data-cookie-accept]")?.addEventListener("click", () =>
     setConsent("accepted"),

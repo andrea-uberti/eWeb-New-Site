@@ -183,9 +183,7 @@ $ctaLine = 'Se hai già chi vuoi convincere, e serve solo spingere,
     <!-- ============ COOKIE BANNER ============ -->
     <div class="cookie-banner" data-cookie-banner hidden>
       <p>
-        Usiamo cookie tecnici necessari al funzionamento del sito. Con il
-        tuo consenso carichiamo anche la mappa di Google, che pianta
-        cookie di terze parti.
+        Usiamo solo cookie tecnici necessari al funzionamento del sito.
         <a href="#" class="link">Cookie Policy</a>
       </p>
       <div class="cookie-banner__actions">

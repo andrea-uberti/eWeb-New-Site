@@ -2010,22 +2010,6 @@ em {
   font-size: 17px;
 }
 
-.finale__map {
-  margin-top: clamp(24px, 3vw, 36px);
-}
-.finale__map-note {
-  margin-top: 12px;
-  font-size: 13px;
-  color: var(--muted);
-}
-.finale__map iframe {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  border: 0;
-  border-radius: var(--radius);
-}
-
 .finale__form {
   display: flex;
   flex-direction: column;
